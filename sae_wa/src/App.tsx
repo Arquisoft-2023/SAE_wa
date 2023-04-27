@@ -1,31 +1,73 @@
-import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, ListItem, ListItemText, Typography } from "@mui/material";
 
 function App() {
-  const [contador, setContador] = useState(0); // Hook para controlar cambios de estado
-
-  // Hook para realizar acciones por debajo de la ejecución del código
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setContador((prevCount) => prevCount + 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
   return (
     <>
-      {/* MATERIAL UI BOX */}
       <Box
         sx={{
           height: "100vh",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
+          alignItems: "flex_start",
+          justifyContent: "flex_start",
+          width: "25vw"
         }}
-      >
-        <h1>Front-End Web SAE</h1>
-        <h2>{contador}s </h2>
+        >
+        <Accordion>
+          <AccordionSummary
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Formularios</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ListItem button>
+              <ListItemText primary="Crear formulario" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Modificar formulario" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Borrar formulario" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Consular  formularios" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Consultar un formulario" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Consultar tamizajes" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Consultar tamisaje estudiante" />
+            </ListItem>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+        <AccordionSummary
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>Remisiones</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <ListItem button>
+              <ListItemText primary="Solicitud de remision" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Remisiones" />
+            </ListItem>
+        </AccordionDetails>
+      </Accordion>
+          
       </Box>
     </>
   );
