@@ -1,8 +1,8 @@
-import { Box, backdropClasses } from '@mui/material';
-import React from 'react'
-import logo from '../assets/Logo.png';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {Link} from "react-router-dom"
+import logo from '../assets/Logo.png'
+import { Box } from '@mui/material'
+import React from 'react'
 
 const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
   const ModSidebarOpen=()=>{
@@ -119,9 +119,9 @@ const linksArray=[
   to:"/"
 },
 {
-  label:"Remisiones",
-  text:"Remisiones",
-  to:"/remisiones"
+  label:"Tutorias",
+  text:"Tutorias",
+  to:"/tutorias"
 }
 ]
 
