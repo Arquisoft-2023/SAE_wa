@@ -19,8 +19,7 @@ function App() {
           gridTemplateColumns: "90px auto",
           transition: "all 0.3s",
           "&.active": {
-            gridTemplateColumns: "300px auto",
-
+            gridTemplateColumns: "300px auto"
           }
         }}
         >

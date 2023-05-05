@@ -1,8 +1,10 @@
-import { Box, backdropClasses } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography} from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+import HomeIcon from '@mui/icons-material/Home';
 import React from 'react'
 import logo from '../assets/Logo.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import {Link} from "react-router-dom"
+import {NavLink} from "react-router-dom"
 
 const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
   const ModSidebarOpen=()=>{
@@ -74,54 +76,140 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           <h2>SAE</h2>
         </Box>
       </Box>
-      {linksArray.map(({text, label, to})=>(
-        <Box 
-        className="linkContainer"
-        key = {label}
-        sx={{
-          margin: "8px 0",
-          padding: "0 15px",
-          ":hover": {
-            background:"lightGrey",
-          }
+      {sidebarOpen ?
+      <Box
+      className = "HomeContainer"
+      sx={{
+        position: "sticky",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      >
+        <NavLink
+        to="/"
+        className="LinkHome"
+        style={{
+          textDecoration:"none"
         }}
         >
-          <Link to={to} className="Links" 
-          style={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-              padding:"6px 0"
-          }}>
-            <Box className = "Linktext" 
-            sx = {{
-              padding: "8px 16px",
-              display: "flex",
-              "svg" : {
-                fontSize: "25px",
+        <span>Home</span> 
+        </NavLink>
+      </Box> :
+      ""}
+      {sidebarOpen ? 
+      <Box
+      className = "Accordion"
+      sx={{
+        position:"sticky",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        flexDirection:"column"
+      }}
+      >
+        {linksFuncionalidades.map(({label,text,links})=>(
+        <Accordion
+        className="LinkAccordion"
+        key={label}
+        sx={{
+          position:"sticky",
+          display:"flex",
+          justifyContent:"center",
+          alignContent:"center",
+          flexDirection:"column",
+          width:"100%"
+        }}
+        >
+        <AccordionSummary
+          expandIcon={<ExpandMore/>}
+          id={text}
+        >
+          <Typography>{text}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {links.map(({textl,to})=>(
+            <Box
+            className="LinkContainer"
+            sx={{
+              display:"flex",
+              justifyContent:"center",
+              alignItems:"center",
+              margin: "8px 0",
+              padding: "0 15px",
+              ":hover": {
+                background:"lightGrey",
               }
             }}
             >
-              {sidebarOpen ? <span>{text}</span> : ""}
+              <NavLink to={to} className="Link"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                padding:"6px 0"
+              }}
+              >
+                <Box
+                className="LinkText"
+                sx={{
+                  padding: "8px 16px",
+                  display: "flex",
+                  "svg" : {
+                    fontSize: "25px",
+                  }
+                }}
+                >
+                  <span
+                  style={{
+                    textAlign:"start"
+                  }}
+                  >{textl}</span>
+                </Box>
+              </NavLink>
             </Box>
-          </Link>
-        </Box>
-      ))}
-
+          ))}
+        </AccordionDetails>
+      </Accordion>
+        ))}
+      </Box> : 
+      ""}
     </Box>
   )
 }
 
-const linksArray=[
+const linksFuncionalidades = [
 {
-  label:"Home",
-  text:"Inicio",
-  to:"/"
+  label:"Formularios",
+  text:"Formularios",
+  links:[]
 },
 {
   label:"Remisiones",
   text:"Remisiones",
-  to:"/remisiones"
+  links:[
+    {
+      textl:"Tipos de Remision",
+      to:"/tipo_remision"
+    },
+    {
+      textl:"Generar Solicitud",
+      to:"/solicitud_remision"
+    },
+    {
+      textl:"Primeras Escuchas",
+      to:"/primera_escucha"
+    },
+    {
+      textl:"Remisiones",
+      to:"/remision"
+    }
+  ]
+},
+{
+  label:"Tutorias",
+  text:"Tutorias",
+  links:[] 
 }
 ]
 

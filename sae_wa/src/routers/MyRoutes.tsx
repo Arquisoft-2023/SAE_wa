@@ -1,7 +1,10 @@
 import React from 'react'
 import {Routes,Route} from "react-router-dom"
 import Homepage from "../pages/HomePage"
-import Remisiones from "../pages/Remisiones";
+import Remision from "../pages/Remision";
+import TipoRemision from '../pages/TipoRemision';
+import PrimeraEscucha from '../pages/PrimeraEscucha';
+import SolicitudRemision from '../pages/SolicitudRemision';
 
 const MyRoutes = () => {
 
@@ -9,7 +12,10 @@ const MyRoutes = () => {
 
     <Routes>
         <Route path="/" element={<Homepage/>}/>
-        <Route path="/remisiones" element={<Remisiones/>}/>
+        <Route path="/tipo_remision" element={<TipoRemision/>}/>
+        <Route path="/solicitud_remision" element={<SolicitudRemision/>}/>
+        <Route path="/primera_escucha" element={<PrimeraEscucha/>}/>
+        <Route path="/remision" element={<Remision/>}/>
     </Routes>
 
   )
