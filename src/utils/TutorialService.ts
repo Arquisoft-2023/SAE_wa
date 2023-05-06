@@ -49,6 +49,26 @@ class tutorialService{
       return response;
   };
 
+  GetTutorService = async (item: acompanyamiento): Promise<any> =>{
+      const query = {
+          headers: {
+              contentType: "application/json"
+          },
+          query:  
+          `
+          query MyQuery {
+            obtenerTutor(usuarioUnEstudiante: "${item.usuario_un_estudiante}")
+          }
+          `
+      }    
+      const response = await Axios.post(`${API_URL}/acompanyamiento`, query ).then((response) => { return (response.data.data.obtenerTutor) }).catch((error) => {
+          console.log(error);
+        });
+      
+      return response;
+  };
+
+
   ListTutorialService = async (): Promise<any> =>{
       const query = {
           headers: {
@@ -89,27 +109,27 @@ class tutorialService{
   };
 
   ListTutorialShortService= async (): Promise<any> =>{
-    const query = {
-        headers: {
-            contentType: "application/json"
-        },
-        query:  
-        `
-        query {
-          obtenerAcompanyamiento {
-            usuarioUnTutor
-            esTutor
-            usuarioUnEstudiante
+      const query = {
+          headers: {
+              contentType: "application/json"
+          },
+          query:  
+          `
+          query {
+            obtenerAcompanyamiento {
+              usuarioUnTutor
+              esTutor
+              usuarioUnEstudiante
+            }
           }
-        }
-        `
-    }    
-    const response = await Axios.post(`${API_URL}/acompanyamiento`, query ).then((response) => { return (response.data.data.obtenerAcompanyamiento) }).catch((error) => {
-        console.log(error);
-      });
-    
-    return response;
-};
+          `
+      }    
+      const response = await Axios.post(`${API_URL}/acompanyamiento`, query ).then((response) => { return (response.data.data.obtenerAcompanyamiento) }).catch((error) => {
+          console.log(error);
+        });
+      
+      return response;
+  };
 
 }
 
