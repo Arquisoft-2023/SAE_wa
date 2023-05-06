@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import Axios from 'axios';
+import AJAXRequest from '../utils/AJAXRequest';
 
 const TipoRemision = () => {
     
     const [charactersList, setCharactersList] = useState([]);
     
     useEffect(() => {
-    Axios.post("http://127.0.0.8:3121/remisiones/remisiones", {
-        headers: {
-            contentType: "application/json"
-        },
-        query: `
+        AJAXRequest.post("",{
+            query: `
             query MyQuery {
                 obtenerTiposremision {
                     idTipoRemision
                     tipoRemision
-            }
+                }
             }
           `
-    })
-        .then(response => {
-            setCharactersList(response.data.data.obtenerTiposremision);
         })
+            .then(response => setCharactersList(response.data.data.obtenerTiposremision))
   }, []);  
   return (
     <div>
