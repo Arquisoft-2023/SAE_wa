@@ -1,8 +1,9 @@
-import { Box } from "@mui/material"
-import AllRoutes from "./routers/AllRoutes"
 import {BrowserRouter} from "react-router-dom"
-import SideBar from "./components/SideBar"
+import { Box } from "@mui/material"
 import { useState } from "react"
+
+import SideBar from "./components/SideBar"
+import AllRoutes from "./routers/AllRoutes"
 
 
 function App() {

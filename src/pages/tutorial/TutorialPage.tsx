@@ -1,11 +1,23 @@
-import React from 'react';
-import CrearTutorial from '../../components/tutorial/CreateTutorial';
+import {useState} from 'react';
 
-const TutoriasRouter = () => {
+import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
+import CreateTutorial from '../../components/tutorial/CreateTutorial';
+
+interface TutorialState {
+    tutorial: acompanyamiento
+}
+
+function TutoriasRouter () {
+    const [tutorial, setTutorial] = useState<TutorialState["tutorial"]>();
+
+    const handleNewTutorial = (newTutorial: acompanyamiento): void => {
+        setTutorial(newTutorial)
+    };
+
     return (
         <div className="profilePage-container">
             <div className="profilePage-body">
-                <CrearTutorial/>
+                <CreateTutorial onNewTutorial={handleNewTutorial} />
             </div>
         </div>
     );
