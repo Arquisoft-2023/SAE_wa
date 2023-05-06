@@ -7,7 +7,7 @@ interface TutorialState {
     tutorial: acompanyamiento
 }
 
-function AssignTutor () {
+function AssignTutorP () {
     const [tutorial, setTutorial] = useState<TutorialState["tutorial"]>();
 
     const handleNewTutorial = (newTutorial: acompanyamiento): void => {
@@ -23,4 +23,4 @@ function AssignTutor () {
     );
 };
 
-export default AssignTutor;
+export default AssignTutorP;

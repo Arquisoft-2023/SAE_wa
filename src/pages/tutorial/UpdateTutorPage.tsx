@@ -1,12 +1,13 @@
 import {useState} from 'react';
 
 import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
+import UpdateTutor from '../../components/tutorial/UpdateTutor'
 
 interface TutorialState {
     tutorial: acompanyamiento
 }
 
-function UpdateTutor () {
+function UpdateTutorP () {
     const [tutorial, setTutorial] = useState<TutorialState["tutorial"]>();
 
     const handleNewTutorial = (newTutorial: acompanyamiento): void => {
@@ -16,10 +17,10 @@ function UpdateTutor () {
     return (
         <div className="profilePage-container">
             <div className="profilePage-body">
-                <h1>TODO: Actualizar tutor</h1>
+                <UpdateTutor onNewTutorial={handleNewTutorial} />
             </div>
         </div>
     );
 };
 
-export default UpdateTutor;
+export default UpdateTutorP;

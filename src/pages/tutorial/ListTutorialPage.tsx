@@ -1,12 +1,13 @@
 import {useState} from 'react';
 
 import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
+import ListTutorial from '../../components/tutorial/ListTutorial'
 
 interface TutorialState {
     tutorial: acompanyamiento
 }
 
-function ListTutorial () {
+function ListTutorialP () {
     const [tutorial, setTutorial] = useState<TutorialState["tutorial"]>();
 
     const handleNewTutorial = (newTutorial: acompanyamiento): void => {
@@ -16,10 +17,10 @@ function ListTutorial () {
     return (
         <div className="profilePage-container">
             <div className="profilePage-body">
-            <h1>TODO: Listar Tutoria</h1>
+                <ListTutorial />
             </div>
         </div>
     );
 };
 
-export default ListTutorial;
+export default ListTutorialP;

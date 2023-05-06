@@ -18,15 +18,15 @@ const INITIAL_STATE: CreateState = {
     }
 }
 
-const AssingTutor = (prop: CreateProps) => {
+const UpdateTutor = (prop: CreateProps) => {
     const {onNewTutorial} = prop
 
     const [inputValue, setInputValue] = useState<CreateState["inputValue"]>(INITIAL_STATE["inputValue"])
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const response = await tutorialService.assingTutorService(inputValue)
-        onNewTutorial(response)  
+        const response = await tutorialService.UpdateTutorService(inputValue)
+        // onNewTutorial(response)  
         console.log(response)     
     }
 
@@ -40,7 +40,7 @@ const AssingTutor = (prop: CreateProps) => {
 
     return (
         <ul>
-            <h1>Asignar tutor</h1>
+            <h1>Cambiar Tutor</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     {/* <label className="form-label" htmlFor="usuario_un_estudiante">Usuario Estudiante </label> */}
@@ -55,4 +55,4 @@ const AssingTutor = (prop: CreateProps) => {
     )
 }
 
-export default AssingTutor
+export default UpdateTutor
