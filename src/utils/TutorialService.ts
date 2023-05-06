@@ -8,7 +8,7 @@ const URI = config['REACT_APP_API_URL']
 const API_URL = `${URI}:${PORT}/tutorias`
 
 class tutorialService{
-    createTutorialService = async (item: acompanyamiento): Promise<any> =>{
+    assingTutorService = async (item: acompanyamiento): Promise<any> =>{
         const mutation = {
             headers: {
                 contentType: "application/json"

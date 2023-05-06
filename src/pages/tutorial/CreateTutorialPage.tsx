@@ -1,13 +1,12 @@
 import {useState} from 'react';
 
 import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
-import CreateTutorial from '../../components/tutorial/CreateTutorial';
 
 interface TutorialState {
     tutorial: acompanyamiento
 }
 
-function TutoriasRouter () {
+function CreateTutorial () {
     const [tutorial, setTutorial] = useState<TutorialState["tutorial"]>();
 
     const handleNewTutorial = (newTutorial: acompanyamiento): void => {
@@ -17,10 +16,10 @@ function TutoriasRouter () {
     return (
         <div className="profilePage-container">
             <div className="profilePage-body">
-                <CreateTutorial onNewTutorial={handleNewTutorial} />
+            <h1>TODO: Solicitar Tutoria</h1>
             </div>
         </div>
     );
 };
 
-export default TutoriasRouter;
+export default CreateTutorial;

@@ -25,7 +25,7 @@ const CreateTutorial = (prop: CreateProps) => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const response = await tutorialService.createTutorialService(inputValue)
+        const response = await tutorialService.assingTutorService(inputValue)
         onNewTutorial(response)  
         console.log(response)     
     }
