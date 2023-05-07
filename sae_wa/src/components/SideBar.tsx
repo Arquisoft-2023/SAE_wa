@@ -128,9 +128,10 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           <Typography>{text}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {links.map(({textl,to})=>(
+          {links.map(({textl,to,label2})=>(
             <Box
             className="LinkContainer"
+            key={label2}
             sx={{
               display:"flex",
               justifyContent:"center",
@@ -189,18 +190,22 @@ const linksFuncionalidades = [
   text:"Remisiones",
   links:[
     {
+      label2:"Tipos de Remision",
       textl:"Tipos de Remision",
       to:"/tipo_remision"
     },
     {
+      label2:"Generar Solicitud",
       textl:"Generar Solicitud",
       to:"/solicitud_remision"
     },
     {
+      label2:"Primeras Escuchas",
       textl:"Primeras Escuchas",
       to:"/primera_escucha"
     },
     {
+      label2:"Remisiones",
       textl:"Remisiones",
       to:"/remision"
     }

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React from 'react'
 
-const AJAXRequest = Axios.create({
+export const AxiosInstance = Axios.create({
     baseURL: "http://127.0.0.8:3121/remisiones/remisiones",
     timeout: 10000,
     headers: {
@@ -9,4 +9,6 @@ const AJAXRequest = Axios.create({
     }
 })
 
-export default AJAXRequest;
+export const AJAXRequest = (options) => {
+    return AxiosInstance.post("",options);
+}

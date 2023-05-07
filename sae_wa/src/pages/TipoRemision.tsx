@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import AJAXRequest from '../utils/AJAXRequest';
+import { useEffect, useState } from 'react'
+import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
+import { RemisionAJAXRequest } from '../services/RemisionAJAXRequest';
 
 const TipoRemision = () => {
     
     const [charactersList, setCharactersList] = useState([]);
     
     useEffect(() => {
-        AJAXRequest.post("",{
-            query: `
-            query MyQuery {
-                obtenerTiposremision {
-                    idTipoRemision
-                    tipoRemision
-                }
-            }
-          `
-        })
-            .then(response => setCharactersList(response.data.data.obtenerTiposremision))
+        (async () => {
+            //const tiposRemision =  await TipoRemisionAJAXRequest.tiposRemision();
+
+            //const remisionUsuarioUn = await RemisionAJAXRequest.remisionUsuarioUn("julozanoa");
+            /*const tipoRemisionArray = {
+                tipoRemision: "Oftalmologia"
+            }*/
+            //const crearTipoRemision = await TipoRemisionAJAXRequest.crearTipoRemision(tipoRemisionArray);
+            //setCharactersList(crearTipoRemision);
+
+        })();
   }, []);  
   return (
     <div>
