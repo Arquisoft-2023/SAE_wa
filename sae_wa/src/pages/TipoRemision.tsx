@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
-import { RemisionAJAXRequest } from '../services/RemisionAJAXRequest';
+import { Box } from '@mui/material';
+import DataTable from '../components/DataTable';
 
 const TipoRemision = () => {
     
@@ -8,9 +9,10 @@ const TipoRemision = () => {
     
     useEffect(() => {
         (async () => {
-            //const tiposRemision =  await TipoRemisionAJAXRequest.tiposRemision();
+            const tiposRemision =  await TipoRemisionAJAXRequest.tiposRemision();
 
-            //const remisionUsuarioUn = await RemisionAJAXRequest.remisionUsuarioUn("julozanoa");
+            setCharactersList(tiposRemision);
+
             /*const tipoRemisionArray = {
                 tipoRemision: "Oftalmologia"
             }*/
@@ -18,15 +20,33 @@ const TipoRemision = () => {
             //setCharactersList(crearTipoRemision);
 
         })();
-  }, []);  
-  return (
-    <div>
-        <h2>Tipos Remision</h2>
-        <pre>
-            {JSON.stringify(charactersList, null, 2)}
-        </pre>
-    </div>
-  )
+    }, []);
+
+    const columns = [
+        {field: 'idTipoRemision', headerName: 'ID', align: "center"},
+        {field: 'tipoRemision', headerName: 'TIPO DE REMISIÓN', align: "center"},
+    ];
+
+    charactersList.forEach((item)=>{
+        console.log(item.idTipoRemision);
+    });
+
+    const rows = charactersList.map((item) => ({
+        idTipoRemision: item.idTipoRemision, tipoRemision: item.tipoRemision,
+    }))
+
+    return (
+        <Box
+        sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            border: "none"
+        }}
+        >
+            <DataTable rows={rows} columns={columns}/>
+        </Box>
+    )
 }
 
 export default TipoRemision;
