@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
-import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
-import tutorialService from '../../utils/TutorialService'
+import { acompanyamientoService } from '../../services/tutorial/AcompanyamientoAJAXRequest'
+import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
 
 interface CreateState {
     inputValue: acompanyamiento
@@ -25,7 +25,7 @@ const UpdateTutor = (prop: CreateProps) => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const response = await tutorialService.UpdateTutorService(inputValue)
+        const response = await acompanyamientoService.UpdateTutorService(inputValue)
         // onNewTutorial(response)  
         console.log(response)     
     }

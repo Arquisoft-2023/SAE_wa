@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
-import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
-import tutorialService from '../../utils/TutorialService'
+import { acompanyamientoService } from '../../services/tutorial/AcompanyamientoAJAXRequest'
+import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
 
 interface CreateState {
     inputValue: acompanyamiento
@@ -24,7 +24,8 @@ const ListTutorial = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const response = await tutorialService.ListTutorialShortService()
+        // const response = await acompanyamientoService.ListAcompanyamientoService()
+        const response = await acompanyamientoService.ListAcompanyamientoShortService()
         setCharactersList(response)
         console.log(response)
     }

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
+import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
 import AssingTutor from '../../components/tutorial/AssingTutor';
 
 interface TutorialState {

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
-import { acompanyamiento } from '../../utils/types/tutorial/Acompanyamiento.interface'
-import ListTutorial from '../../components/tutorial/ListTutorial'
+import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
+import ListAcompanyamiento from '../../components/tutorial/ListAcompanyamiento'
 
 interface TutorialState {
     tutorial: acompanyamiento
@@ -17,7 +17,7 @@ function ListTutorialP () {
     return (
         <div className="profilePage-container">
             <div className="profilePage-body">
-                <ListTutorial />
+                <ListAcompanyamiento />
             </div>
         </div>
     );

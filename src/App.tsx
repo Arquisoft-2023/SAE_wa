@@ -3,7 +3,7 @@ import { Box } from "@mui/material"
 import { useState } from "react"
 
 import SideBar from "./components/SideBar"
-import AllRoutes from "./routers/AllRoutes"
+import MyRoutes from "./routers/MyRoutes"
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
         }}
         >
             <SideBar sidebarOpen = {sidebarOpen} setSidebarOpen = {setSidebarOpen}/>
-            <AllRoutes/>
+            <MyRoutes/>
         </Box>
       </BrowserRouter>
     </>
