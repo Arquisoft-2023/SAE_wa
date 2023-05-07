@@ -14,6 +14,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    ":hover": {
+      background:"LightGrey",
+    }
   },
 }));
 
@@ -39,7 +42,8 @@ const DataTable = ({rows,columns}) => {
     >
       <Table 
       sx={{
-        maxWidth: 700 
+        maxWidth: 1000,
+        minWidth: 700
       }} 
       aria-label="customized table">
       <TableHead>
