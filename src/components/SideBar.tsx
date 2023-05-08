@@ -207,17 +207,14 @@ const linksFuncionalidades = [
     }
   ]
 },
+// TUTORIAS
 {
   label:"Tutorias",
   text:"Tutorias",
   links:[
     {
-      textl:"Asignar tutor",
-      to:"/tutorias/asignar"
-    },
-    {
-      textl:"Actualizar tutor",
-      to:"/tutorias/actualizar"
+      textl:"Gestionar tutor",
+      to:"/tutorias/tutor"
     },
     {
       textl:"Lista de tutorias",
@@ -247,6 +244,7 @@ const linksFuncionalidades = [
     }
   ]
 }
+/// 
 ]
 
 export default SideBar;

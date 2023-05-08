@@ -7,12 +7,12 @@ export enum tipo_Tutor{
 }
 
 export interface acompanyamiento {
-    _id?: string;
-    usuario_un_estudiante: string;
-    usuario_un_tutor: string;
-    es_tutor?: tipo_Tutor;
-    lista_tutoria?: tutoria[];
-    lista_observacion?: observacion[];
+    Id?: string;
+    usuarioUnEstudiante: string;
+    usuarioUnTutor: string;
+    esTutor?: tipo_Tutor;
+    listaTutoria?: tutoria[];
+    listaObservacion?: observacion[];
 }
 
 // export type acompanyamiento_sin_id = Omit<acompanyamiento, '_id_acompanyamiento'>;

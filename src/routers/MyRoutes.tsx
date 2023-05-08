@@ -4,9 +4,7 @@ import React from 'react'
 // TUTORIAS
 import CreateTutorial from "../pages/tutorial/CreateTutorialPage"
 import UpdateTutorial from "../pages/tutorial/UpdateTutorialPage"
-import ListTutorialP from "../pages/tutorial/ListTutorialPage"
-import AssignTutorP from "../pages/tutorial/AssignTutorPage"
-import UpdateTutorP from "../pages/tutorial/UpdateTutorPage"
+import ManageTutorP from "../pages/tutorial/ManageTutorPage"
 import CreateObs from "../pages/tutorial/CreateObsPage"
 import ListObs from "../pages/tutorial/ListObsPage"
 //
@@ -21,12 +19,10 @@ const AllRoutes = () => {
         <Route path="/" element={<Homepage/>}/>
         
         {/* TUTORIAS */}
+        <Route path="/tutorias/tutor" element={<ManageTutorP onGetRol = {"rol"}/>}/>
+
         <Route path="/tutorias/solicitar" element={<CreateTutorial/>}/>
         <Route path="/tutorias/modificar" element={<UpdateTutorial/>}/>
-        <Route path="/tutorias/ver" element={<ListTutorialP/>}/>
-
-        <Route path="/tutorias/actualizar" element={<UpdateTutorP/>}/>
-        <Route path="/tutorias/asignar" element={<AssignTutorP/>}/>
 
         <Route path="/observaciones/crear" element={<CreateObs/>}/>
         <Route path="/observaciones/ver" element={<ListObs/>}/>

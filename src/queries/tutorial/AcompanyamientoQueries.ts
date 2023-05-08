@@ -2,8 +2,8 @@
 
 export const acompanyamientoQuery  = {
     obtenerTutor: `
-        query ($usuario_un_estudiante: String!) {
-            obtenerTutor(usuarioUnEstudiante: $usuario_un_estudiante)
+        query ($usuarioUnEstudiante: String!) {
+            obtenerTutor(usuarioUnEstudiante: $usuarioUnEstudiante)
         }
     `,
     obtenerAcompanyamiento: `
@@ -44,16 +44,16 @@ export const acompanyamientoQuery  = {
 
 export const acompanyamientoMutation  = {
     assingTutor: `
-        mutation ($usuario_un_estudiante: String!, $usuario_un_tutor: String!) {
-            asignarTutor(item: {usuarioUnEstudiante: $usuario_un_estudiante, usuarioUnTutor: $usuario_un_tutor}) {
+        mutation ($usuarioUnEstudiante: String!, $usuarioUnTutor: String!) {
+            asignarTutor(item: {usuarioUnEstudiante: $usuarioUnEstudiante, usuarioUnTutor: $usuarioUnTutor}) {
                 usuarioUnEstudiante
                 usuarioUnTutor
                 }
         }
     `,
     actualizarTutor: `
-        mutation ($usuario_un_estudiante: String!, $usuario_un_tutor: String!) {
-            actualizarTutor(item: {usuarioUnEstudiante: $usuario_un_estudiante, usuarioUnTutor: $usuario_un_tutor})
+        mutation ($usuarioUnEstudiante: String!, $usuarioUnTutor: String!) {
+            actualizarTutor(item: {usuarioUnEstudiante: $usuarioUnEstudiante, usuarioUnTutor: $usuarioUnTutor})
         }
     `,   
 }

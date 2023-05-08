@@ -12,14 +12,14 @@ export enum tipo_lugar{
 }
 
 export interface tutoria{
-    _id?: string;
+    Id?: string;
     fecha: string;
     lugar: tipo_lugar;
     estado: tipo_estado;
     objetivo?: string;
     acuerdo?: string;
-    observaciones_tutor?: string;
-    observaciones_estudiante?: string;
+    observacionesTutor?: string;
+    observacionesEstudiante?: string;
 }
 
 // export type tutoria_sin_id = Omit<tutoria, '_id'>;

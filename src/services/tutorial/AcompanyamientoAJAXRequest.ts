@@ -7,21 +7,21 @@ const URI = "tutorias/acompanyamiento"
 export const acompanyamientoService = {
     // Query
     GetTutorService: async (item: acompanyamiento) => {
-        const { data } = await AJAXRequest (
+        const response = await AJAXRequest (
             URI
             ,{
             query: 
                 acompanyamientoQuery.obtenerTutor,
             variables: {
-                usuario_un_estudiante : item.usuario_un_estudiante,
+                usuarioUnEstudiante : item.usuarioUnEstudiante,
             }
         }).catch((error: any) => {
             console.log(error);
         });
-        return data.data.obtenerTutor;
+        return response;
     },
     ListAcompanyamientoService: async () => {
-        const { data } = await AJAXRequest (
+        const response = await AJAXRequest (
             URI
             ,{
             query: 
@@ -29,10 +29,10 @@ export const acompanyamientoService = {
         }).catch((error: any) => {
             console.log(error);
         });
-        return data.data.obtenerAcompanyamiento;
+        return response;
     },
     ListAcompanyamientoShortService: async () => {
-        const { data } = await AJAXRequest (
+        const response = await AJAXRequest (
             URI
             ,{
             query: 
@@ -40,38 +40,38 @@ export const acompanyamientoService = {
         }).catch((error: any) => {
             console.log(error);
         });
-        return data.data.obtenerAcompanyamiento;
+        return response;
     },
 
     // Mutation
     assingTutorService: async (item: acompanyamiento) => {
-        const { data } = await AJAXRequest (
+        const response = await AJAXRequest (
             URI
             ,{
             query: 
                 acompanyamientoMutation.assingTutor,
             variables: {
-                usuario_un_estudiante : item.usuario_un_estudiante,
-                usuario_un_tutor : item.usuario_un_tutor
+                usuarioUnEstudiante : item.usuarioUnEstudiante,
+                usuarioUnTutor : item.usuarioUnTutor
             }
         }).catch((error: any) => {
             console.log(error);
         });
-        return data.data.asignarTutor;
+        return response;
     },
     UpdateTutorService: async (item: acompanyamiento) => {
-        const { data } = await AJAXRequest (
+        const response = await AJAXRequest (
             URI
             ,{
             query: 
                 acompanyamientoMutation.actualizarTutor,
             variables: {
-                usuario_un_estudiante : item.usuario_un_estudiante,
-                usuario_un_tutor : item.usuario_un_tutor
+                usuarioUnEstudiante : item.usuarioUnEstudiante,
+                usuarioUnTutor : item.usuarioUnTutor
             }
         }).catch((error: any) => {
             console.log(error);
         });
-        return data.data.actualizarTutor;
+        return response;
     },
 } 
