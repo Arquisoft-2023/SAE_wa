@@ -54,9 +54,10 @@ const DataTable = ({rows,columns}) => {
     useEffect(() => {
       const fetchData = async () => {
         handleChangePage(null, 0)
+        setData(rows)
       }
       fetchData();
-  },[]);
+  }, [rows]);
 
   return (
     <TableContainer component={Paper}
@@ -93,6 +94,8 @@ const DataTable = ({rows,columns}) => {
                 {row[column.field]}
               </StyledTableCell>
             ))}
+            {console.log({rows: rows})}
+            {console.log({data: data})}
           </StyledTableRow>
         ))}
       </TableBody>

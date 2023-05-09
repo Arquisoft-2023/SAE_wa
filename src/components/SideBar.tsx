@@ -217,16 +217,8 @@ const linksFuncionalidades = [
       to:"/tutorias/tutor"
     },
     {
-      textl:"Lista de tutorias",
-      to:"/tutorias/ver"
-    },
-    {
-      textl:"Solicitar tutoria",
-      to:"/tutorias/solicitar"
-    },
-    {
-      textl:"Modificar tutoria",
-      to:"/tutorias/modificar"
+      textl:"Gestionar tutorias",
+      to:"/tutorias/tutorias"
     }
   ] 
 },
@@ -236,11 +228,7 @@ const linksFuncionalidades = [
   links:[
     {
       textl:"Obervaciones",
-      to:"/observaciones/crear"
-    },
-    {
-      textl:"Lista de observaciones",
-      to:"/observaciones/ver"
+      to:"/observaciones/obs"
     }
   ]
 }

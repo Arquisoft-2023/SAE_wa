@@ -1,13 +1,12 @@
 import {useState} from 'react';
 
 import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
-import AssingTutor from '../../components/tutorial/AssingTutor';
 
 interface TutorialState {
     tutorial: acompanyamiento
 }
 
-function AssignTutorP () {
+function ManageObsP () {
     const [tutorial, setTutorial] = useState<TutorialState["tutorial"]>();
 
     const handleNewTutorial = (newTutorial: acompanyamiento): void => {
@@ -17,10 +16,10 @@ function AssignTutorP () {
     return (
         <div className="profilePage-container">
             <div className="profilePage-body">
-                <AssingTutor onNewTutorial={handleNewTutorial} />
+                <h1>TODO: Crear observacion</h1>
             </div>
         </div>
     );
 };
 
-export default AssignTutorP;
+export default ManageObsP;

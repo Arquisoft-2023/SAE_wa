@@ -2,11 +2,9 @@ import {Routes,Route} from "react-router-dom"
 import React from 'react'
 
 // TUTORIAS
-import CreateTutorial from "../pages/tutorial/CreateTutorialPage"
-import UpdateTutorial from "../pages/tutorial/UpdateTutorialPage"
 import ManageTutorP from "../pages/tutorial/ManageTutorPage"
-import CreateObs from "../pages/tutorial/CreateObsPage"
-import ListObs from "../pages/tutorial/ListObsPage"
+import ManageObsP from "../pages/tutorial/ManageObsPage"
+import ManageTutorialP from "../pages/tutorial/ManageTutorialPage"
 //
 
 import Homepage from "../pages/HomePage"
@@ -21,11 +19,9 @@ const AllRoutes = () => {
         {/* TUTORIAS */}
         <Route path="/tutorias/tutor" element={<ManageTutorP onGetRol = {"rol"}/>}/>
 
-        <Route path="/tutorias/solicitar" element={<CreateTutorial/>}/>
-        <Route path="/tutorias/modificar" element={<UpdateTutorial/>}/>
+        <Route path="/tutorias/tutorias" element={<ManageTutorialP onGetUser = {{userEmail: "osman", userRol: "estudiante"}}/>}/>
 
-        <Route path="/observaciones/crear" element={<CreateObs/>}/>
-        <Route path="/observaciones/ver" element={<ListObs/>}/>
+        <Route path="/observaciones/obs" element={<ManageObsP/>}/>
         {/* * */}
         
     </Routes>
