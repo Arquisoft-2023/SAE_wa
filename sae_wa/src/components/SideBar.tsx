@@ -14,7 +14,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
     <Box>
       <Box className = "sidebarButton"
       sx = {{
-        position: "sticky"
+        position: "sticky",
       }}
       onClick={ModSidebarOpen}
       >
@@ -195,8 +195,8 @@ const linksFuncionalidades = [
       to:"/tipo_remision"
     },
     {
-      label2:"Generar Solicitud",
-      textl:"Generar Solicitud",
+      label2:"Solicitudes de Remision",
+      textl:"Solicitudes de Remision",
       to:"/solicitud_remision"
     },
     {

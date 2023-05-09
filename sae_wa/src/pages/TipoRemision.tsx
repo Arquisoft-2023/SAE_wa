@@ -12,7 +12,7 @@ const TipoRemision = () => {
         (async () => {
             const tiposRemision =  await TipoRemisionAJAXRequest.tiposRemision();
             setCharactersList(tiposRemision);
-
+            console.log(tipoRemision);
         })();
     }, []);
 
@@ -20,11 +20,7 @@ const TipoRemision = () => {
         {field: 'idTipoRemision', headerName: 'ID', align: "center"},
         {field: 'tipoRemision', headerName: 'TIPO DE REMISIÓN', align: "center"},
     ];
-
-    charactersList.forEach((item)=>{
-        console.log(item.idTipoRemision);
-    });
-
+    
     const rows = charactersList.map((item) => ({
         idTipoRemision: item.idTipoRemision, tipoRemision: item.tipoRemision,
     }))
@@ -155,7 +151,7 @@ const TipoRemision = () => {
                     setCharactersList(tiposRemision);
                     handleClose();
                 }}
-                disabled={!Boolean(tipoRemision)}
+                
                 >
                     Crear
                 </Button>

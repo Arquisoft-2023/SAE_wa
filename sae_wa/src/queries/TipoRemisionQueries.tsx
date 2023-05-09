@@ -1,4 +1,7 @@
 export const TipoRemisionQueries = {
+
+    //Queries
+
     tiposRemision: `
         query MyQuery {
             obtenerTiposremision {
@@ -7,6 +10,9 @@ export const TipoRemisionQueries = {
             }
         }
     `,
+
+    //Mutations
+
     crearTipoRemision: `
         mutation MyMutation ($item: TipoRemisionInput!) {
             crearTipoRemision(item: $item ){
