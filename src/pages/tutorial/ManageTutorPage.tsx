@@ -38,6 +38,7 @@ const ManageTutorP = (prop: myProps) => {
     const [dataList, setdataList] = useState<myState["getValue"]>()
     const [search, setsearch] = useState<myState["search"]>()
     const [open, setOpen] = useState<myState["open"]>(false)
+    const [rows, setrows] = useState([])
     const [rol, setRol] = useState<myState["rol"]>(onGetRol);
     
     // Mapear datos
@@ -64,6 +65,7 @@ const ManageTutorP = (prop: myProps) => {
                 const {obtenerAcompanyamiento} = response.data.data
                 setdataListOrgin(obtenerAcompanyamiento)
                 setdataList(obtenerAcompanyamiento)
+                setrows(mapper(dataListOrgin))
             } catch(error){
                 console.log(error)
             }
@@ -82,8 +84,9 @@ const ManageTutorP = (prop: myProps) => {
     // Filtro
     const filterElements = (data: myState["getValue"], search: myState["search"]) => {
         const {len, value} = search
-        if(len === 0){
-            setdataList(dataListOrgin)            
+        if(len === 0) {
+            setrows(mapper(dataListOrgin))
+            return
         }
         else{
             var items = data.filter( data => {
@@ -93,7 +96,7 @@ const ManageTutorP = (prop: myProps) => {
                     return data;
                 }
             });
-            setdataList(items)
+            setrows(mapper(items))
         }
     }
     const handleOnChangeRead = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,7 +198,7 @@ const ManageTutorP = (prop: myProps) => {
                         />
                     </Box>
                 <Box className = "Tabla">
-                    <DataTable rows={dataList} columns={columns}/>
+                    <DataTable rows={rows} columns={columns}/>
                 </Box>
                 <Box className = "ModalCrear"
                 sx={{

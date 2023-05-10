@@ -28,5 +28,5 @@ export const obsQuery  = {
 }
 
 export const obsMutation  = {
-    
+
 }

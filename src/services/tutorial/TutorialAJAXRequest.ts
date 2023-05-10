@@ -1,5 +1,5 @@
 import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
-import { tutorialQuery } from "../../queries/tutorial/TutorialQueries"
+import { tutorialQuery, tutorialMutation } from "../../queries/tutorial/TutorialQueries"
 import { AJAXRequest } from "../../utils/AJAXRequest"
 
 const URI = "tutorias/"
@@ -34,4 +34,19 @@ export const TutorialService = {
         });
         return response;
     },
+    // Mutation
+    CreateTutorialService: async (item: acompanyamiento) => {
+        const response = await AJAXRequest (
+            URI+"tutoria"
+            ,{
+            query: 
+                tutorialMutation.createTutorial,
+            variables: {
+                item : item,
+            }
+        }).catch((error: any) => {
+            console.log(error);
+        });
+        return response;
+    }
 }

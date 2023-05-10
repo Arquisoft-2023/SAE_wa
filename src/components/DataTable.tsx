@@ -65,14 +65,16 @@ const DataTable = ({rows,columns}) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      border: "none"
+      flexDirection: "column",
+      border: "none",
+      width: "100%",      
     }}
     className='ContainerTable'
     >
       <Table 
       sx={{
-        maxWidth: 1000,
-        minWidth: 700        
+        maxWidth: 1200,
+        minWidth: 1000,       
       }} 
       className='MasterTable'
       aria-label="customized table"
@@ -86,27 +88,33 @@ const DataTable = ({rows,columns}) => {
           ))}
         </TableRow>
       </TableHead>
-        <TableBody className='Body1'>
-        {data.map((row: any) => (
-          <StyledTableRow key={row.id}>
-            {columns.map((column) => (
-              <StyledTableCell align={column.align} key={column.field}>
-                {row[column.field]}
-              </StyledTableCell>
-            ))}
-            {console.log({rows: rows})}
-            {console.log({data: data})}
+      <TableBody className='Body1'>
+        {data.length > 0 ? (
+          data.map((row: any) => (
+            <StyledTableRow key={row.id}>
+              {columns.map((column) => (
+                <StyledTableCell align={column.align}>
+                  {row[column.field]}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+          ))
+        ) : (
+          <StyledTableRow>
+            <StyledTableCell colSpan={columns.length} align="center">
+              No se encontró ningún elemento
+            </StyledTableCell>
           </StyledTableRow>
-        ))}
+        )}
       </TableBody>
+      </Table>
       <TableBody className='Body2'>
         <tr>
           <TablePagination
             className='Pagination'
             sx={{
               display: "flex",
-              justifyContent: "right",
-              alignContent: "right",
+              width: "100%",
               // backgroundColor: "#000"
             }} 
             rowsPerPageOptions={[10, 25, 50]}
@@ -120,7 +128,6 @@ const DataTable = ({rows,columns}) => {
           /> 
         </tr>
       </TableBody>
-      </Table>
     </TableContainer>
   );
 }

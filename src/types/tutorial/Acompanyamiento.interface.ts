@@ -1,6 +1,12 @@
 import { observacion} from "./Observacion.interface";
 import { tutoria } from "./Tutoria.interface";
 
+export enum rol{
+    Docente = "Tutor",
+    Estudiante = "Estudiante",
+    Bienestar = "Bienestar"	
+}
+
 export enum tipo_Tutor{
     Actual = "Actual",
     Antiguo = "Antiguo"

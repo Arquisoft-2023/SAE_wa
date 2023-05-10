@@ -9,23 +9,25 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-interface State {
-    mySelect: {
-        value: string
-    }
+interface mySearch{
+    len: number
+    value: string
+    opc: string
 }
 
 interface PropSplitButton{
     options: string[]
-    handle: (newSelect: State["mySelect"]) => void
+    name: string
+    handle: (newSelect: mySearch) => void
 }
 
 export default function SplitButton(prop: PropSplitButton) {
-  const {options, handle} = prop
+  let {options, handle, name} = prop
+  options = [(name)].concat(options)
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleClick = () => {
     // console.info(`You clicked ${options[selectedIndex]}`);
@@ -35,8 +37,7 @@ export default function SplitButton(prop: PropSplitButton) {
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
-      
-    handle({value: options[index]})
+    handle({len: options[index].length, value: options[index], opc: name})
     setSelectedIndex(index);
     setOpen(false);
   };
@@ -58,9 +59,46 @@ export default function SplitButton(prop: PropSplitButton) {
 
   return (
     <React.Fragment>
-      <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+      <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button"
+      sx={{
+        border:"none",
+        padding:"10px 20px",
+        borderRadius:"100px",
+        boxShadow:"none",
+      }}
+      
+      >
+        <Button onClick={handleClick} 
+        sx={{
+            display:"block",                        
+            padding:"10px 20px",
+            borderRadius:"100px",
+            color:"#fff",
+            border:"none",
+            background:"black",
+            cursor:"pointer",
+            transition:".3s ease all",
+            boxShadow:"none",
+            ":hover": {
+                background:"DarkGrey",
+            }
+        }}
+        >{options[selectedIndex]}</Button>
         <Button
+            sx={{
+              display:"block",
+              padding:"10px 10px",
+              borderRadius:"100px",
+              color:"#fff",
+              border:"none",
+              background:"black",
+              cursor:"pointer",
+              // marginLeft:"20px",
+              transition:".3s ease all",
+              ":hover": {
+                  background:"DarkGrey",
+              }
+          }}
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
@@ -95,7 +133,7 @@ export default function SplitButton(prop: PropSplitButton) {
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                    //   disabled={index === 2}
+                      // disabled={index === 2 || index === 3}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >

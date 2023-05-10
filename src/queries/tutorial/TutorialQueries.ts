@@ -38,5 +38,9 @@ export const tutorialQuery  = {
 }
 
 export const tutorialMutation  = {
-    
+    createTutorial: `
+        mutation ($item: acompanyamientoInput!) {
+            crearTutoriaMq(item: $item)
+        }
+    `,
 }
