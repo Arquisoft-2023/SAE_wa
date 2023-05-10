@@ -25,7 +25,7 @@ const AllRoutes = () => {
 
         <Route path="/tutorias/tutorias" element={<ManageTutorialP onGetUser = {UserTestDocente}/>}/>
 
-        <Route path="/observaciones/obs" element={<ManageObsP/>}/>
+        <Route path="/observaciones/obs" element={<ManageObsP onGetUser = {UserTestDocente}/>}/>
         {/* * */}
         
     </Routes>

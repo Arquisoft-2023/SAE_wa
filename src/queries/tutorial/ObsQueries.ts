@@ -28,5 +28,9 @@ export const obsQuery  = {
 }
 
 export const obsMutation  = {
-
+    createObs: `
+    mutation ($item: acompanyamientoInput!) {
+        crearObs(item: $item)
+    }
+`,
 }

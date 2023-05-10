@@ -198,7 +198,7 @@ const ManageTutorP = (prop: myProps) => {
                         />
                     </Box>
                 <Box className = "Tabla">
-                    <DataTable rows={rows} columns={columns}/>
+                    <DataTable rows={rows} columns={columns} handle={()=>{}}/>
                 </Box>
                 <Box className = "ModalCrear"
                 sx={{
