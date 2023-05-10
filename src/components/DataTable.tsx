@@ -9,6 +9,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton, Tooltip } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const DataTable = ({rows,columns}) => {
+const DataTable = ({rows,columns, handle}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [data, setData] = useState<[]>(rows);
@@ -94,7 +96,23 @@ const DataTable = ({rows,columns}) => {
             <StyledTableRow key={row.id}>
               {columns.map((column) => (
                 <StyledTableCell align={column.align}>
-                  {row[column.field]}
+                  {column.field === 'actionsEdit' ? (
+                    <Tooltip title="Modificar estado">
+                      <IconButton onClick={() => handle(row)}>
+                        <EditIcon 
+                          style={{ 
+                            cursor: "pointer",
+                            transition:".3s ease all",
+                            
+                          }}
+                          className='EditIcon'
+                          // onClick={() => handleRowClick(row)}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    row[column.field]
+                  )}
                 </StyledTableCell>
               ))}
             </StyledTableRow>

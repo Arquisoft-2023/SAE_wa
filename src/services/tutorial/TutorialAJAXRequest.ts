@@ -48,5 +48,19 @@ export const TutorialService = {
             console.log(error);
         });
         return response;
+    },
+    ModTutorialService: async (item: acompanyamiento) => {
+        const response = await AJAXRequest (
+            URI+"tutoria"
+            ,{
+            query: 
+                tutorialMutation.ModTutorial,
+            variables: {
+                item : item,
+            }
+        }).catch((error: any) => {
+            console.log(error);
+        });
+        return response;
     }
 }

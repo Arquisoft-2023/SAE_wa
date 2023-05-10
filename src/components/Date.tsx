@@ -28,9 +28,9 @@ export default function BasicDatePicker(prop: PropDate) {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={['DatePicker']}>
+        <DemoContainer components={['DatePicker']} >
             <DatePicker
-                label="Controlled picker"
+                label="Calendario"
                 // defaultValue={dayjs('2022-04-17')}
                 // value={value}
                 onChange={handleChange}

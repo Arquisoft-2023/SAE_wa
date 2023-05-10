@@ -43,4 +43,9 @@ export const tutorialMutation  = {
             crearTutoriaMq(item: $item)
         }
     `,
+    ModTutorial: `
+    mutation ($item: acompanyamientoInput!) {
+        actualizarTutoriaC(item: $item)
+    }
+`,
 }

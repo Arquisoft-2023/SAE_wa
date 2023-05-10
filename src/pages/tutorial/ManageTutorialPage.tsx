@@ -6,11 +6,8 @@ import { TutorialService } from '../../services/tutorial/TutorialAJAXRequest'
 import { acompanyamiento, rol } from '../../types/tutorial/Acompanyamiento.interface'
 import { tipo_estado, tipo_lugar } from '../../types/tutorial/Tutoria.interface'
 import DataTable from '../../components/DataTable';
-import SplitButton from '../../components/SplitButton';
 import BasicDatePicker from '../../components/Date';
-import { Search } from 'react-router-dom';
-import { on } from 'events';
-import { type } from 'os';
+import SelectLabels from '../../components/Select';
 
 enum myActions{
     Create = "Crear Tutoria",
@@ -74,6 +71,7 @@ const ManageTutorialP = (prop: myProps) => {
     const [search, setsearch] = useState<myState["search"]>()
 
     const [inputValue, setInputValue] = useState<myState["inputValue"]>(INITIAL_STATE)
+    const [selectedItem, setSelectedItem] = useState(null);
     
     // Mapear datos
     const mapper = (data: acompanyamiento[]) => {
@@ -82,7 +80,7 @@ const ManageTutorialP = (prop: myProps) => {
         for(let item of data){
             for(let tutoria of item.listaTutoria){
                 rows.push({
-                    key: cnt,
+                    key: tutoria.Id,
                     correo: item.usuarioUnEstudiante || item.usuarioUnTutor,
                     estado: tutoria.estado,
                     fecha: dayjs(tutoria.fecha).format('DD/MM/YYYY'),
@@ -106,7 +104,7 @@ const ManageTutorialP = (prop: myProps) => {
                 const {obtenerAcompanyamientoTutor} = response.data.data
                 setdataListOrgin(obtenerAcompanyamientoTutor)
                 setdataList(obtenerAcompanyamientoTutor)
-                setoptions(obtenerAcompanyamientoTutor.map((item: { usuarioUnEstudiante: any; }) => item.usuarioUnEstudiante))
+                setoptions((obtenerAcompanyamientoTutor.map((item: { usuarioUnEstudiante: any; }) => item.usuarioUnEstudiante)))
                 optionUser = (obtenerAcompanyamientoTutor.map((item: acompanyamiento) =>{
                     if(item.esTutor === "Actual") return item.usuarioUnEstudiante
                 }))
@@ -118,16 +116,19 @@ const ManageTutorialP = (prop: myProps) => {
                 const {obtenerAcompanyamientoEstudiante} = response.data.data
                 setdataListOrgin(obtenerAcompanyamientoEstudiante)
                 setdataList(obtenerAcompanyamientoEstudiante)
-                setoptions([("Tutores")].concat(obtenerAcompanyamientoEstudiante.map((item: { usuarioUnTutor: any; }) => item.usuarioUnTutor)))
-                optionUser = ([("Tutores")].concat(obtenerAcompanyamientoEstudiante.map((item: acompanyamiento) =>{
+                setoptions((obtenerAcompanyamientoEstudiante.map((item: { usuarioUnTutor: any; }) => item.usuarioUnTutor)))
+                optionUser = ((obtenerAcompanyamientoEstudiante.map((item: acompanyamiento) =>{
                     if(item.esTutor === "Actual"){
                         return item.usuarioUnTutor
                     }
                 })))
                 optionUser = optionUser.filter((item: any) => item !== undefined && item !== null && item !== "")
                 setrows(mapper(obtenerAcompanyamientoEstudiante))
-            }
-            
+            }     
+            setInputValue({
+                ...inputValue,
+                [(onGetUser.userRol === rol.Docente? "usuarioUnTutor": "usuarioUnEstudiante")] : onGetUser.userEmail
+            })      
         } catch(error){
             console.log(error)
         }
@@ -147,6 +148,7 @@ const ManageTutorialP = (prop: myProps) => {
         {key: 5, field: 'acuerdo', headerName: 'Acuerdo', align: "center"},
         {key: 6, field: 'observacionesTutor', headerName: 'Observaciones Tutor', align: "center"},
         {key: 7, field: 'observacionesEstudiante', headerName: 'Observaciones Estudiante', align: "center"},
+        {key: 8, field: 'actionsEdit', headerName: 'Acciones', align: "center"},
         // {key: 7, field: 'Id', headerName: 'Id', align: "center", hidden: true},
     ];  
     if(!dataList) return (<div>loading...</div>)
@@ -213,7 +215,7 @@ const ManageTutorialP = (prop: myProps) => {
 
     // Crear tutoria
     const handleOnChangeCreate = async (newSelect: myState["search"]) => {
-        const {len, value, opc} = newSelect
+        let {len, value, opc} = newSelect
         let {listaTutoria} = inputValue
         // setmySelect(newSelect)
         switch(opc){
@@ -230,6 +232,8 @@ const ManageTutorialP = (prop: myProps) => {
                 })
             break;
             case "Estado":
+                console.log(value.toLowerCase())
+                if(value.toLowerCase() === "no realizada") value = "no_realizada"	
                 listaTutoria[0]["estado"] = tipo_estado[value.toLowerCase()]
                 setInputValue({
                     ...inputValue
@@ -249,7 +253,6 @@ const ManageTutorialP = (prop: myProps) => {
             default:
             break;
         }
-        // console.log(inputValue)
         // filterElements(dataListOrgin, { len: newSelect.length, value: newSelect, opc: "filterBoton"})
     }
 
@@ -263,24 +266,55 @@ const ManageTutorialP = (prop: myProps) => {
     }
 
     const handleSubmitCreate = async () =>{
+        let response = null
+        console.log(myAction)          
+        console.log(inputValue)
         if(myAction === myActions.Create){
-            setInputValue({
-                ...inputValue,
-                [(onGetUser.userRol === rol.Docente? "usuarioUnTutor": "usuarioUnEstudiante")] : onGetUser.userEmail
-            })           
-
-            const response = await TutorialService.CreateTutorialService(inputValue)
-            setInputValue(INITIAL_STATE)
-            if(response.status !== 200) return alert("Error al guardar los datos")
-            const res:string = response.data.data.crearTutoriaMq
-            if(!(res.includes("200"))){
-                const description = res.slice(16,33)
-                return alert(description)
-            }
-            alert("Dator Guardados")
+            response = await TutorialService.CreateTutorialService(inputValue)
         }
+        else if(myAction === myActions.Modify){
+            inputValue.listaTutoria[0]["Id"] = selectedItem?.key
+            setInputValue({ 
+                ...inputValue
+            })
+            response = await TutorialService.ModTutorialService(inputValue)
+        }
+        console.log(response)
+        setInputValue(INITIAL_STATE)
+        setInputValue({
+            ...inputValue,
+            [(onGetUser.userRol === rol.Docente? "usuarioUnTutor": "usuarioUnEstudiante")] : onGetUser.userEmail
+        })
+        if(response?.status !== 200) return alert("Error al guardar los datos")
+        const res:string = response?.data.data.crearTutoriaMq || response?.data.data.actualizarTutoriaC
+        if(!(res.includes("200"))){
+            const description = res.slice(16,33)
+            return alert(description)
+        }
+        alert("Dator Guardados")
         fetchData();
     }
+
+    // Modificar tutoria
+    const handleRowClick = (item) => {
+        setSelectedItem(item);
+        if(item.estado.toLowerCase() === "no realizada") item.estado = "no_realizada"
+        setInputValue({
+            ...inputValue,
+            [(onGetUser.userRol === rol.Docente? "usuarioUnEstudiante": "usuarioUnTutor")] : item.correo,
+            ["listaTutoria"] : [{
+                "estado": tipo_estado[item.estado.toLowerCase()],
+                "lugar":  tipo_lugar[item.lugar.toLowerCase()],
+                "fecha": dayjs(item.fecha).toISOString(),
+                "objetivo": item.objetivo,
+                "acuerdo": item.acuerdo,
+                "observacionesTutor": item.observacionesTutor,
+                "observacionesEstudiante": item.observacionesEstudiante
+            }]
+        })
+        console.log(item)
+        handleOpen(myActions.Modify);
+    };
 
     // Rol
     const handleUser = (getUser: myState["user"]): void => {
@@ -313,7 +347,7 @@ const ManageTutorialP = (prop: myProps) => {
                         display: "flex",
                         justifyContent: "center",
                         alignContent: "center",
-                        marginTop:"10px",
+                        // marginTop:"10px",
                     }}
                     >
                     <h1>
@@ -321,36 +355,36 @@ const ManageTutorialP = (prop: myProps) => {
                     </h1>
                 </Box>
                 <Box className = "Table">
-                <Box 
-                    sx = {{
-                        // marginLeft: "200px",
-                        display: "flex",
-                        justifyContent: "start",
-                        width: "100%",
-                    }}
-                    >
                     <Box className = "Filtros"
                         sx={{
                             display: "flex",
                             flexDirection: "row",
-                            width: "100%",  
+                            alignContent: "center",
+                            width: "100%",
+                            m: 1
                             // background: "#000",
                         }}    
                         >
                         <Box
+                            sx={{
+                                display: "flex",
+                                alignContent: "start",
+                                width: "100%",
+                                // backgroundColor: "#000"
+                            }}>
+                            <SelectLabels options={options} handle = {handleOnChange} name={onGetUser.userRol === rol.Docente? "Estudiantes": "Tutor"} />                         
+                        </Box>
+                        <Box
                             className = "BuscarBox"
                             sx={{
                                 display: "flex",
-                                justifyContent: "end",
-                                margin:"10px",
+                                alignContent: "end",
                                 // width: "100%",
-                                // backgroundColor: "#000"                         
                             }}>
                             <TextField 
                                 sx={{
-                                    display: "flex",
-                                    margin:"10px",
-                                    width: "100%",
+                                    m: 1, 
+                                    minWidth: 255 
                                     // backgroundColor: "#000"                         
                                 }}
                                 id="Buscar"
@@ -360,20 +394,9 @@ const ManageTutorialP = (prop: myProps) => {
                                 value={search?.value || ''}
                                 onChange={handleOnChangeRead}
                             />
-                        </Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "end",
-                                margin:"20px",
-                                width: "100%",  
-                                // backgroundColor: "#000"
-                            }}>
-                            <SplitButton options={options} handle = {handleOnChange} name={onGetUser.userRol === rol.Docente? "Estudiantes": "Tutor"} />                         
-                        </Box>
-                    </Box>
+                        </Box>                        
                 </Box>
-                <DataTable rows={rows} columns={columns}/>
+                    <DataTable rows={rows} columns={columns} handle={handleRowClick}/>
                 </Box>
                 <Box className = "ModalCrear"
                 sx={{
@@ -397,7 +420,7 @@ const ManageTutorialP = (prop: myProps) => {
                                 background:"DarkGrey",
                             }
                         }}
-                        onClick={() => handleOpen(myActions.Create)}> Crear
+                        onClick={() => {handleOpen(myActions.Create);}}> Crear
                     </Button>
                     <Box>
                         <Modal
@@ -439,80 +462,93 @@ const ManageTutorialP = (prop: myProps) => {
                                 <Box className = "BxOptionsUser"
                                 sx={{
                                     display: "flex",
-                                    justifyContent: "center",
+                                    flexDirection: "row",
                                     alignContent: "center",
+                                    width: "100%",
                                 }}>
-                                <Box
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignContent: "start",
+                                        }}>
+                                        <SelectLabels options={optionUser} handle = {handleOnChangeCreate} name = {onGetUser.userRol === rol.Docente? "Estudiantes": "Tutores"} />  
+                                    </Box>                       
+                                    <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: "center",
-                                        alignContent: "center",
+                                        alignContent: "end",
                                     }}>
-                                    <SplitButton options={optionUser} handle = {handleOnChangeCreate} name = {onGetUser.userRol === rol.Docente? "Estudiantes": "Tutores"} />  
-                                </Box>                       
+                                        <SelectLabels options={typePlace} handle = {handleOnChangeCreate} name={"Lugar"}/>                         
+                                    </Box>
+                                </Box>
                                 <Box
                                 sx={{
                                     display: "flex",
-                                    justifyContent: "center",
+                                    flexDirection: "row",
                                     alignContent: "center",
                                     width: "100%",
                                 }}>
-                                    <SplitButton options={typeState} handle = {handleOnChangeCreate} name = {"Estado"}/>                         
+                                    <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignContent: "start",
+                                        // backgroundColor: "#000",
+                                    }}>
+                                        <SelectLabels options={typeState} handle = {handleOnChangeCreate} name = {"Estado"}/>                         
+                                    </Box>
+                                    <Box
+                                    className = "BxTextField2"
+                                    sx={{
+                                        display: "flex",
+                                        alignContent: "end",
+                                        marginLeft: "10px",
+                                    }}>
+                                        <BasicDatePicker handle  = {handleOnChangeCreate}/>                            
+                                    </Box>
                                 </Box>
                                 <Box
                                 sx={{
                                     display: "flex",
-                                    justifyContent: "center",
+                                    flexDirection: "row",
                                     alignContent: "center",
                                     width: "100%",
                                 }}>
-                                    <SplitButton options={typePlace} handle = {handleOnChangeCreate} name={"Lugar"}/>                         
-                                </Box>
-                                </Box>
-                                <Box
-                                className = "BxTextField2"
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignContent: "center",
-                                }}>
-                                    <BasicDatePicker handle  = {handleOnChangeCreate}/>                            
-                                </Box>
-                                <Box
-                                className = "BxTextField3"
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignContent: "center",
-                                }}>
-                                    <TextField 
-                                        id="objetivoCreate"
-                                        label="Objetivo" 
-                                        variant="outlined"
-                                        name="objetivo"
-                                        // disabled
-                                        // defaultValue={onGetUser.userEmail}
-                                        // value={"2023-05-09"}
-                                        // onChange={handleChangeAssing}
-                                        value={inputValue?.listaTutoria[0].objetivo}
-                                        onChange={handleChangeAssing}
-                                    />
-                                </Box>
-                                <Box
-                                className = "BxTextField4"
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignContent: "center",
-                                }}>
-                                    <TextField 
-                                        id="acuerdoCreate"
-                                        label="Acuerdo" 
-                                        variant="outlined"
-                                        name="acuerdo"
-                                        value={inputValue?.listaTutoria[0].acuerdo}
-                                        onChange={handleChangeAssing}
-                                    />
+                                    <Box
+                                    className = "BxTextField3"
+                                    sx={{
+                                        display: "flex",
+                                        alignContent: "start"
+                                    }}>
+                                        <TextField 
+                                            sx={{ m: 1, minWidth: 255 }}
+                                            id="objetivoCreate"
+                                            label="Objetivo" 
+                                            variant="outlined"
+                                            name="objetivo"
+                                            // disabled
+                                            // defaultValue={onGetUser.userEmail}
+                                            // value={"2023-05-09"}
+                                            // onChange={handleChangeAssing}
+                                            value={inputValue?.listaTutoria[0].objetivo}
+                                            onChange={handleChangeAssing}
+                                        />
+                                    </Box>
+                                    <Box
+                                    className = "BxTextField4"
+                                    sx={{
+                                        display: "flex",
+                                        alignContent: "end",
+                                    }}>
+                                        <TextField 
+                                            sx={{ m: 1, minWidth: 255 }}
+                                            id="acuerdoCreate"
+                                            label="Acuerdo" 
+                                            variant="outlined"
+                                            name="acuerdo"
+                                            value={inputValue?.listaTutoria[0].acuerdo}
+                                            onChange={handleChangeAssing}
+                                        />
+                                    </Box>
                                 </Box>   
                                 <Box
                                 className = "BxTextField5"
@@ -522,6 +558,7 @@ const ManageTutorialP = (prop: myProps) => {
                                     alignContent: "center",
                                 }}>
                                     <TextField 
+                                        sx={{ m: 1, minWidth: 530, marginLeft: "20px", }}
                                         id="observationCreate"
                                         label="Observaciones" 
                                         variant="outlined"
