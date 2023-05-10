@@ -237,8 +237,7 @@ const ManageObsP = (prop: myProps) => {
         
         if(myAction === myActions.Create){
             console.log(inputValue)
-            return
-            // response = await ObsService.CreateObsService(inputValue)
+            response = await ObsService.CreateObsService(inputValue)
         }
         setInputValue(INITIAL_STATE)
         setInputValue({
@@ -246,7 +245,7 @@ const ManageObsP = (prop: myProps) => {
             [(onGetUser.userRol === rol.Docente? "usuarioUnTutor": "usuarioUnEstudiante")] : onGetUser.userEmail
         })
         if(response?.status !== 200) return alert("Error al guardar los datos")
-        const res:string = response?.data.data.crearTutoriaMq || response?.data.data.actualizarTutoriaCmq
+        const res:string = response?.data.data.crearObs
         if(!(res.includes("200"))){
             // const description = res.slice(16,33)
             return alert(res)
