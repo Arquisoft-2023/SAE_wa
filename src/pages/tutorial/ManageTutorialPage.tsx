@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { TutorialService } from '../../services/tutorial/TutorialAJAXRequest'
 import { acompanyamiento, rol } from '../../types/tutorial/Acompanyamiento.interface'
@@ -83,7 +83,7 @@ const ManageTutorialP = (prop: myProps) => {
                     key: tutoria.Id,
                     correo: item.usuarioUnEstudiante || item.usuarioUnTutor,
                     estado: tutoria.estado,
-                    fecha: dayjs(tutoria.fecha).format('DD/MM/YYYY'),
+                    fecha: dayjs(tutoria.fecha).format('MM-DD-YYYY'),
                     lugar: tutoria.lugar,
                     objetivo: tutoria.objetivo,
                     acuerdo: tutoria.acuerdo,
@@ -232,7 +232,6 @@ const ManageTutorialP = (prop: myProps) => {
                 })
             break;
             case "Estado":
-                console.log(value.toLowerCase())
                 if(value.toLowerCase() === "no realizada") value = "no_realizada"	
                 listaTutoria[0]["estado"] = tipo_estado[value.toLowerCase()]
                 setInputValue({
@@ -267,8 +266,6 @@ const ManageTutorialP = (prop: myProps) => {
 
     const handleSubmitCreate = async () =>{
         let response = null
-        console.log(myAction)          
-        console.log(inputValue)
         if(myAction === myActions.Create){
             response = await TutorialService.CreateTutorialService(inputValue)
         }
@@ -279,17 +276,16 @@ const ManageTutorialP = (prop: myProps) => {
             })
             response = await TutorialService.ModTutorialService(inputValue)
         }
-        console.log(response)
         setInputValue(INITIAL_STATE)
         setInputValue({
             ...inputValue,
             [(onGetUser.userRol === rol.Docente? "usuarioUnTutor": "usuarioUnEstudiante")] : onGetUser.userEmail
         })
         if(response?.status !== 200) return alert("Error al guardar los datos")
-        const res:string = response?.data.data.crearTutoriaMq || response?.data.data.actualizarTutoriaC
+        const res:string = response?.data.data.crearTutoriaMq || response?.data.data.actualizarTutoriaCmq
         if(!(res.includes("200"))){
-            const description = res.slice(16,33)
-            return alert(description)
+            // const description = res.slice(16,33)
+            return alert(res)
         }
         alert("Dator Guardados")
         fetchData();
@@ -298,21 +294,22 @@ const ManageTutorialP = (prop: myProps) => {
     // Modificar tutoria
     const handleRowClick = (item) => {
         setSelectedItem(item);
-        if(item.estado.toLowerCase() === "no realizada") item.estado = "no_realizada"
+        let auxState = ''
+        if(item.estado.toLowerCase() === "no realizada") auxState = "no_realizada"
+        else auxState = item.estado.toLowerCase()
         setInputValue({
             ...inputValue,
             [(onGetUser.userRol === rol.Docente? "usuarioUnEstudiante": "usuarioUnTutor")] : item.correo,
             ["listaTutoria"] : [{
-                "estado": tipo_estado[item.estado.toLowerCase()],
+                "estado": tipo_estado[auxState],
                 "lugar":  tipo_lugar[item.lugar.toLowerCase()],
-                "fecha": dayjs(item.fecha).toISOString(),
+                "fecha": dayjs(new Date(item.fecha)).toISOString(),
                 "objetivo": item.objetivo,
                 "acuerdo": item.acuerdo,
                 "observacionesTutor": item.observacionesTutor,
                 "observacionesEstudiante": item.observacionesEstudiante
             }]
         })
-        console.log(item)
         handleOpen(myActions.Modify);
     };
 
@@ -372,7 +369,7 @@ const ManageTutorialP = (prop: myProps) => {
                                 width: "100%",
                                 // backgroundColor: "#000"
                             }}>
-                            <SelectLabels options={options} handle = {handleOnChange} name={onGetUser.userRol === rol.Docente? "Estudiantes": "Tutor"} />                         
+                            <SelectLabels options={options} handle = {handleOnChange} name={onGetUser.userRol === rol.Docente? "Estudiantes": "Tutor"} selectOpc = "" />                         
                         </Box>
                         <Box
                             className = "BuscarBox"
@@ -471,14 +468,14 @@ const ManageTutorialP = (prop: myProps) => {
                                             display: "flex",
                                             alignContent: "start",
                                         }}>
-                                        <SelectLabels options={optionUser} handle = {handleOnChangeCreate} name = {onGetUser.userRol === rol.Docente? "Estudiantes": "Tutores"} />  
+                                        <SelectLabels options={optionUser} handle = {handleOnChangeCreate} name = {onGetUser.userRol === rol.Docente? "Estudiantes": "Tutores"} selectOpc = {(onGetUser.userRol === rol.Docente? inputValue?.usuarioUnEstudiante: inputValue?.usuarioUnTutor) || ""} />  
                                     </Box>                       
                                     <Box
                                     sx={{
                                         display: "flex",
                                         alignContent: "end",
                                     }}>
-                                        <SelectLabels options={typePlace} handle = {handleOnChangeCreate} name={"Lugar"}/>                         
+                                        <SelectLabels options={typePlace} handle = {handleOnChangeCreate} name={"Lugar"} selectOpc = {inputValue?.listaTutoria[0].lugar || ""}/>                         
                                     </Box>
                                 </Box>
                                 <Box
@@ -494,7 +491,7 @@ const ManageTutorialP = (prop: myProps) => {
                                         alignContent: "start",
                                         // backgroundColor: "#000",
                                     }}>
-                                        <SelectLabels options={typeState} handle = {handleOnChangeCreate} name = {"Estado"}/>                         
+                                        <SelectLabels options={typeState} handle = {handleOnChangeCreate} name = {"Estado"} selectOpc = {inputValue?.listaTutoria[0].estado || ""}/>                         
                                     </Box>
                                     <Box
                                     className = "BxTextField2"
@@ -503,7 +500,7 @@ const ManageTutorialP = (prop: myProps) => {
                                         alignContent: "end",
                                         marginLeft: "10px",
                                     }}>
-                                        <BasicDatePicker handle  = {handleOnChangeCreate}/>                            
+                                        <BasicDatePicker handle  = {handleOnChangeCreate} dateDefault = {dayjs(myAction === myActions.Create? new Date(): inputValue?.listaTutoria[0].fecha)}/>                            
                                     </Box>
                                 </Box>
                                 <Box

@@ -15,14 +15,15 @@ interface PropSplitButton{
     options: string[]
     name: string
     handle: (newSelect: mySearch) => void
+    selectOpc: string
 }
 
 
 export default function SelectLabels(prop: PropSplitButton) {
-    const {options, handle, name} = prop
+    const {options, handle, name, selectOpc} = prop
 
     const [option, setOption] = React.useState(options);
-    const [select, setSelect] = React.useState('');
+    const [select, setSelect] = React.useState(selectOpc);
 
   const handleChange = (event: SelectChangeEvent) => {
     event.preventDefault()

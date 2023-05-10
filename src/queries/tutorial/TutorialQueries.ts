@@ -45,7 +45,7 @@ export const tutorialMutation  = {
     `,
     ModTutorial: `
     mutation ($item: acompanyamientoInput!) {
-        actualizarTutoriaC(item: $item)
+        actualizarTutoriaCmq(item: $item)
     }
 `,
 }
