@@ -3,7 +3,7 @@ import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import DataTable from '../components/DataTable';
+import DataTable from '../components/DataTable2';
 import React from 'react';
 
 const TipoRemision = () => {

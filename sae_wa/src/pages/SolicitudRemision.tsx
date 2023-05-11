@@ -4,7 +4,7 @@ import { Box, Button, Modal, TextField } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import DataTable from '../components/DataTable';
+import DataTable from '../components/DataTable2';
 import React from 'react';
 
 const SolicitudRemision = () => {

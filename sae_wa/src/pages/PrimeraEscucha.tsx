@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PrimeraEscuchaAJAXRequest } from '../services/PrimeraEscuchaAJAXRequest';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import DataTable from '../components/DataTable';
+import DataTable from '../components/DataTable2';
 import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 
