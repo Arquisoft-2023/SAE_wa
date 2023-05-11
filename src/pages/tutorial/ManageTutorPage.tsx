@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 
 import { acompanyamientoService } from '../../services/tutorial/AcompanyamientoAJAXRequest'
-import { acompanyamiento } from '../../types/tutorial/Acompanyamiento.interface'
+import { acompanyamiento, rol} from '../../types/tutorial/Acompanyamiento.interface'
 import DataTable from '../../components/DataTable';
 
 enum myActions{
@@ -19,15 +19,18 @@ interface myState {
     }
     open: boolean,
     myAction: myActions
-    rol: string
+    user: {
+        userEmail: string
+        userRol: rol
+    }
 }
 
 interface myProps{
-    onGetRol: myState["rol"]
+    onGetUser: myState["user"]
 }
 
 const ManageTutorP = (prop: myProps) => {
-    const {onGetRol} = prop
+    const {onGetUser} = prop
 
     const [inputValue, setInputValue] = useState<myState["inputValue"]>({
         usuarioUnEstudiante: '',
@@ -39,7 +42,6 @@ const ManageTutorP = (prop: myProps) => {
     const [search, setsearch] = useState<myState["search"]>()
     const [open, setOpen] = useState<myState["open"]>(false)
     const [rows, setrows] = useState([])
-    const [rol, setRol] = useState<myState["rol"]>(onGetRol);
     
     // Mapear datos
     const mapper = (data: acompanyamiento[]) => {
@@ -79,6 +81,8 @@ const ManageTutorP = (prop: myProps) => {
         {key: 2, field: 'usuarioUnTutor', headerName: 'Correo tutor', align: "center"},
         {key: 3, field: 'esTutor', headerName: 'Estado', align: "center"},
     ];  
+
+    if(onGetUser.userRol !== rol.Bienestar) return (<div>Acceso no valido...</div>) 
     if(!dataList) return (<div>loading...</div>)
 
     // Filtro
@@ -105,11 +109,6 @@ const ManageTutorP = (prop: myProps) => {
         setsearch({ len: value.length, value: value })
         filterElements(dataList, search)
     }
-
-    // Rol
-    const handleRol = (getRol: myState["rol"]): void => {
-        setRol(getRol)
-    };
 
     // Abrir y cerrar ventana
     const handleOpen = (type: myActions) => {

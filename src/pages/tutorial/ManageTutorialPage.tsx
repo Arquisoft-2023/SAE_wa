@@ -151,6 +151,7 @@ const ManageTutorialP = (prop: myProps) => {
         {key: 8, field: 'actionsEdit', headerName: 'Acciones', align: "center"},
         // {key: 7, field: 'Id', headerName: 'Id', align: "center", hidden: true},
     ];  
+    if(onGetUser.userRol === rol.Bienestar) return (<div>Acceso no valido...</div>)  
     if(!dataList) return (<div>loading...</div>)
 
     // Filtro Busqueda

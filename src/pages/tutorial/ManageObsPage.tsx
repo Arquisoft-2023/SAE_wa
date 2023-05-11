@@ -100,6 +100,7 @@ const ManageObsP = (prop: myProps) => {
             }
             else if(user.userRol === rol.Estudiante){                                        
                 const response = await ObsService.GetObsEstudentService(user.userEmail)
+                console.log(response)
                 const {obtenerAcompanyamientoEstudiante} = response.data.data
                 setdataListOrgin(obtenerAcompanyamientoEstudiante)
                 setdataList(obtenerAcompanyamientoEstudiante)
@@ -132,6 +133,7 @@ const ManageObsP = (prop: myProps) => {
         {key: 2, field: 'descripcion', headerName: 'Descripción', align: "center"},
         // {key: 8, field: 'actionsEdit', headerName: 'Acciones', align: "center"},
     ];  
+    if(onGetUser.userRol === rol.Bienestar) return (<div>Acceso no valido...</div>)  
     if(!dataList) return (<div>loading...</div>)
 
     // Filtro Busqueda
@@ -343,23 +345,26 @@ const ManageObsP = (prop: myProps) => {
                     alignItems: "center",
                     border: "none",                   
                 }}
-                > 
-                    <Button className = "btnCrear" 
-                        sx={{
-                            display:"block",                        
-                            padding:"10px 30px",
-                            borderRadius:"100px",
-                            color:"#fff",
-                            border:"none",
-                            background:"black",
-                            cursor:"pointer",
-                            transition:".3s ease all",
-                            ":hover": {
-                                background:"DarkGrey",
-                            }
-                        }}
-                        onClick={() => {handleOpen(myActions.Create);}}> Crear
-                    </Button>
+                >   {onGetUser.userRol === rol.Docente? 
+                        <Button className = "btnCrear" 
+                            sx={{
+                                display:"block",                        
+                                padding:"10px 30px",
+                                borderRadius:"100px",
+                                color:"#fff",
+                                border:"none",
+                                background:"black",
+                                cursor:"pointer",
+                                transition:".3s ease all",
+                                ":hover": {
+                                    background:"DarkGrey",
+                                }
+                            }}
+                            hidden = {false}
+                            // disabled = {onGetUser.userRol === rol.Docente? true: false}
+                            onClick={() => {handleOpen(myActions.Create);}}> Crear
+                        </Button>
+                    : " "}
                     <Box>
                         <Modal
                             open={open}

@@ -1,7 +1,7 @@
 export const obsQuery  = {
     obtenerAcompanyamientoEstudiante: `
         query  ($usuarioUnEstudiante: String!) {
-            obtenerAcompanyamientoEstudiante(usuarioUnEstudiante: $usuarioUnEstudiante") {
+            obtenerAcompanyamientoEstudiante(usuarioUnEstudiante: $usuarioUnEstudiante) {
             esTutor
             usuarioUnTutor
             listaObservacion {

@@ -217,6 +217,10 @@ const linksFuncionalidades = [
       to:"/tutorias/tutor"
     },
     {
+      textl:"Ver tutorias",
+      to:"/tutorias/ver"
+    },
+    {
       textl:"Gestionar tutorias",
       to:"/tutorias/tutorias"
     }
