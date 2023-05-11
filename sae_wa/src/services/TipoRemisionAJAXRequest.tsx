@@ -7,8 +7,9 @@ export const TipoRemisionAJAXRequest = {
     tiposRemision: async () => {
         const { data } = await AJAXRequest (URI,{
             query:
-                TipoRemisionQueries.tiposRemision
+                TipoRemisionQueries.tiposRemision,
         });
+        console.log(data.data.obtenerTiposremision);
         return data.data.obtenerTiposremision;
     },
     crearTipoRemision: async (item) => {

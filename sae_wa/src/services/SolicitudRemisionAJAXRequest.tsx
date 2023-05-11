@@ -20,5 +20,16 @@ export const SolicitudRemisionAJAXRequest = {
             }
         });
         return data.data.generarSolicitud;
-    }
+    },
+    eliminarRemision: async (id) => {
+        const { data } = await AJAXRequest (URI,{
+            query:
+                SolicitudRemisionQueries.eliminarSolicitud,
+            variables: {
+                id: id
+            }
+        });
+        return data.data.generarSolicitud;
+    },
+
 }

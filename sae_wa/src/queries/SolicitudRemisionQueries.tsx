@@ -35,5 +35,10 @@ export const SolicitudRemisionQueries = {
                 usuarioUnEstudiante
             }
         }
+    `,
+    eliminarSolicitud:`
+        mutation MyMutation ($id: Int!){
+            eliminarSolicitud(id: $id)
+        }
     `
 }

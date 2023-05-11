@@ -60,6 +60,11 @@ export const RemisionQueries = {
                 fechaEnvioRemision
             }
         }
+    `,
+    eliminarRemision: `
+        mutation MyMutation ($id: Int!){
+            eliminarRemision(id: $id)
+        }
     `
 
 }

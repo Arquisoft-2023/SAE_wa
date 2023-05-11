@@ -1,0 +1,200 @@
+.componente {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+    border: none;
+    gap: 20px;
+}
+
+.botonesSuperiores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    flex-direction: row;
+    gap: 20px;
+}
+
+Button.generarRemisionButton {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background: black;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+Button.generarRemisionButton:hover {
+    background: DarkGrey;
+}
+
+Button.remisionesUNButton {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background: black;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+Button.remisionesUNButton:hover {
+    background: DarkGrey;
+}
+
+Button.remisionesEfectivasButton {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background: black;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+Button.remisionesEfectivasButton:hover {
+    background: DarkGrey;
+}
+
+Button.remisionesButton {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background: black;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+Button.remisionesButton:hover {
+    background: DarkGrey;
+}
+
+.modal1Box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    position: absolute as absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400;
+    height: 500;
+    border: 2px solid #000;
+    box-shadow: 24;
+    padding: 4;
+    gap: 15px;
+    background-color: white;
+}
+
+
+.tituloModal1Box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.textfieldsBox {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.fechaTextFieldsBox {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+}
+
+.guardarButton1Box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+Button.guardarButton1 {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background: black;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+Button.guardarButton1:hover {
+    background: DarkGrey;
+}
+
+.modal2Box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    position: absolute as absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400;
+    height: 500;
+    border: 2px solid #000;
+    box-shadow: 24;
+    padding: 4;
+    gap: 15px;
+    background-color: white;
+}
+
+.tituloModal2Box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.usuarioUNTextField {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+}
+
+.buscarButtonBox {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+Button.buscarButton {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background: black;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+Button.buscarButton:hover {
+    background: DarkGrey;
+}
+
+Table.tabla {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border: none;
+}

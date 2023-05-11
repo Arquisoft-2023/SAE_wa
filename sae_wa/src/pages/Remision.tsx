@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { RemisionAJAXRequest } from '../services/RemisionAJAXRequest';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import DataTable from '../components/DataTable';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 
 const Remision = () => {
@@ -27,7 +29,8 @@ const Remision = () => {
       {field: 'justificacionSolicitud', headerName: 'JUSTIFICACIÓN', align: "center"},
       {field: 'primeraEscuchaRealizada', headerName: 'PRIMERA ESCUCHA', align: "center"},
       {field: 'observacionPrimeraEscucha', headerName: 'OBSERVACIÓN', align: "center"},
-      {field: 'remisionEfectiva', headerName: 'ESTADO', align: "center"}
+      {field: 'remisionEfectiva', headerName: 'ESTADO', align: "center"},
+      {field: 'acciones', headerName: 'ACCIONES', align: "center"}
     ];
 
     const rows = charactersList.map((item) => ({
@@ -41,34 +44,71 @@ const Remision = () => {
         primeraEscuchaRealizada: item.primeraEscuchaRealizada ? 'Realizada' : 'Pendiente',
         observacionPrimeraEscucha: item.observacionPrimeraEscucha,
         remisionEfectiva: item.remisionEfectiva ? 'Efectiva' : 'No Efectiva',
+        acciones:
+        <Box 
+        sx={{
+            display: 'flex',
+            gap: "10px",
+            alignItems:"center",
+            justifyContent:"center"
+        }}
+        >
+            <Button 
+            startIcon={<DeleteForeverIcon sx={{color:"white"}}/>}
+            sx={{
+                width:"40px",
+                backgroundColor:"red",
+            }}
+            onClick={() => {
+                setIdRemision(item.idRemision);
+                handleOpen('modal3');
+            }}
+            >
+            </Button>
+            <Button 
+            startIcon={<EditIcon sx={{color:"white"}}/>}
+            sx={{
+                width:"40px",
+                backgroundColor:"green",
+            }}
+            >
+            </Button>
+        </Box>
     }))
 
     const [openModal1, setOpenModal1] = React.useState(false);
     const [openModal2, setOpenModal2] = React.useState(false);
+    const [openModal3, setOpenModal3] = React.useState(false);
 
     const handleOpen = (modal) => {
         switch (modal) {
-          case 'modal1':
-            setOpenModal1(true);
-            break;
-          case 'modal2':
-            setOpenModal2(true);
-            break;
-          default:
-            break;
+            case 'modal1':
+                setOpenModal1(true);
+                break;
+            case 'modal2':
+                setOpenModal2(true);
+                break;
+            case 'modal3':
+                setOpenModal3(true);
+                break;
+            default:
+                break;
         }
       };    
 
       const handleClose = (modal) => {
         switch (modal) {
-          case 'modal1':
-            setOpenModal1(false);
-            break;
-          case 'modal2':
-            setOpenModal2(false);
-            break;
-          default:
-            break;
+            case 'modal1':
+                setOpenModal1(false);
+                break;
+            case 'modal2':
+                setOpenModal2(false);
+                break;
+            case 'modal3':
+                setOpenModal3(false);
+                break;
+            default:
+                break;
         }
       };
 
@@ -77,6 +117,8 @@ const Remision = () => {
     const [dia, setDia] = useState('');
     const [mes, setMes] = useState('');
     const [anyo, setAnyo] = useState('');
+
+    const [idRemision,setIdRemision] = useState('');
 
     return (
         <Box        
@@ -128,7 +170,7 @@ const Remision = () => {
                 transition:".3s ease all",
                 ":hover": {
                     background:"DarkGrey",
-                  }
+                }
             }}
             onClick={() => handleOpen('modal2')}>Remision por Usuario UN</Button>
             <Button
@@ -288,7 +330,7 @@ const Remision = () => {
                     setCharactersList(remisiones);
                     handleClose('modal1');
                 }}
-                disabled={!Boolean(idSolicitudRemision) && !Boolean(dia) && !Boolean(mes) && !Boolean(anyo)}
+                disabled={!Boolean(idSolicitudRemision) || !Boolean(dia) || !Boolean(mes) || !Boolean(anyo)}
                 >
                     Crear
                 </Button>
@@ -388,6 +430,99 @@ const Remision = () => {
                     </Box>
                 </Box>
             </Modal>
+            <Modal
+            className='modal3'
+            open={openModal3}
+            onClose={() => handleClose('modal3')}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    flexDirection: "column",
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    height: 500,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,
+                    gap: "15px"
+                }}
+                >
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        flexDirection: "column"
+                    }}
+                    >
+                        <h2>
+                            ¿Desea eliminar esta solicitud?
+                        </h2>
+                    </Box>
+                    <Box
+                    sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    }}
+                    >
+                        <Button
+                        className='botonSi'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={async () => {
+                            const idRemisionValue = parseInt(idRemision);
+                            console.log(idRemisionValue);
+                            const eliminarRemision = await RemisionAJAXRequest.eliminarRemision(idRemisionValue);
+                            const remisiones = await RemisionAJAXRequest.remisiones();
+                            setCharactersList(remisiones);
+                            handleClose('modal3');
+                        }}
+                        >
+                            Si
+                        </Button>
+                        <Button
+                        className='botonNo'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={() => handleClose('modal3')}
+                        >
+                            No
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>           
         </Box>
         <Box
         sx={{

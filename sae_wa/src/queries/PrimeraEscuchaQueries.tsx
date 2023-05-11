@@ -1,4 +1,7 @@
 export const PrimeraEscuchaQueries = {
+
+    //queries
+
     primeraEscucha: `
         query MyQuery {
                 obtenerPrimerasescuchas {
@@ -7,6 +10,14 @@ export const PrimeraEscuchaQueries = {
                     observacion
                     realizada
             }
+        }
+    `,
+
+    //mutations
+
+    editarPrimeraEscucha: `
+        mutation MyMutation ($id: Int!, $item: PrimeraEscuchaInput!){
+            modificarPrimeraEscucha(id: $id, item: $item)
         }
     `
 }

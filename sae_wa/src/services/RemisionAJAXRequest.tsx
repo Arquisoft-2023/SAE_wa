@@ -36,5 +36,15 @@ export const RemisionAJAXRequest = {
                 item: item
             }
         });
-    }
+    },
+    eliminarRemision: async (id) => {
+        const { data } = await AJAXRequest (URI,{
+            query:
+                RemisionQueries.eliminarRemision,
+            variables: {
+                id: id
+            }
+        });
+        return data.data.eliminarRemision;
+    },
 }
