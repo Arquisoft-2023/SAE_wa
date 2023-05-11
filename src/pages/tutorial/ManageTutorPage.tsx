@@ -65,9 +65,10 @@ const ManageTutorP = (prop: myProps) => {
             try{
                 const response = await acompanyamientoService.ListAcompanyamientoService()
                 const {obtenerAcompanyamiento} = response.data.data
+                // console.log(*)
                 setdataListOrgin(obtenerAcompanyamiento)
                 setdataList(obtenerAcompanyamiento)
-                setrows(mapper(dataListOrgin))
+                setrows(mapper(obtenerAcompanyamiento))
             } catch(error){
                 console.log(error)
             }
