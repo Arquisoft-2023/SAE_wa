@@ -11,7 +11,7 @@ import ManageTutorialP from "../pages/tutorial/ManageTutorialPage"
 const UserTestDocente = {userEmail: "osman", userRol: rol.Docente}
 const UserTestStudent = {userEmail: "sebastian", userRol: rol.Estudiante}
 const UserTestBienestar = {userEmail: "sebastian", userRol: rol.Bienestar}
-const userTest = UserTestBienestar
+const userTest = UserTestDocente
 //
 
 import Homepage from "../pages/HomePage"

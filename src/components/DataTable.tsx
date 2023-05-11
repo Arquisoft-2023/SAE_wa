@@ -98,12 +98,17 @@ const DataTable = ({rows,columns, handle}) => {
                 <StyledTableCell align={column.align}>
                   {column.field === 'actionsEdit' ? (
                     <Tooltip title="Modificar estado">
-                      <IconButton onClick={() => handle(row)}>
+                      <IconButton 
+                      sx = {{
+                        width:"40px",
+                        backgroundColor:"green", 
+                      }}
+                      onClick={() => handle(row)}>
                         <EditIcon 
                           style={{ 
                             cursor: "pointer",
-                            transition:".3s ease all",
-                            
+                            color:"white",
+                            transition:".3s ease all",                           
                           }}
                           className='EditIcon'
                           // onClick={() => handleRowClick(row)}

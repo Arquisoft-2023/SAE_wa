@@ -28,7 +28,7 @@ export default function SelectLabels(prop: PropSplitButton) {
   const handleChange = (event: SelectChangeEvent) => {
     event.preventDefault()
     setSelect(event.target.value);
-    console.log({len: event.target.value.length, value: event.target.value, opc: name})
+    // console.log({len: event.target.value.length, value: event.target.value, opc: name})
     handle({len: event.target.value.length, value: event.target.value, opc: name})
   };
 

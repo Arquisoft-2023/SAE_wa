@@ -126,6 +126,8 @@ const ManageTutorP = (prop: myProps) => {
             return
         }
 
+        // TODO COMPROBAR QUE EL USUARIO EXISTE
+
         if(myAction === myActions.Assing){
             const response = await acompanyamientoService.assingTutorService(inputValue)
             if(response.status != 200) return alert("Error al guardar los datos")
