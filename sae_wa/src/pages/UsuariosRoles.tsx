@@ -7,6 +7,35 @@ import { UsuariosAJAXRequest } from "../services/UsuariosAJAXRequest";
 import { RolesAJAXRequest } from "../services/RolesAJAXRequest";
 
 const UsuariosRoles = () => {
+
+
+//Obtencion de los roles dentro del sistema
+const [rolesEnElSistema, SetRolesEnElSistema] = useState([]);
+const [rolesDiccionario, SetRolesDiccionario] = useState({});
+const [rolesDiccionarioReverse, SetRolesDiccionarioReverse] = useState({});
+useEffect(() => {
+  (async () => {
+    const rolesData = await RolesAJAXRequest.obtenerRoles();
+    console.log(rolesData);
+    const listaRoles= [];
+    for (let index = 0; index < rolesData.length; index++) {
+      listaRoles.push(rolesData[index].rol);
+    }
+    SetRolesEnElSistema(listaRoles);
+
+
+    const rolesDiccionario: { [key: string]: string } = {};
+    rolesData.forEach((rol) => { rolesDiccionario[rol.rol] = rol.rolId; });
+    SetRolesDiccionario(rolesDiccionario);
+    console.log(rolesDiccionario);
+
+    const rolesDiccionarioReverse: { [key: string]: string } = {};
+    rolesData.forEach((rol) => { rolesDiccionarioReverse[rol.rolId] = rol.rol; });
+    SetRolesDiccionarioReverse(rolesDiccionarioReverse);
+    console.log(rolesDiccionarioReverse);
+  })();
+}, []);
+
 // Mapeo de la tabla y los usuarios
 const [charactersList, setCharactersList] = useState([]);
 useEffect(() => {
@@ -23,7 +52,7 @@ const columns = [
 
 const rows = charactersList.map((item) => ({
   //Filas
-  rol: item.rolId,
+  rol: String(rolesDiccionarioReverse[String(item.rolId)]),
   usuarioUn: item.usuarioUn,
 }));
 
@@ -42,22 +71,6 @@ useEffect(() => {
   })();
 }, []);
 
-//Obtencion de los roles dentro del sistema
-const [rolesEnElSistema, SetRolesEnElSistema] = useState([]);
-const [rolesDiccionario, SetRolesDiccionario] = useState({});
-useEffect(() => {
-  (async () => {
-    const rolesData = await RolesAJAXRequest.obtenerRoles();
-    const listaRoles= [];
-    for (let index = 0; index < rolesData.length; index++) {
-      listaRoles.push(rolesData[index].rol);
-    }
-    SetRolesEnElSistema(listaRoles);
-    const rolesDiccionario: { [key: string]: string } = {};
-    rolesData.forEach((rol) => { rolesDiccionario[rol.rol] = rol.rolId; });
-    SetRolesDiccionario(rolesDiccionario);
-  })();
-}, []);
 
 
 
