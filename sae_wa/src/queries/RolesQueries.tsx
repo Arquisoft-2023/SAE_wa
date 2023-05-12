@@ -14,15 +14,16 @@ export const RolesQueries = {
         }
       }`,
   rolesEliminacion:
-    `mutation MyMutation ($rolABuscarId: String!)){
+    `mutation MyMutation ($rolABuscarId: String!){
       eliminarRol(rolABuscar: $rolABuscarId) {
-        rol
         rolId
+        rol
       }
-    }`,
+    }
+    `,
   rolesActualizacion:
-    `mutation MyMutation ($rolABuscarId: String!, $rolNuevo: String!)){
-      modificarNombreRol(rolABuscar: $rolAbuscarId, rolNuevo: $rolNuevo) {
+    `mutation MyMutation ($rolABuscarId: String!, $rolNuevo: String!){
+      modificarNombreRol(rolABuscar: $rolABuscarId, rolNuevo: $rolNuevo) {
         rol
         rolId
       }

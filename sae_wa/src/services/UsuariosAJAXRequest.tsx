@@ -26,13 +26,15 @@ export const UsuariosAJAXRequest = {
         return data.data.ingresarUsuario;
     },
     eliminarUsuario: async (item) => {
+        console.log(item);
         const { data } = await AJAXRequest (URI,{
             query:
                 UsuarioQueries.usuariosEliminacion,
             variables: {
-                usuarioUnABuscar: item.usuarioUn
+                usuarioUnABuscar: item
             }
         });
+        console.log(data);
         return data.data.eliminarUsuario;
     },
     modificarUsuario: async (item) => {

@@ -22,6 +22,7 @@ export const RolesAJAXRequest = {
         return data.data.ingresarRol;
     },
     eliminarRol: async (item) => {
+        console.log(item);
         const { data } = await AJAXRequest (URI,{
             query:
                 RolesQueries.rolesEliminacion,
@@ -32,13 +33,13 @@ export const RolesAJAXRequest = {
         console.log(data);
         return data.data.eliminarRol;
     },
-    modificarRol: async (item) => {
+    modificarRol: async (item1, item2) => {
         const { data } = await AJAXRequest (URI,{
             query:
                 RolesQueries.rolesActualizacion,
             variables: {
-                rolABuscarId: item.rolABuscarId,
-                rolNuevo: item.rolNuevo
+                rolABuscarId: item1,
+                rolNuevo: item2
             }
         });
         console.log(data);

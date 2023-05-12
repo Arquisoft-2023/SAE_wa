@@ -27,19 +27,19 @@ export const UsuariosRolesAJAXRequest = {
             query:
                 UsuariosRolesQueries.UsuariosRolesEliminacion,
             variables: {
-                usuarioUnAEliminar: item.usuarioUnAEliminar
+                usuarioUnAEliminar: item
             }
         });
         console.log(data);
         return data.data.eliminarUsuarioYRol;
     },
-    modificarRol: async (item) => {
+    modificarUsuarioRol: async (item1, item2) => {
         const { data } = await AJAXRequest (URI,{
             query:
                 UsuariosRolesQueries.UsuariosRolesActualizacion,
             variables: {
-                rolNuevoId: item.rolNuevoId,
-                usuarioUnABuscar: item.usuarioUnABuscar
+                rolNuevoId: item1,
+                usuarioUnABuscar: item2
             }
         });
         console.log(data);

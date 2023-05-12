@@ -21,7 +21,7 @@ export const UsuarioQueries = {
           usuarioUn
         }
       }`,
-      usuariosEliminacion:`mutation MyMutation ($usuarioUnABuscar: String!)) {
+      usuariosEliminacion:`mutation MyMutation ($usuarioUnABuscar: String!) {
         eliminarUsuario(usuarioUnABuscar: $usuarioUnABuscar) {
           apellidos
           documento

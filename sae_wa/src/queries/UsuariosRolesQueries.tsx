@@ -14,7 +14,7 @@ export const UsuariosRolesQueries = {
     }
   }`,
   UsuariosRolesEliminacion: `mutation MyMutation ($usuarioUnAEliminar: String!){
-    eliminarUsuarioYRol(usuarioUnABuscar: $usuarioUnAEliminar) {
+    eliminarUsuarioYRol(usuarioUnABuscar: $usuarioUnAEliminar)
   }`,
   UsuariosRolesActualizacion: `mutation MyMutation ($rolNuevoId: String!, $usuarioUnABuscar: String!) {
     modificarUsuarioYRol(rolNuevo: $rolNuevoId, usuarioUn: $usuarioUnABuscar)
