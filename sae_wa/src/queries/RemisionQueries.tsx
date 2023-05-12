@@ -22,6 +22,7 @@ export const RemisionQueries = {
         query MyQuery {
             obtenerRemisiones {
                 idRemision
+                idPrimeraEscucha
                 fechaEnvioRemision
                 tipoRemision
                 usuarioUnDocente
