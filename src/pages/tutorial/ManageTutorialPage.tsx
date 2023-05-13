@@ -461,7 +461,8 @@ const ManageTutorialP = (prop: myProps) => {
                                 sx={{
                                     display: "flex",
                                     flexDirection: "row",
-                                    alignContent: "center",
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                     width: "100%",
                                 }}>
                                     <Box
@@ -484,6 +485,7 @@ const ManageTutorialP = (prop: myProps) => {
                                     display: "flex",
                                     flexDirection: "row",
                                     alignContent: "center",
+                                    justifyContent: "center",
                                     width: "100%",
                                 }}>
                                     <Box
@@ -508,7 +510,8 @@ const ManageTutorialP = (prop: myProps) => {
                                 sx={{
                                     display: "flex",
                                     flexDirection: "row",
-                                    alignContent: "center",
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                     width: "100%",
                                 }}>
                                     <Box
