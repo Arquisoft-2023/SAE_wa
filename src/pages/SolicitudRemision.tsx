@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react'
 import { SolicitudRemisionAJAXRequest } from '../services/SolicitudRemisionAJAXRequest';
-import { Box, Button, Modal, TextField } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DataTable from '../components/DataTable2';
 import React from 'react';
+import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
 
 const SolicitudRemision = () => {
     
     const [charactersList, setCharactersList] = useState([]);
+    const [charactersList2, setCharactersList2] = useState([]);
     
     useEffect(() => {
         (async () => {
             const solicitudesRemision =  await SolicitudRemisionAJAXRequest.solicitudesRemision();
             setCharactersList(solicitudesRemision);
+            const tiposRemision = await TipoRemisionAJAXRequest.tiposRemision();
+            setCharactersList2(tiposRemision);
         })();
     }, []);
 
@@ -215,13 +219,32 @@ const SolicitudRemision = () => {
                     gap:"5px"
                 }}
                 >
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Tipo de Remision" 
-                        variant="outlined"
+                    <FormControl
+                    sx = {{
+                        m: 1,
+                    }}
+                    >
+                        <InputLabel id="estadoPrimeraEscuchaLabel">¿Realizada?</InputLabel>
+                        <Select
+                        labelId="estadoPrimeraEscuchaLabelId"
+                        id="estadoPrimeraEscucha"
                         value={idTipoRemision}
+                        label="Tipos de Remision"
+                        autoWidth
                         onChange={(e) => setIdTipoRemision(e.target.value)}
-                    />
+                        sx={{textAlign:"center"}}
+                        >
+                            {charactersList2.map((item) => (
+                            <MenuItem
+                                key={item.idTipoRemision}
+                                value={item.idTipoRemision}
+                                sx={{ textAlign: "center", ":hover": { background: "lightGrey" } }}
+                            >
+                                {item.tipoRemision}
+                            </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <TextField 
                         id="outlined-basic" 
                         label="Estudiante" 
