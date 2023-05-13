@@ -42,14 +42,14 @@ const DataTable = ({rows,columns}) => {
     >
       <Table 
       sx={{
-        maxWidth: 1000,
-        minWidth: 700
+        maxWidth: 1200,
+        minWidth: 1000
       }} 
       aria-label="customized table">
       <TableHead>
         <TableRow>
           {columns.map((column) => (
-            <StyledTableCell align={column.align}>
+            <StyledTableCell align={column.align} key = {column.field}>
               {column.headerName}
             </StyledTableCell>
           ))}

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import DataTable from '../components/DataTable';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+import DataTable from '../components/DataTable2';
 import React from 'react';
 
 const TipoRemision = () => {
@@ -12,21 +14,46 @@ const TipoRemision = () => {
         (async () => {
             const tiposRemision =  await TipoRemisionAJAXRequest.tiposRemision();
             setCharactersList(tiposRemision);
-
         })();
     }, []);
 
-    const columns = [
-        {field: 'idTipoRemision', headerName: 'ID', align: "center"},
-        {field: 'tipoRemision', headerName: 'TIPO DE REMISIÓN', align: "center"},
+    const columns = [  
+        { field: 'idTipoRemision', headerName: 'ID', align: "center" },  
+        { field: 'tipoRemision', headerName: 'TIPO DE REMISIÓN', align: "center" },  
+        { field: 'acciones', headerName: 'ACCIONES', align: "center" }
     ];
 
-    charactersList.forEach((item)=>{
-        console.log(item.idTipoRemision);
-    });
 
+    
     const rows = charactersList.map((item) => ({
-        idTipoRemision: item.idTipoRemision, tipoRemision: item.tipoRemision,
+        idTipoRemision: item.idTipoRemision, 
+        tipoRemision: item.tipoRemision,
+        acciones: 
+        <Box 
+        sx={{
+            display: 'flex',
+            gap: "10px",
+            alignItems:"center",
+            justifyContent:"center"
+        }}
+        >
+            <Button 
+            startIcon={<DeleteForeverIcon sx={{color:"white"}}/>}
+            sx={{
+                width:"40px",
+                backgroundColor:"red",
+            }}
+            >
+            </Button>
+            <Button 
+            startIcon={<EditIcon sx={{color:"white"}}/>}
+            sx={{
+                width:"40px",
+                backgroundColor:"green",
+            }}
+            >
+            </Button>
+        </Box>
     }))
 
     const [open, setOpen] = React.useState(false);

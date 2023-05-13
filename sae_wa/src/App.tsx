@@ -4,6 +4,7 @@ import MyRoutes from "./routers/MyRoutes";
 import {BrowserRouter} from "react-router-dom";
 import SideBar from "./components/SideBar";
 import { useState } from "react";
+import { SnackbarProvider } from "notistack";
 
 
 function App() {
@@ -12,21 +13,30 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Box className={sidebarOpen  ? "sidebarState active":""}
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "90px auto",
-          transition: "all 0.3s",
-          "&.active": {
-            gridTemplateColumns: "300px auto"
-          }
+      <SnackbarProvider
+        autoHideDuration={2000}
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
         }}
-        >
-            <SideBar sidebarOpen = {sidebarOpen} setSidebarOpen = {setSidebarOpen}/>
-            <MyRoutes/>
-        </Box>
-      </BrowserRouter>
+      >
+        <BrowserRouter>
+          <Box className={sidebarOpen  ? "sidebarState active":""}
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "90px auto",
+            transition: "all 0.3s",
+            "&.active": {
+              gridTemplateColumns: "300px auto"
+            }
+          }}
+          >
+              <SideBar sidebarOpen = {sidebarOpen} setSidebarOpen = {setSidebarOpen}/>
+              <MyRoutes/>
+          </Box>
+        </BrowserRouter>
+      </SnackbarProvider>
     </>
   );
 }
