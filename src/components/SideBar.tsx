@@ -1,10 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography} from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
-import HomeIcon from '@mui/icons-material/Home';
-import React from 'react'
-import logo from '../assets/Logo.png';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import {NavLink} from "react-router-dom"
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import HomeIcon from "@mui/icons-material/Home";
+import React from "react";
+import logo from "../assets/Logo.png";
+import { ExpandMore } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
   const ModSidebarOpen=()=>{
@@ -214,8 +214,32 @@ const linksFuncionalidades = [
 {
   label:"Tutorias",
   text:"Tutorias",
-  links:[] 
+  links:[
+    {
+      textl:"Gestionar tutor",
+      to:"/tutorias/tutor"
+    },
+    {
+      textl:"Ver tutorias",
+      to:"/tutorias/ver"
+    },
+    {
+      textl:"Gestionar tutorias",
+      to:"/tutorias/tutorias"
+    }
+  ] 
 },
+{
+  label:"Observaciones",
+  text:"Observaciones",
+  links:[
+    {
+      textl:"Obervaciones",
+      to:"/observaciones/obs"
+    }
+  ]
+},
+/// 
 {
   label:"GestionUsuarios",
   text:"Gestion de Usuarios",
