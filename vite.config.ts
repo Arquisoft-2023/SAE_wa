@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+
 import "dotenv/config";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 const PORT = Number(process.env.PORT || 5000);
 const URI = <string>process.env.URI || 'http://localhost';
@@ -12,5 +13,5 @@ export default defineConfig({
     port: PORT,
     host: URI,
   },
-
+  base: "/sae"
 });

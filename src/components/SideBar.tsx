@@ -1,11 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography} from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { ExpandMore } from '@mui/icons-material';
-import HomeIcon from '@mui/icons-material/Home';
-import {NavLink} from "react-router-dom"
-import React from 'react'
 
-import logo from '../assets/Logo.png';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import HomeIcon from "@mui/icons-material/Home";
+import React from "react";
+import logo from "../assets/Logo.png";
+import { ExpandMore } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
   const ModSidebarOpen=()=>{
@@ -129,9 +129,10 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           <Typography>{text}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {links.map(({textl,to})=>(
+          {links.map(({textl,to,label2})=>(
             <Box
             className="LinkContainer"
+            key={label2}
             sx={{
               display:"flex",
               justifyContent:"center",
@@ -190,24 +191,27 @@ const linksFuncionalidades = [
   text:"Remisiones",
   links:[
     {
+      label2:"Tipos de Remision",
       textl:"Tipos de Remision",
       to:"/tipo_remision"
     },
     {
-      textl:"Generar Solicitud",
+      label2:"Solicitudes de Remision",
+      textl:"Solicitudes de Remision",
       to:"/solicitud_remision"
     },
     {
+      label2:"Primeras Escuchas",
       textl:"Primeras Escuchas",
       to:"/primera_escucha"
     },
     {
+      label2:"Remisiones",
       textl:"Remisiones",
       to:"/remision"
     }
   ]
 },
-// TUTORIAS
 {
   label:"Tutorias",
   text:"Tutorias",
@@ -235,8 +239,28 @@ const linksFuncionalidades = [
       to:"/observaciones/obs"
     }
   ]
+},
+{
+  label:"GestionUsuarios",
+  text:"Gestion de Usuarios",
+  links:[
+    {
+      label2:"Usuarios",
+      textl:"Usuarios",
+      to:"/usuarios"
+    },
+    {
+      label2:"Roles",
+      textl:"Roles",
+      to:"/roles"
+    },
+    {
+      label2:"UsuariosRoles",
+      textl:"Usuarios y Roles",
+      to:"/usuarios_roles"
+    },
+  ] 
 }
-/// 
 ]
 
 export default SideBar;
