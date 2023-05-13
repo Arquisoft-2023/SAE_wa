@@ -215,6 +215,27 @@ const linksFuncionalidades = [
   label:"Tutorias",
   text:"Tutorias",
   links:[] 
+},
+{
+  label:"GestionUsuarios",
+  text:"Gestion de Usuarios",
+  links:[
+    {
+      label2:"Usuarios",
+      textl:"Usuarios",
+      to:"/usuarios"
+    },
+    {
+      label2:"Roles",
+      textl:"Roles",
+      to:"/roles"
+    },
+    {
+      label2:"UsuariosRoles",
+      textl:"Usuarios y Roles",
+      to:"/usuarios_roles"
+    },
+  ] 
 }
 ]
 
