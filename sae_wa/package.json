@@ -20,7 +20,8 @@
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.0",
+    "react-router-dom": "^6.11.1",
+    "zustand": "^4.3.8"
     "styled-components": "^5.3.10"
   },
   "devDependencies": {
