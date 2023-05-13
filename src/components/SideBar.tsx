@@ -1,3 +1,4 @@
+
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import HomeIcon from "@mui/icons-material/Home";
 import React from "react";
@@ -14,7 +15,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
     <Box>
       <Box className = "sidebarButton"
       sx = {{
-        position: "sticky",
+        position: "sticky"
       }}
       onClick={ModSidebarOpen}
       >
@@ -239,7 +240,6 @@ const linksFuncionalidades = [
     }
   ]
 },
-/// 
 {
   label:"GestionUsuarios",
   text:"Gestion de Usuarios",

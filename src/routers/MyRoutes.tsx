@@ -1,3 +1,4 @@
+
 import Homepage from "../pages/HomePage";
 import ManageObsP from "../pages/tutorial/ManageObsPage";
 import ManageTutorP from "../pages/tutorial/ManageTutorPage";
@@ -21,10 +22,9 @@ const UserTestBienestar = {userEmail: "sebastian", userRol: rol.Bienestar}
 const userTest = UserTestDocente
 //
 
+
 const MyRoutes = () => {
-
   return (
-
     <Routes>
         <Route path="/" element={<Homepage/>}/>
         <Route path="/tipo_remision" element={<TipoRemision/>}/>
@@ -42,5 +42,6 @@ const MyRoutes = () => {
 
   )
 }
+
 
 export default MyRoutes;
