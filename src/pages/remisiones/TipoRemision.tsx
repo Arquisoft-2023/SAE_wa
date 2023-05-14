@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
+import { TipoRemisionAJAXRequest } from '../../services/remisiones/TipoRemisionAJAXRequest';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import DataTable from '../components/DataTable2';
+import DataTable from '../../components/DataTable2';
 import React from 'react';
 
 const TipoRemision = () => {

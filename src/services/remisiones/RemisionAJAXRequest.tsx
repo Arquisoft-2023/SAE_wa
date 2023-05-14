@@ -1,5 +1,5 @@
-import { RemisionQueries } from "../queries/RemisionQueries"
-import { AJAXRequest } from "../utils/AJAXRequest"
+import { RemisionQueries } from "../../queries/remisiones/RemisionQueries"
+import { AJAXRequest } from "../../utils/AJAXRequest"
 
 const URI = "remisiones/remisiones"
 

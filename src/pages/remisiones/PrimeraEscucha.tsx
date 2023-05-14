@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { PrimeraEscuchaAJAXRequest } from '../services/PrimeraEscuchaAJAXRequest';
+import { PrimeraEscuchaAJAXRequest } from '../../services/remisiones/PrimeraEscuchaAJAXRequest';
 import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Typography } from '@mui/material';
-import DataTable from '../components/DataTable2';
+import DataTable from '../../components/DataTable2';
 import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
-import { RemisionAJAXRequest } from '../services/RemisionAJAXRequest';
+import { RemisionAJAXRequest } from '../../services/remisiones/RemisionAJAXRequest';
 
 const PrimeraEscucha = () => {
     

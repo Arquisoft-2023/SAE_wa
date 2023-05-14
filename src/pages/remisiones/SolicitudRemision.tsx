@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { SolicitudRemisionAJAXRequest } from '../services/SolicitudRemisionAJAXRequest';
+import { SolicitudRemisionAJAXRequest } from '../../services/remisiones/SolicitudRemisionAJAXRequest';
 import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import DataTable from '../components/DataTable2';
+import DataTable from '../../components/DataTable2';
 import React from 'react';
-import { TipoRemisionAJAXRequest } from '../services/TipoRemisionAJAXRequest';
+import { TipoRemisionAJAXRequest } from '../../services/remisiones/TipoRemisionAJAXRequest';
 
 const SolicitudRemision = () => {
     

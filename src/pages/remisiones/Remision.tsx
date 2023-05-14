@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { RemisionAJAXRequest } from '../services/RemisionAJAXRequest';
+import { RemisionAJAXRequest } from '../../services/remisiones/RemisionAJAXRequest';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import DataTable from '../components/DataTable2';
+import DataTable from '../../components/DataTable2';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
