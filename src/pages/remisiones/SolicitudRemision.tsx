@@ -7,6 +7,11 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import DataTable from '../../components/DataTable2';
 import React from 'react';
 import { TipoRemisionAJAXRequest } from '../../services/remisiones/TipoRemisionAJAXRequest';
+import Date2 from '../../components/Date2';
+import dayjs, { Dayjs } from 'dayjs';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
 const SolicitudRemision = () => {
     
@@ -70,6 +75,10 @@ const SolicitudRemision = () => {
                 width:"40px",
                 backgroundColor:"green",
             }}
+            onClick={() => {
+                setIdSolicitudRemision(item.idSolicitudRemision);
+                handleOpen('modal5');
+            }}
             >
             </Button>
             <Button 
@@ -77,6 +86,10 @@ const SolicitudRemision = () => {
             sx={{
                 width:"40px",
                 backgroundColor:"blue",
+            }}
+            onClick={() => {
+                setIdSolicitudRemision(item.idSolicitudRemision);
+                handleOpen('modal6');
             }}
             >
             </Button>
@@ -87,6 +100,8 @@ const SolicitudRemision = () => {
     const [openModal2, setOpenModal2] = React.useState(false);
     const [openModal3, setOpenModal3] = React.useState(false);
     const [openModal4, setOpenModal4] = React.useState(false);
+    const [openModal5, setOpenModal5] = React.useState(false);
+    const [openModal6, setOpenModal6] = React.useState(false);
 
     const handleOpen = (modal) => {
         switch (modal) {
@@ -101,6 +116,12 @@ const SolicitudRemision = () => {
                 break;
             case 'modal4':
                 setOpenModal4(true);
+                break;
+            case 'modal5':
+                setOpenModal5(true);
+                break;
+            case 'modal6':
+                setOpenModal6(true);
                 break;
             default:
                 break;
@@ -121,6 +142,12 @@ const SolicitudRemision = () => {
             case 'modal4':
                 setOpenModal4(false);
                 break;
+            case 'modal5':
+                setOpenModal5(false);
+                break;
+            case 'modal6':
+                setOpenModal6(false);
+                break;
             default:
                 break;
         }
@@ -133,6 +160,7 @@ const SolicitudRemision = () => {
     const [justificacion, setJustificacion] = useState('');
 
     const [idSolicitudRemision, setIdSolicitudRemision] = useState('');
+    const [value, setValue] = React.useState<Dayjs | null>(dayjs());
 
 
     return (
@@ -406,6 +434,236 @@ const SolicitudRemision = () => {
                         onClick={() => handleClose('modal2')}
                         >
                             No
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>
+            <Modal
+            className='editarSolicitud'
+            open={openModal5}
+            onClose={() => handleClose('modal5')}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+                <Box
+                className=''
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    flexDirection: "column",
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,
+                    gap: "10px"
+                }}
+                >
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                    }}
+                    >
+                        <h2>
+                            Editar Solicitud de Remisión
+                        </h2>
+                    </Box>
+                    <Box>
+                        <FormControl
+                        sx = {{
+                            m: 1,
+                        }}
+                        >
+                            <InputLabel id="estadoPrimeraEscuchaLabel">¿Realizada?</InputLabel>
+                            <Select
+                            labelId="estadoPrimeraEscuchaLabelId"
+                            id="estadoPrimeraEscucha"
+                            value={idTipoRemision}
+                            label="Tipos de Remision"
+                            autoWidth
+                            onChange={(e) => setIdTipoRemision(e.target.value)}
+                            sx={{textAlign:"center"}}
+                            >
+                                {charactersList2.map((item) => (
+                                <MenuItem
+                                    key={item.idTipoRemision}
+                                    value={item.idTipoRemision}
+                                    sx={{ textAlign: "center", ":hover": { background: "lightGrey" } }}
+                                >
+                                    {item.tipoRemision}
+                                </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <TextField 
+                        id="outlined-basic" 
+                        label="UsuarioUnEstudiante" 
+                        variant="outlined"
+                        value={usuarioUnEstudiante}
+                        onChange={(e) => {
+                            setUsuarioUnEstudiante(e.target.value);
+                        }}
+                        />
+                        <TextField 
+                        id="outlined-basic" 
+                        label="ProgramaCurricular" 
+                        variant="outlined"
+                        value={programaCurricular}
+                        onChange={(e) => {
+                            setProgramaCurricular(e.target.value);
+                        }}
+                        />
+                        <TextField 
+                        id="outlined-basic" 
+                        label="UsuarioUnEDocente" 
+                        variant="outlined"
+                        value={usuarioUnDocente}
+                        onChange={(e) => {
+                            setUsuarioUnDocente(e.target.value);
+                        }}
+                        />
+                        <TextField 
+                        id="outlined-basic" 
+                        label="Justificacion"
+                        variant="outlined"
+                        value={justificacion}
+                        onChange={(e) => {
+                            setJustificacion(e.target.value);
+                        }}
+                        />
+                    </Box>
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        }}
+                    >
+                        <Button
+                        className='botonGuardar'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={async () => {
+                            const idSolicitudRemisionValue = parseInt(idSolicitudRemision);
+                            const editarRemisionArray = {
+                                idTipoRemision: parseInt(idTipoRemision),
+                                usuarioUnEstudiante: usuarioUnEstudiante,
+                                programaCurricular: programaCurricular,
+                                usuarioUnDocente: usuarioUnDocente,
+                                justificacion: justificacion
+                            };
+                            const editarSolicitud = await SolicitudRemisionAJAXRequest.editarSolicitud(idSolicitudRemisionValue, editarRemisionArray);
+                            const solicitudesRemision = await SolicitudRemisionAJAXRequest.solicitudesRemision();
+                            setCharactersList(solicitudesRemision);
+                            handleClose('modal5');
+                        }}
+                        disabled={!Boolean(idTipoRemision) || !Boolean(usuarioUnEstudiante) || !Boolean(programaCurricular) || !Boolean(usuarioUnDocente) || !Boolean(justificacion)}
+                        >
+                            Guardar
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>
+            <Modal
+            className='modal6'
+            open={openModal6}
+            onClose={() => handleClose('modal6')}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+                <Box
+                className=''
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    flexDirection: "column",
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,
+                    gap: "10px"
+                }}
+                >
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                    }}
+                    >
+                        <h2>
+                            Generar Remisión
+                        </h2>
+                    </Box>
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                    }}
+                    >
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['DatePicker', 'DatePicker']}>
+                            <DatePicker
+                            label="Controlled picker"
+                            value={value}
+                            onChange={(newValue) => setValue(newValue)}
+                            />
+                        </DemoContainer>
+                        </LocalizationProvider>
+                    </Box>
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                    }}
+                    >
+                        <Button
+                        className='botonGuardar'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={async () => {
+                            handleClose('modal6');
+                            console.log(value)
+                        }}
+                        >
+                            Crear
                         </Button>
                     </Box>
                 </Box>

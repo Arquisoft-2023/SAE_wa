@@ -43,6 +43,10 @@ const TipoRemision = () => {
                 width:"40px",
                 backgroundColor:"red",
             }}
+            onClick={async () => {
+                setIdTipoRemision(item.idTipoRemision);
+                handleOpen('modal2');
+            }}
             >
             </Button>
             <Button 
@@ -51,16 +55,53 @@ const TipoRemision = () => {
                 width:"40px",
                 backgroundColor:"green",
             }}
+            onClick={async () => {
+                setIdTipoRemision(item.idTipoRemision);
+                handleOpen('modal3');
+            }}
             >
             </Button>
         </Box>
     }))
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [openModal1, setOpenModal1] = React.useState(false);
+    const [openModal2, setOpenModal2] = React.useState(false);
+    const [openModal3, setOpenModal3] = React.useState(false);
 
+    const handleOpen = (modal) => {
+        switch (modal) {
+            case 'modal1':
+                setOpenModal1(true);
+                break;
+            case 'modal2':
+                setOpenModal2(true);
+                break;
+            case 'modal3':
+                setOpenModal3(true);
+                break;            
+            default:
+                break;
+        }
+      };
+
+      const handleClose = (modal) => {
+        switch (modal) {
+            case 'modal1':
+                setOpenModal1(false);
+                break;
+            case 'modal2':
+                setOpenModal2(false);
+                break;
+            case 'modal3':
+                setOpenModal3(false);
+                break;
+            default:
+                break;
+        }
+      };
+    
     const [tipoRemision, setTipoRemision] = useState('');
+    const [idTipoRemision, setIdTipoRemision] = useState('');
 
 
     return (
@@ -99,10 +140,10 @@ const TipoRemision = () => {
                     background:"DarkGrey",
                   }
             }}
-            onClick={handleOpen}>Crear Remision</Button>
+            onClick={() => handleOpen('modal1')}>Crear Tipo Remision</Button>
             <Modal
-            open={open}
-            onClose={handleClose}
+            open={openModal1}
+            onClose={() => handleClose('modal1')}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
@@ -180,7 +221,7 @@ const TipoRemision = () => {
                     const crearTipoRemision = await TipoRemisionAJAXRequest.crearTipoRemision(tipoRemisionArray);
                     const tiposRemision = await TipoRemisionAJAXRequest.tiposRemision();
                     setCharactersList(tiposRemision);
-                    handleClose();
+                    handleClose('modal1');
                 }}
                 disabled={!Boolean(tipoRemision)}
                 >
@@ -188,6 +229,190 @@ const TipoRemision = () => {
                 </Button>
                 </Box>
             </Box>
+            </Modal>
+            <Modal
+            open={openModal2}
+            onClose={() => handleClose('modal2')}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box 
+            className = "crearTipoRemision"
+            sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                flexDirection: "column",
+                position: 'absolute' as 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                boxShadow: 24,
+                p: 4,
+                gap: "10px"
+            }}
+            >
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                }}
+                >
+                    <h2>
+                        ¿Desea eliminar este Tipo de Remisión?
+                    </h2>
+                </Box>
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                }}
+                >
+                    <Button
+                        className='botonSi'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={async () => {
+                            const idTipoRemisionValue = parseInt(idTipoRemision);
+                            const eliminarRemision = await TipoRemisionAJAXRequest.eliminarTipoRemision(idTipoRemisionValue);
+                            const tiposRemision = await TipoRemisionAJAXRequest.tiposRemision();
+                            setCharactersList(tiposRemision);
+                            handleClose('modal2');
+                        }}
+                        >
+                            Si
+                    </Button>
+                </Box>
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                }}
+                >
+                    <Button
+                        className='botonNo'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={() => handleClose('modal2')}
+                        >
+                            No
+                    </Button>
+                </Box>
+            </Box>
+            </Modal>
+            <Modal
+            open={openModal3}
+            onClose={() => handleClose('modal3')}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+                <Box
+                className=''
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    flexDirection: "column",
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,
+                    gap: "10px"
+                }}
+                >
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                    }}
+                    >
+                        <h2>
+                            Editar Tipo de Remisión
+                        </h2>
+                    </Box>
+                    <Box>
+                        <TextField 
+                        id="outlined-basic" 
+                        label="UsuarioUN" 
+                        variant="outlined"
+                        value={tipoRemision}
+                        onChange={(e) => {
+                            setTipoRemision(e.target.value);
+                        }}
+                        />
+                    </Box>
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        }}
+                    >
+                        <Button
+                        className='botonGuardar'
+                        sx={{
+                            display:"block",
+                            padding:"10px 30px",
+                            borderRadius:"100px",
+                            color:"#fff",
+                            border:"none",
+                            background:"black",
+                            cursor:"pointer",
+                            transition:".3s ease all",
+                            ":hover": {
+                                background:"DarkGrey",
+                            }
+                        }}
+                        onClick={async () => {
+                            const tipoRemisionString = {
+                                tipoRemision: tipoRemision
+                            };
+                            const idTipoRemisionValue = parseInt(idTipoRemision);
+                            const editarTipoRemision = await TipoRemisionAJAXRequest.editarTipoRemision(idTipoRemisionValue,tipoRemisionString);
+                            const tiposRemision = await TipoRemisionAJAXRequest.tiposRemision();
+                            setCharactersList(tiposRemision);
+                            handleClose('modal3');
+                        }}
+                        disabled={!Boolean(tipoRemision)}
+                        >
+                            Guardar
+                        </Button>
+                    </Box>
+                </Box>
             </Modal>
         </Box>
         <Box

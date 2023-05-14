@@ -65,14 +65,6 @@ const Remision = () => {
             }}
             >
             </Button>
-            <Button 
-            startIcon={<EditIcon sx={{color:"white"}}/>}
-            sx={{
-                width:"40px",
-                backgroundColor:"green",
-            }}
-            >
-            </Button>
         </Box>
     }))
 
@@ -465,7 +457,7 @@ const Remision = () => {
                     }}
                     >
                         <h2>
-                            ¿Desea eliminar esta solicitud?
+                            ¿Desea eliminar esta Solicitud?
                         </h2>
                     </Box>
                     <Box
