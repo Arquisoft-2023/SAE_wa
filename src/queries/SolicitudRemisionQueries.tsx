@@ -40,5 +40,10 @@ export const SolicitudRemisionQueries = {
         mutation MyMutation ($id: Int!){
             eliminarSolicitud(id: $id)
         }
+    `,
+    editarSolicitud:`
+        mutation MyMutation ($id: Int!, $item: EditSolicitudRemision!){
+            editarSolicitud(id: $id, item: $item)
+        }
     `
 }

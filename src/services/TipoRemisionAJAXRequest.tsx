@@ -19,5 +19,24 @@ export const TipoRemisionAJAXRequest = {
       }
     });
     return data.data.crearTipoRemision;
+  },
+  editarTipoRemision: async (id, item) => {
+    const { data } = await AJAXRequest(URI, {
+      query: TipoRemisionQueries.editarTipoRemision,
+      variables: {
+        id: id,
+        item: item
+      }
+    });
+    return data.data.editarTipoRemision;
+  },
+  eliminarTipoRemision: async (id) => {
+    const { data } = await AJAXRequest(URI, {
+      query: TipoRemisionQueries.eliminarTipoRemision,
+      variables: {
+        id: id
+      }
+    })
+    return data.data.eliminarTipoRemision;
   }
 };

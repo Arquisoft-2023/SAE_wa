@@ -31,5 +31,16 @@ export const SolicitudRemisionAJAXRequest = {
         });
         return data.data.generarSolicitud;
     },
+    editarSolicitud: async (id,item) => {
+        const { data } = await AJAXRequest (URI,{
+            query:
+                SolicitudRemisionQueries.editarSolicitud,
+            variables: {
+                id: id,
+                item: item
+            }
+        });
+        return data.data.editarSolicitud;
+    }
 
 }
