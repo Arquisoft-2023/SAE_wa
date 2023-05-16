@@ -129,7 +129,6 @@ const ManageTutorP = (prop: myProps) => {
         if(myAction === myActions.Assing){
             const response = await acompanyamientoService.assingTutorService(inputValue)
             if(response.status != 200) return alert("Error al guardar los datos")
-            
             const {asignarTutor} = response.data.data
             if(asignarTutor.usuarioUnEstudiante == "El usuario no existe") return alert("El estudiante no existe")
             if(asignarTutor.usuarioUnTutor == "El usuario no existe") return alert("El tutor no existe")
@@ -137,6 +136,9 @@ const ManageTutorP = (prop: myProps) => {
         }
         else if(myAction === myActions.Modify){
             const response = await acompanyamientoService.UpdateTutorService(inputValue)
+            const {actualizarTutor} = response.data.data
+            console.log(actualizarTutor)
+            if(actualizarTutor.includes("El usuario no existe")) return alert("El usuario no existe")
             if(response.status != 200) return alert("Error al guardar los datos")
             // const {actualizarTutor} = response.data.data
         }
