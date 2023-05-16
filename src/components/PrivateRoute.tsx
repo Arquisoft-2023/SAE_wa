@@ -12,8 +12,8 @@ const PrivateRoute = ({ isSignedIn, type, children }) => {
     if (type === "home") {
       return children;
     } else if (type) {
+      return children;
       if (rolesByLink(type, usuarioRol)) {
-        return children;
       } else {
         return <Navigate to={"/home"} replace />;
       }
