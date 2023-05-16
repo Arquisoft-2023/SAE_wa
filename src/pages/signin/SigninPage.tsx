@@ -24,28 +24,38 @@ const SigninPage = () => {
     event.preventDefault();
     setLoadingState(true);
     console.log(usuarioUn);
-    try {
-      const result = await axios.post("http://127.0.0.8:3121/auth/signin", {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        query: signinQueries.signin,
-        variables: {
-          usuarioUnSearch: usuarioField
+    //BACKDOOR FOR DEV
+    if (usuarioField === "devsae") {
+      setUser("devsae", "bienestar");
+      setTimeout(() => {
+        setLoadingState(false);
+        navigate("/home");
+      }, 4000);
+    } else {
+      //PRODUCTION
+      try {
+        const result = await axios.post("http://127.0.0.8:3121/auth/signin", {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          query: signinQueries.signin,
+          variables: {
+            usuarioUnSearch: usuarioField
+          }
+        });
+        if (result.data.data.signin) {
+          const { usuarioUn, token, estado } = result.data.data.signin;
+          setUser(usuarioUn, "docente");
+          setTimeout(() => {
+            setLoadingState(false);
+            navigate("/home");
+          }, 4000);
         }
-      });
-      if (result.data.data.signin) {
-        const { usuarioUn, token, estado } = result.data.data.signin;
-        setUser(usuarioUn, "docente");
-        setTimeout(() => {
-          setLoadingState(false);
-          navigate("/home");
-        }, 4000);
+      } catch (error) {
+        console.log(error);
+        alert("Signin Failed");
+        setLoadingState(false);
       }
-    } catch (error) {
-      console.log(error);
-      alert("Signin Failed");
-      setLoadingState(false);
     }
   };
 
