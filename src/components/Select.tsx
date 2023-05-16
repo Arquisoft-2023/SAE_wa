@@ -46,8 +46,8 @@ export default function SelectLabels(prop: PropSplitButton) {
           <MenuItem value={name}>
             <em>{name}</em>
           </MenuItem>
-            {option.map((element) => (
-            <MenuItem value={element}>{element}</MenuItem>
+            {option.map((element, index) => (
+            <MenuItem key={index} value={element}>{element}</MenuItem>
             ))}
         </Select>
         {/* <FormHelperText>With label + helper text</FormHelperText> */}

@@ -126,13 +126,13 @@ const ManageTutorP = (prop: myProps) => {
             return
         }
 
-        // TODO COMPROBAR QUE EL USUARIO EXISTE
-
         if(myAction === myActions.Assing){
             const response = await acompanyamientoService.assingTutorService(inputValue)
             if(response.status != 200) return alert("Error al guardar los datos")
             
             const {asignarTutor} = response.data.data
+            if(asignarTutor.usuarioUnEstudiante == "El usuario no existe") return alert("El estudiante no existe")
+            if(asignarTutor.usuarioUnTutor == "El usuario no existe") return alert("El tutor no existe")
             if(asignarTutor.usuarioUnTutor != inputValue.usuarioUnTutor) return alert("Ya tiene un tutor asignado. El tutor es: " + asignarTutor.usuarioUnTutor)
         }
         else if(myAction === myActions.Modify){

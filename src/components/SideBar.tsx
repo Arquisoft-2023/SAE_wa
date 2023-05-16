@@ -2,12 +2,14 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoSae from "./LogoSae";
 import LogoutIcon from "@mui/icons-material/Logout";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { Badge, IconButton } from "@mui/material";
 import { NavLink, Navigate } from "react-router-dom";
 import { useStore } from "zustand";
 import { userStore } from "../state/zustand";
+
+import { acompanyamientoService } from '../services/tutorial/AcompanyamientoAJAXRequest'
 
 import {
   Accordion,
@@ -19,14 +21,32 @@ import {
 } from "@mui/material";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
-  const { clearUser, usuarioRol } = useStore(userStore);
+  const { clearUser, usuarioRol, usuarioUn  } = useStore(userStore);
+  const [tutor, setTutor] = useState("Sin asignar");
+
   const usuarioRolModified = usuarioRol
     ? usuarioRol.charAt(0).toUpperCase() + usuarioRol.slice(1)
     : null;
 
+  const handleGetTutor = async (): Promise<any> => {
+    try {
+      const res = await acompanyamientoService.GetTutorService(usuarioUn);
+      if(res?.status === 200 && !(res.data.data.obtenerTutor.includes("400"))){
+        setTutor(res.data.data.obtenerTutor)
+      } 
+    } catch (error) {
+      alert(`Error: $error`);
+    }
+  }
+
+  useEffect(() => {
+      handleGetTutor();
+  },[]);
+
   const handleLogout = () => {
     try {
       <Navigate to={"/signin"} />;
+      setTutor("Sin asignar")
       clearUser();
     } catch (error) {
       alert(`Error: $error`);
@@ -165,6 +185,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
               marginTop: "3rem"
             }}
           >
+          {usuarioRolModified === "Estudiante" ?
             <Typography
               sx={{
                 fontSize: "0.7rem",
@@ -172,8 +193,10 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
                 padding: "5px"
               }}
             >
-              Tutor: {"Sebastian Hernandez"}
+                Tutor: {tutor}
             </Typography>
+            : ""
+          }
           </Box>
         </Box>
       ) : (

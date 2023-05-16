@@ -33,7 +33,7 @@ const SaeRoutes = () => {
     userEmail: usuarioUn,
     userRol: rol[usuarioRolModified]
   };
-  // console.log(objectTutorias);
+  console.log(objectTutorias);
   // console.log(usuarioRolModified);
 
   return (
