@@ -1,93 +1,49 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { UsuariosRolesAJAXRequest } from "../services/UsuariosRolesAJAXRequest";
-import {
-  Box,
-  Button,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import DataTable from "../components/DataTable";
-import { UsuariosAJAXRequest } from "../services/UsuariosAJAXRequest";
-import { RolesAJAXRequest } from "../services/RolesAJAXRequest";
+import DataTable from "../../components/DataTable";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import React, { useEffect } from "react";
+import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { RolesAJAXRequest } from "../../services/RolesAJAXRequest";
 
-const UsuariosRoles = () => {
-  //Obtencion de los roles dentro del sistema
-  const [rolesEnElSistema, SetRolesEnElSistema] = useState([]);
-  const [rolesDiccionario, SetRolesDiccionario] = useState({});
-  const [rolesDiccionarioReverse, SetRolesDiccionarioReverse] = useState({});
-
- 
-   useEffect (() => {
-    (async () => {
-      const rolesData = await RolesAJAXRequest.obtenerRoles();
-      const listaRoles = [];
-      for (let index = 0; index < rolesData.length; index++) {
-        listaRoles.push(rolesData[index].rol);
-      }
-      SetRolesEnElSistema(listaRoles);
-
-      const rolesDiccionario: { [key: string]: string } = {};
-      rolesData.forEach((rol) => {
-        rolesDiccionario[rol.rol] = rol.rolId;
-      });
-      SetRolesDiccionario(rolesDiccionario);
-
-      const rolesDiccionarioReverse: { [key: string]: string } = {};
-      rolesData.forEach((rol) => {
-        rolesDiccionarioReverse[rol.rolId] = rol.rol;
-      });
-      SetRolesDiccionarioReverse(rolesDiccionarioReverse);
-    })();
-  }, []);
-
-  // Mapeo de la tabla y los usuarios
+const Roles = () => {
   const [charactersList, setCharactersList] = useState([]);
   useEffect(() => {
     (async () => {
-      const usuariosRoles =
-        await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
-      setCharactersList(usuariosRoles);
+      const roles = await RolesAJAXRequest.obtenerRoles();
+      setCharactersList(roles);
     })();
   }, []);
-
   const columns = [
+    { field: "rolId", headerName: "ID", align: "center" },
     { field: "rol", headerName: "ROL", align: "center" },
-    { field: "usuarioUn", headerName: "USUARIO UN", align: "center" },
-    { field: "acciones", headerName: "ACCIONES", align: "center" },
+    { field: "acciones", headerName: "ACCIONES", align: "center" }
   ];
 
   //Agregarmos la variable para poder identificar el rol que deseamos eliminar o modificar
-  const [UsuarioRolAEliminar, setUsuarioRolIdAEliminar] = useState("");
-  const [UsuarioRolAModificar, setUsuarioRolIdAModificar] = useState("");
+  const [rolIdAEliminar, setRolIdAEliminar] = useState("");
+  const [rolIdAModificar, setRolIdAModificar] = useState("");
 
   const rows = charactersList.map((item) => ({
-    //Filas
-    rol: String(rolesDiccionarioReverse[String(item.rolId)]),
-    usuarioUn: item.usuarioUn,
+    rolId: item.rolId,
+    rol: item.rol,
     acciones: (
       <Box
         sx={{
           display: "flex",
           gap: "10px",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button
           startIcon={<DeleteForeverIcon sx={{ color: "white" }} />}
           sx={{
             width: "40px",
-            backgroundColor: "red",
+            backgroundColor: "red"
           }}
           onClick={() => {
-            setUsuarioRolIdAEliminar(item.usuarioUn);
+            setRolIdAEliminar(item.rolId);
             handleOpen("modal2");
           }}
         ></Button>
@@ -95,15 +51,15 @@ const UsuariosRoles = () => {
           startIcon={<EditIcon sx={{ color: "white" }} />}
           sx={{
             width: "40px",
-            backgroundColor: "green",
+            backgroundColor: "green"
           }}
           onClick={() => {
-            setUsuarioRolIdAModificar(item.usuarioUn);
+            setRolIdAModificar(item.rolId);
             handleOpen("modal3");
           }}
         ></Button>
       </Box>
-    ),
+    )
   }));
 
   //Agregamos el manejo de los moodales
@@ -146,24 +102,9 @@ const UsuariosRoles = () => {
     }
   };
 
-  //Obtencion de los usarios dentro del sistema
-  const [usuariosEnElSistema, SetUsuariosEnElSistema] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const usuariosData = await UsuariosAJAXRequest.obtenerUsuarios();
-      const listaUsuarios = [];
-      for (let index = 0; index < usuariosData.length; index++) {
-        listaUsuarios.push(usuariosData[index].usuarioUn);
-      }
-      SetUsuariosEnElSistema(listaUsuarios);
-    })();
-  }, []);
-
   const [open, setOpen] = React.useState(false);
 
-  //Creación de un usuario Nuevo - estados
-  const [rolNuevo, setRolNuevo] = useState("");
-  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState("");
+  const [rol, setRol] = useState("");
 
   return (
     <Box
@@ -175,7 +116,7 @@ const UsuariosRoles = () => {
         flexDirection: "column",
         marginTop: "30px",
         border: "none",
-        gap: "20px",
+        gap: "20px"
       }}
     >
       <Box
@@ -184,7 +125,7 @@ const UsuariosRoles = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: "none",
+          border: "none"
         }}
       >
         <Button
@@ -198,12 +139,12 @@ const UsuariosRoles = () => {
             cursor: "pointer",
             transition: ".3s ease all",
             ":hover": {
-              background: "DarkGrey",
-            },
+              background: "DarkGrey"
+            }
           }}
           onClick={() => handleOpen("modal1")}
         >
-          Asignar Rol a un Usuario
+          Generar Rol
         </Button>
         <Modal
           className="modal1"
@@ -213,7 +154,7 @@ const UsuariosRoles = () => {
           aria-describedby="modal-modal-description"
         >
           <Box
-            className="asignarRol"
+            className="crearRemision"
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -223,65 +164,43 @@ const UsuariosRoles = () => {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 500,
+              width: 400,
               bgcolor: "background.paper",
               border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              gap: "10px",
+              gap: "10px"
             }}
           >
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
-              <h2>Asignar Rol a un Usuario</h2>
+              <h2>Crear Nuevo Rol</h2>
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
-                flexDirection: "column",
+                alignContent: "center"
               }}
             >
-              <InputLabel id="simple-select-label">Rol</InputLabel>
-              <Select
-                labelId="rolAEscoger"
-                id="simple-select"
-                value={rolNuevo}
-                label="Rol a escoger"
-                onChange={(e) => setRolNuevo(e.target.value)}
-              >
-                {rolesEnElSistema.map((rolLista) => (
-                  <MenuItem key={rolLista} value={rolLista}>
-                    {rolLista}
-                  </MenuItem>
-                ))}
-              </Select>
-              <InputLabel id="simple-select-label">Usuario UN</InputLabel>
-              <Select
-                labelId="usuarioUnAEscoger"
-                id="simple-select"
-                value={usuarioSeleccionado}
-                label="Usuario UN"
-                onChange={(e) => setUsuarioSeleccionado(e.target.value)}
-              >
-                {usuariosEnElSistema.map((usuarioUnLista) => (
-                  <MenuItem key={usuarioUnLista} value={usuarioUnLista}>
-                    {usuarioUnLista}
-                  </MenuItem>
-                ))}
-              </Select>
+              <TextField
+                id="outlined-basic"
+                label="Rol"
+                variant="outlined"
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+              />
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <Button
@@ -296,25 +215,23 @@ const UsuariosRoles = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={async () => {
-                  const usuarioRolArray = {
-                    rolABuscarId: String(rolesDiccionario[String(rolNuevo)]),
-                    usuarioUnABuscar: usuarioSeleccionado,
+                  const rolArray = {
+                    rol: rol
                   };
-                  const crearUsuarioRol =
-                    await UsuariosRolesAJAXRequest.crearUsuarioRol(
-                      usuarioRolArray
-                    );
-                  const obtenerListaUsuariosRoles =
-                    await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
-                  setCharactersList(obtenerListaUsuariosRoles);
+                  const crearRol = await RolesAJAXRequest.crearRol(rol);
+                  const obtenerListaRoles =
+                    await RolesAJAXRequest.obtenerRoles();
+                  setCharactersList(obtenerListaRoles);
                   handleClose("modal1");
                 }}
-                disabled={!Boolean(rolNuevo) || !Boolean(usuarioSeleccionado)}
-              ></Button>
+                disabled={!Boolean(rol)}
+              >
+                Crear
+              </Button>
             </Box>
           </Box>
         </Modal>
@@ -342,7 +259,7 @@ const UsuariosRoles = () => {
               border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              gap: "15px",
+              gap: "15px"
             }}
           >
             <Box
@@ -350,16 +267,16 @@ const UsuariosRoles = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                flexDirection: "column",
+                flexDirection: "column"
               }}
             >
-              <h2>¿Desea eliminar la asignación de este usuario?</h2>
+              <h2>¿Desea eliminar este rol?</h2>
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <Button
@@ -374,17 +291,16 @@ const UsuariosRoles = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={async () => {
-                  const eliminarUsuarioRol =
-                    await UsuariosRolesAJAXRequest.eliminarUsuarioRol(
-                      String(UsuarioRolAEliminar)
-                    );
-                  const obtenerListaUsuariosRoles =
-                    await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
-                  setCharactersList(obtenerListaUsuariosRoles);
+                  const eliminarRol = await RolesAJAXRequest.eliminarRol(
+                    String(rolIdAEliminar)
+                  );
+                  const obtenerListaRoles =
+                    await RolesAJAXRequest.obtenerRoles();
+                  setCharactersList(obtenerListaRoles);
                   handleClose("modal2");
                 }}
               >
@@ -402,8 +318,8 @@ const UsuariosRoles = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={() => handleClose("modal2")}
               >
@@ -436,7 +352,7 @@ const UsuariosRoles = () => {
               border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              gap: "15px",
+              gap: "15px"
             }}
           >
             <Box
@@ -444,38 +360,31 @@ const UsuariosRoles = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                flexDirection: "column",
+                flexDirection: "column"
               }}
             >
-              <h2>¿Desea Modifica el rol asignado a este Usuario?</h2>
+              <h2>¿Desea Modificar este rol?</h2>
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
-              <InputLabel id="simple-select-label">Rol</InputLabel>
-              <Select
-                labelId="rolAEscoger"
-                id="simple-select"
-                value={rolNuevo}
-                label="Rol a escoger"
-                onChange={(e) => setRolNuevo(e.target.value)}
-              >
-                {rolesEnElSistema.map((rolLista) => (
-                  <MenuItem key={rolLista} value={rolLista}>
-                    {rolLista}
-                  </MenuItem>
-                ))}
-              </Select>
+              <TextField
+                id="outlined-basic"
+                label="Rol"
+                variant="outlined"
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+              />
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <Button
@@ -490,17 +399,17 @@ const UsuariosRoles = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={async () => {
-                  const modificarUsuarioRol = UsuariosRolesAJAXRequest.modificarUsuarioRol(
-                    String(rolesDiccionario[String(rolNuevo)]),
-                    String(UsuarioRolAModificar)
+                  const eliminarRol = await RolesAJAXRequest.modificarRol(
+                    String(rolIdAModificar),
+                    String(rol)
                   );
-                  const obtenerListaUsuariosRoles =
-                    await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
-                  setCharactersList(obtenerListaUsuariosRoles);
+                  const obtenerListaRoles =
+                    await RolesAJAXRequest.obtenerRoles();
+                  setCharactersList(obtenerListaRoles);
                   handleClose("modal3");
                 }}
               >
@@ -518,8 +427,8 @@ const UsuariosRoles = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={() => handleClose("modal3")}
               >
@@ -528,14 +437,21 @@ const UsuariosRoles = () => {
             </Box>
           </Box>
         </Modal>
-
       </Box>
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: "none",
+          border: "none"
+        }}
+      ></Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "none"
         }}
       >
         <DataTable rows={rows} columns={columns} />
@@ -544,4 +460,4 @@ const UsuariosRoles = () => {
   );
 };
 
-export default UsuariosRoles;
+export default Roles;

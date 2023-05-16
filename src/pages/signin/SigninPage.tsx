@@ -1,11 +1,9 @@
 import CircularProgress from "@mui/material/CircularProgress";
-import CloseIcon from "@mui/icons-material/Close";
 import LogoSae from "../../components/LogoSae";
 import React, { useState } from "react";
 import axios from "axios";
 import { Box, Button, Card, IconButton, TextField } from "@mui/material";
-import { enqueueSnackbar, useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useStore } from "zustand";
 import { signinQueries } from "../../queries/signinQueries";
 import { userStore } from "../../state/zustand";
@@ -15,11 +13,6 @@ const SigninPage = () => {
   const [loadingState, setLoadingState] = useState(false);
   const navigate = useNavigate();
   const { setUser, usuarioUn } = useStore(userStore);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  const handleToastClose = (key) => {
-    closeSnackbar(key);
-  };
 
   const handleChangeTextField = (event) => {
     event.target.value
@@ -43,15 +36,7 @@ const SigninPage = () => {
       });
       if (result.data.data.signin) {
         const { usuarioUn, token, estado } = result.data.data.signin;
-        setUser(usuarioUn, "estudiante");
-        enqueueSnackbar("Login Successfully", {
-          variant: "success",
-          action: (key) => (
-            <IconButton>
-              <CloseIcon onClick={() => handleToastClose(key)} />
-            </IconButton>
-          )
-        });
+        setUser(usuarioUn, "docente");
         setTimeout(() => {
           setLoadingState(false);
           navigate("/home");

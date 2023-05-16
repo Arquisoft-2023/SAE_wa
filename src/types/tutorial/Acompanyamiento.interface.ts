@@ -1,24 +1,24 @@
-import { observacion} from "./Observacion.interface";
+import { observacion } from "./Observacion.interface";
 import { tutoria } from "./Tutoria.interface";
 
-export enum rol{
-    Docente = "Tutor",
-    Estudiante = "Estudiante",
-    Bienestar = "Bienestar"	
+export enum rol {
+  Docente = "docente",
+  Estudiante = "estudiante",
+  Bienestar = "bienestar"
 }
 
-export enum tipo_Tutor{
-    Actual = "Actual",
-    Antiguo = "Antiguo"
+export enum tipo_Tutor {
+  Actual = "Actual",
+  Antiguo = "Antiguo"
 }
 
 export interface acompanyamiento {
-    Id?: string;
-    usuarioUnEstudiante: string;
-    usuarioUnTutor: string;
-    esTutor?: tipo_Tutor;
-    listaTutoria?: tutoria[];
-    listaObservacion?: observacion[];
+  Id?: string;
+  usuarioUnEstudiante: string;
+  usuarioUnTutor: string;
+  esTutor?: tipo_Tutor;
+  listaTutoria?: tutoria[];
+  listaObservacion?: observacion[];
 }
 
 // export type acompanyamiento_sin_id = Omit<acompanyamiento, '_id_acompanyamiento'>;

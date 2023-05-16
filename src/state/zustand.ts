@@ -6,8 +6,8 @@ export const userStore = create(
     (set) => ({
       usuarioUn: null,
       usuarioRol: null,
-      setUser: (id) => set({ usuarioUn: id }),
-      clearUser: () => set({ usuarioUn: null })
+      setUser: (id, rol) => set({ usuarioUn: id, usuarioRol: rol }),
+      clearUser: () => set({ usuarioUn: null, usuarioRol: null })
     }),
     {
       name: "userLoggedInData",

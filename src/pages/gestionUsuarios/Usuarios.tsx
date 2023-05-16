@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { UsuariosAJAXRequest } from "../services/UsuariosAJAXRequest";
-import { Box, Button, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material";
+import DataTable from "../../components/DataTable";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import DataTable from "../components/DataTable";
-import { UsuariosRolesAJAXRequest } from "../services/UsuariosRolesAJAXRequest";
+import React, { useEffect } from "react";
+import {
+  Box,
+  Button,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+  Typography
+} from "@mui/material";
+import { useState } from "react";
+import { UsuariosAJAXRequest } from "../../services/UsuariosAJAXRequest";
+import { UsuariosRolesAJAXRequest } from "../../services/UsuariosRolesAJAXRequest";
 
 const Usuarios = () => {
   // Mapeo de la tabla y los usuarios
@@ -23,13 +32,12 @@ const Usuarios = () => {
     {
       field: "tipoDocumento",
       headerName: "DOCUMENTO NACIONAL",
-      align: "center",
+      align: "center"
     },
     { field: "nombres", headerName: "NOMBRES", align: "center" },
     { field: "apellidos", headerName: "APELLIDOS", align: "center" },
-    { field: "acciones", headerName: "ACCIONES", align: "center" },
+    { field: "acciones", headerName: "ACCIONES", align: "center" }
   ];
-
 
   function definirEstadoUsuario(estadoUsuario: Boolean) {
     if (estadoUsuario == true) {
@@ -47,8 +55,8 @@ const Usuarios = () => {
     }
   }
 
-  function leerBooleans(respuestaUsuario: String){
-    if (respuestaUsuario == "true"){
+  function leerBooleans(respuestaUsuario: String) {
+    if (respuestaUsuario == "true") {
       return true;
     } else {
       return false;
@@ -95,8 +103,8 @@ const Usuarios = () => {
     }
   };
 
-  const [usuarioUnAEliminar,setUsuarioUnAEliminar] = useState("");
-  const [usuarioUnAModificar,setUsuarioUnAModificar] = useState("");
+  const [usuarioUnAEliminar, setUsuarioUnAEliminar] = useState("");
+  const [usuarioUnAModificar, setUsuarioUnAModificar] = useState("");
 
   const rows = charactersList.map((item) => ({
     //Filas
@@ -112,14 +120,14 @@ const Usuarios = () => {
           display: "flex",
           gap: "10px",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <Button
           startIcon={<DeleteForeverIcon sx={{ color: "white" }} />}
           sx={{
             width: "40px",
-            backgroundColor: "red",
+            backgroundColor: "red"
           }}
           onClick={() => {
             setUsuarioUnAEliminar(item.usuarioUn);
@@ -130,7 +138,7 @@ const Usuarios = () => {
           startIcon={<EditIcon sx={{ color: "white" }} />}
           sx={{
             width: "40px",
-            backgroundColor: "green",
+            backgroundColor: "green"
           }}
           onClick={() => {
             setUsuarioUnAModificar(item.usuarioUn);
@@ -138,19 +146,18 @@ const Usuarios = () => {
           }}
         ></Button>
       </Box>
-    ),
-}));
+    )
+  }));
 
   const [open, setOpen] = React.useState(false);
 
   //Creación de un usuario Nuevo - estados
-  const [usuarioUnNuevoUsuario,setUsuario] = useState("");
-  const [estadoNuevoUsuario,setEstado] = useState("");
-  const [nombresNuevoUsuario,setNombres] = useState("");
-  const [apellidosNuevoUsuario,setApellidos] = useState("");
-  const [documentoNuevoUsuario,setDocumento] = useState("");
-  const [tipoDeDocumentoNuevoUsuario,setTipoDeDocumento] = useState("");
-
+  const [usuarioUnNuevoUsuario, setUsuario] = useState("");
+  const [estadoNuevoUsuario, setEstado] = useState("");
+  const [nombresNuevoUsuario, setNombres] = useState("");
+  const [apellidosNuevoUsuario, setApellidos] = useState("");
+  const [documentoNuevoUsuario, setDocumento] = useState("");
+  const [tipoDeDocumentoNuevoUsuario, setTipoDeDocumento] = useState("");
 
   return (
     <Box
@@ -162,7 +169,7 @@ const Usuarios = () => {
         flexDirection: "column",
         marginTop: "30px",
         border: "none",
-        gap: "20px",
+        gap: "20px"
       }}
     >
       <Box
@@ -171,7 +178,7 @@ const Usuarios = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: "none",
+          border: "none"
         }}
       >
         <Button
@@ -185,8 +192,8 @@ const Usuarios = () => {
             cursor: "pointer",
             transition: ".3s ease all",
             ":hover": {
-              background: "DarkGrey",
-            },
+              background: "DarkGrey"
+            }
           }}
           onClick={() => handleOpen("modal1")}
         >
@@ -216,14 +223,14 @@ const Usuarios = () => {
               border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              gap: "10px",
+              gap: "10px"
             }}
           >
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <h2>Crear Nuevo Usuario</h2>
@@ -233,7 +240,7 @@ const Usuarios = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                flexDirection: "column",
+                flexDirection: "column"
               }}
             >
               <TextField
@@ -243,13 +250,16 @@ const Usuarios = () => {
                 value={usuarioUnNuevoUsuario}
                 onChange={(e) => setUsuario(e.target.value)}
               />
-              <InputLabel id="simple-select-label">Estado del Usuario</InputLabel>
+              <InputLabel id="simple-select-label">
+                Estado del Usuario
+              </InputLabel>
               <Select
                 labelId="estadoDelUsuario"
                 id="simple-select"
                 value={estadoNuevoUsuario}
                 label="Estado del Usuario"
-                onChange={(e) => setEstado(e.target.value)}>
+                onChange={(e) => setEstado(e.target.value)}
+              >
                 <MenuItem value="true">Usuario Activo</MenuItem>
                 <MenuItem value="false">Usuario inactivo</MenuItem>
               </Select>
@@ -274,7 +284,9 @@ const Usuarios = () => {
                 value={documentoNuevoUsuario}
                 onChange={(e) => setDocumento(e.target.value)}
               />
-              <InputLabel id="simple-select-label">Tipo de Documento</InputLabel>
+              <InputLabel id="simple-select-label">
+                Tipo de Documento
+              </InputLabel>
               <Select
                 labelId="tipoDeDocumento"
                 id="simple-select"
@@ -290,7 +302,7 @@ const Usuarios = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <Button
@@ -305,8 +317,8 @@ const Usuarios = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={async () => {
                   const rolArray = {
@@ -315,7 +327,7 @@ const Usuarios = () => {
                     nombres: nombresNuevoUsuario,
                     apellidos: apellidosNuevoUsuario,
                     documento: documentoNuevoUsuario,
-                    tipoDocumento: leerBooleans(tipoDeDocumentoNuevoUsuario),
+                    tipoDocumento: leerBooleans(tipoDeDocumentoNuevoUsuario)
                   };
                   const crearUsuario = await UsuariosAJAXRequest.crearUsuario(
                     rolArray
@@ -325,7 +337,14 @@ const Usuarios = () => {
                   setCharactersList(obtenerListaUsuarios);
                   handleClose("modal1");
                 }}
-                disabled={!Boolean(usuarioUnNuevoUsuario) || !Boolean(estadoNuevoUsuario) || !Boolean(nombresNuevoUsuario) || !Boolean(apellidosNuevoUsuario) || !Boolean(documentoNuevoUsuario) || !Boolean(tipoDeDocumentoNuevoUsuario)}
+                disabled={
+                  !Boolean(usuarioUnNuevoUsuario) ||
+                  !Boolean(estadoNuevoUsuario) ||
+                  !Boolean(nombresNuevoUsuario) ||
+                  !Boolean(apellidosNuevoUsuario) ||
+                  !Boolean(documentoNuevoUsuario) ||
+                  !Boolean(tipoDeDocumentoNuevoUsuario)
+                }
               >
                 Crear
               </Button>
@@ -356,7 +375,7 @@ const Usuarios = () => {
               border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              gap: "15px",
+              gap: "15px"
             }}
           >
             <Box
@@ -364,7 +383,7 @@ const Usuarios = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                flexDirection: "column",
+                flexDirection: "column"
               }}
             >
               <h2>¿Desea eliminar este usuario?</h2>
@@ -373,7 +392,7 @@ const Usuarios = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <Button
@@ -388,17 +407,18 @@ const Usuarios = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={async () => {
                   const eliminarUsuarioRol =
                     await UsuariosRolesAJAXRequest.eliminarUsuarioRol(
                       String(usuarioUnAEliminar)
                     );
-                  const eliminarUsuario = await UsuariosAJAXRequest.eliminarUsuario(
-                    String(usuarioUnAEliminar)
-                  );
+                  const eliminarUsuario =
+                    await UsuariosAJAXRequest.eliminarUsuario(
+                      String(usuarioUnAEliminar)
+                    );
                   const obtenerListaUsuarios =
                     await UsuariosAJAXRequest.obtenerUsuarios();
                   setCharactersList(obtenerListaUsuarios);
@@ -419,8 +439,8 @@ const Usuarios = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={() => handleClose("modal2")}
               >
@@ -453,14 +473,14 @@ const Usuarios = () => {
               border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              gap: "10px",
+              gap: "10px"
             }}
           >
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <h2>¿Desea Modificar este Usuario?</h2>
@@ -470,16 +490,19 @@ const Usuarios = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                flexDirection: "column",
+                flexDirection: "column"
               }}
             >
-              <InputLabel id="simple-select-label">Estado del Usuario</InputLabel>
+              <InputLabel id="simple-select-label">
+                Estado del Usuario
+              </InputLabel>
               <Select
                 labelId="estadoDelUsuario"
                 id="simple-select"
                 value={estadoNuevoUsuario}
                 label="Estado del Usuario"
-                onChange={(e) => setEstado(e.target.value)}>
+                onChange={(e) => setEstado(e.target.value)}
+              >
                 <MenuItem value="true">Usuario Activo</MenuItem>
                 <MenuItem value="false">Usuario inactivo</MenuItem>
               </Select>
@@ -504,7 +527,9 @@ const Usuarios = () => {
                 value={documentoNuevoUsuario}
                 onChange={(e) => setDocumento(e.target.value)}
               />
-              <InputLabel id="simple-select-label">Tipo de Documento</InputLabel>
+              <InputLabel id="simple-select-label">
+                Tipo de Documento
+              </InputLabel>
               <Select
                 labelId="tipoDeDocumento"
                 id="simple-select"
@@ -520,7 +545,7 @@ const Usuarios = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center",
+                alignContent: "center"
               }}
             >
               <Button
@@ -535,8 +560,8 @@ const Usuarios = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={async () => {
                   const rolArray = {
@@ -545,11 +570,10 @@ const Usuarios = () => {
                     nombres: nombresNuevoUsuario,
                     apellidos: apellidosNuevoUsuario,
                     documento: documentoNuevoUsuario,
-                    tipoDocumento: leerBooleans(tipoDeDocumentoNuevoUsuario),
+                    tipoDocumento: leerBooleans(tipoDeDocumentoNuevoUsuario)
                   };
-                  const modificarUsuario = await UsuariosAJAXRequest.modificarUsuario(
-                    rolArray
-                  );
+                  const modificarUsuario =
+                    await UsuariosAJAXRequest.modificarUsuario(rolArray);
                   const obtenerListaUsuarios =
                     await UsuariosAJAXRequest.obtenerUsuarios();
                   setCharactersList(obtenerListaUsuarios);
@@ -570,8 +594,8 @@ const Usuarios = () => {
                   cursor: "pointer",
                   transition: ".3s ease all",
                   ":hover": {
-                    background: "DarkGrey",
-                  },
+                    background: "DarkGrey"
+                  }
                 }}
                 onClick={() => handleClose("modal3")}
               >
@@ -580,16 +604,13 @@ const Usuarios = () => {
             </Box>
           </Box>
         </Modal>
-
-
-
       </Box>
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: "none",
+          border: "none"
         }}
       >
         <DataTable rows={rows} columns={columns} />
