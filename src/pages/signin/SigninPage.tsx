@@ -45,7 +45,7 @@ const SigninPage = () => {
         });
         if (result.data.data.signin) {
           const { usuarioUn, token, estado } = result.data.data.signin;
-          setUser(usuarioUn, "docente");
+          setUser(usuarioUn, "bienestar");
           setTimeout(() => {
             setLoadingState(false);
             navigate("/home");

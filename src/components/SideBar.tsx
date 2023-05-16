@@ -2,14 +2,13 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoSae from "./LogoSae";
 import LogoutIcon from "@mui/icons-material/Logout";
-import React, {useState, useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { Badge, IconButton } from "@mui/material";
 import { NavLink, Navigate } from "react-router-dom";
 import { useStore } from "zustand";
+import { acompanyamientoService } from "../services/tutorial/AcompanyamientoAJAXRequest";
 import { userStore } from "../state/zustand";
-
-import { acompanyamientoService } from '../services/tutorial/AcompanyamientoAJAXRequest'
 
 import {
   Accordion,
@@ -21,7 +20,7 @@ import {
 } from "@mui/material";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
-  const { clearUser, usuarioRol, usuarioUn  } = useStore(userStore);
+  const { clearUser, usuarioRol, usuarioUn } = useStore(userStore);
   const [tutor, setTutor] = useState("Sin asignar");
 
   const usuarioRolModified = usuarioRol
@@ -31,22 +30,22 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
   const handleGetTutor = async (): Promise<any> => {
     try {
       const res = await acompanyamientoService.GetTutorService(usuarioUn);
-      if(res?.status === 200 && !(res.data.data.obtenerTutor.includes("400"))){
-        setTutor(res.data.data.obtenerTutor)
-      } 
+      if (res?.status === 200 && !res.data.data.obtenerTutor.includes("400")) {
+        setTutor(res.data.data.obtenerTutor);
+      }
     } catch (error) {
       alert(`Error: $error`);
     }
-  }
+  };
 
   useEffect(() => {
-      handleGetTutor();
-  },[]);
+    handleGetTutor();
+  }, []);
 
   const handleLogout = () => {
     try {
       <Navigate to={"/signin"} />;
-      setTutor("Sin asignar")
+      setTutor("Sin asignar");
       clearUser();
     } catch (error) {
       alert(`Error: $error`);
@@ -185,18 +184,19 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
               marginTop: "3rem"
             }}
           >
-          {usuarioRolModified === "Estudiante" ?
-            <Typography
-              sx={{
-                fontSize: "0.7rem",
-                color: "#b9b9b9",
-                padding: "5px"
-              }}
-            >
+            {usuarioRolModified === "Estudiante" ? (
+              <Typography
+                sx={{
+                  fontSize: "0.7rem",
+                  color: "#b9b9b9",
+                  padding: "5px"
+                }}
+              >
                 Tutor: {tutor}
-            </Typography>
-            : ""
-          }
+              </Typography>
+            ) : (
+              ""
+            )}
           </Box>
         </Box>
       ) : (
@@ -289,7 +289,11 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
               </Accordion>
             )
           )}
-          <Box>
+          <Box
+            sx={{
+              marginTop: "2rem"
+            }}
+          >
             <h5
               style={{
                 color: "#e8e8e8",

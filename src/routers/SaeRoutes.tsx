@@ -33,8 +33,6 @@ const SaeRoutes = () => {
     userEmail: usuarioUn,
     userRol: rol[usuarioRolModified]
   };
-  console.log(objectTutorias);
-  // console.log(usuarioRolModified);
 
   return (
     <Routes>
@@ -45,7 +43,7 @@ const SaeRoutes = () => {
       <Route
         path="/home"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute isSignedIn={usuarioUn} type={"home"}>
             <SideBarContainer main={<HomePage />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -53,7 +51,10 @@ const SaeRoutes = () => {
       <Route
         path="/tipo_remision"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["remision", "tipoRemision"]}
+          >
             <SideBarContainer main={<TipoRemision />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -61,7 +62,10 @@ const SaeRoutes = () => {
       <Route
         path="/solicitud_remision"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["remision", "solicitudRemision"]}
+          >
             <SideBarContainer main={<SolicitudRemision />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -69,7 +73,10 @@ const SaeRoutes = () => {
       <Route
         path="/primera_escucha"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["remision", "primeraEscucha"]}
+          >
             <SideBarContainer main={<PrimeraEscucha />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -77,7 +84,7 @@ const SaeRoutes = () => {
       <Route
         path="/remision"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute isSignedIn={usuarioUn} type={["remision"]}>
             <SideBarContainer main={<Remision />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -85,7 +92,10 @@ const SaeRoutes = () => {
       <Route
         path="/usuarios"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["gestionUsuario", "usuarios"]}
+          >
             <SideBarContainer main={<Usuarios />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -93,7 +103,10 @@ const SaeRoutes = () => {
       <Route
         path="/roles"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["gestionUsuario", "roles"]}
+          >
             <SideBarContainer main={<Roles />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -101,7 +114,10 @@ const SaeRoutes = () => {
       <Route
         path="/usuarios_roles"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["gestionUsuario", "usuariosRoles"]}
+          >
             <SideBarContainer main={<UsuariosRoles />} role={usuarioRol} />
           </PrivateRoute>
         }
@@ -109,7 +125,10 @@ const SaeRoutes = () => {
       <Route
         path="/tutorias/tutor"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["tutorias", "gestionarTutor"]}
+          >
             <SideBarContainer
               main={<ManageTutorP onGetUser={objectTutorias} />}
               role={usuarioRol}
@@ -120,7 +139,10 @@ const SaeRoutes = () => {
       <Route
         path="/tutorias/tutorias"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["tutorias", "gestionarTutorias"]}
+          >
             <SideBarContainer
               main={<ManageTutorialP onGetUser={objectTutorias} />}
               role={usuarioRol}
@@ -131,7 +153,10 @@ const SaeRoutes = () => {
       <Route
         path="/tutorias/ver"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["tutorias", "verTutorias"]}
+          >
             <SideBarContainer
               main={<SeeTutorialP onGetUser={objectTutorias} />}
               role={usuarioRol}
@@ -142,7 +167,7 @@ const SaeRoutes = () => {
       <Route
         path="/observaciones/obs"
         element={
-          <PrivateRoute isSignedIn={usuarioUn}>
+          <PrivateRoute isSignedIn={usuarioUn} type={["observaciones"]}>
             <SideBarContainer
               main={<ManageObsP onGetUser={objectTutorias} />}
               role={usuarioRol}
