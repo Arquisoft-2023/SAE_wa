@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import DataTable from "../components/DataTable";
+import DataTable from "../components/DataTable2";
 import { UsuariosAJAXRequest } from "../services/UsuariosAJAXRequest";
 import { RolesAJAXRequest } from "../services/RolesAJAXRequest";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";

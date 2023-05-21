@@ -4,7 +4,7 @@ import { UsuariosAJAXRequest } from "../services/UsuariosAJAXRequest";
 import { Box, Button, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import DataTable from "../components/DataTable";
+import DataTable from "../components/DataTable2";
 import { UsuariosRolesAJAXRequest } from "../services/UsuariosRolesAJAXRequest";
 
 const Usuarios = () => {
