@@ -3,9 +3,10 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { RolesAJAXRequest } from "../../services/RolesAJAXRequest";
-import { UsuariosAJAXRequest } from "../../services/UsuariosAJAXRequest";
-import { UsuariosRolesAJAXRequest } from "../../services/UsuariosRolesAJAXRequest";
+
+import { RolesAJAXRequest } from "../../services/gestionUsuarios/RolesAJAXRequest";
+import { UsuariosAJAXRequest } from "../../services/gestionUsuarios/UsuariosAJAXRequest";
+import { UsuariosRolesAJAXRequest } from "../../services/gestionUsuarios/UsuariosRolesAJAXRequest";
 
 import {
   Box,

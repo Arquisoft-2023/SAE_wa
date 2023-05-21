@@ -13,8 +13,9 @@ import {
   Typography
 } from "@mui/material";
 import { useState } from "react";
-import { UsuariosAJAXRequest } from "../../services/UsuariosAJAXRequest";
-import { UsuariosRolesAJAXRequest } from "../../services/UsuariosRolesAJAXRequest";
+
+import { UsuariosAJAXRequest } from "../../services/gestionUsuarios/UsuariosAJAXRequest";
+import { UsuariosRolesAJAXRequest } from "../../services/gestionUsuarios/UsuariosRolesAJAXRequest";
 
 const Usuarios = () => {
   // Mapeo de la tabla y los usuarios

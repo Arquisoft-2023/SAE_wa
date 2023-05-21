@@ -1,5 +1,5 @@
-import { RolesQueries } from "../queries/RolesQueries";
-import { AJAXRequest } from "../utils/AJAXRequest";
+import { RolesQueries } from "../../queries/gestionUsuarios/RolesQueries";
+import { AJAXRequest } from "../../utils/AJAXRequest";
 
 const URI = "gestionUsuarios/usuarios";
 

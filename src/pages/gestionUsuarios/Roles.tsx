@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import React, { useEffect } from "react";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { RolesAJAXRequest } from "../../services/RolesAJAXRequest";
+import { RolesAJAXRequest } from "../../services/gestionUsuarios/RolesAJAXRequest";
 
 const Roles = () => {
   const [charactersList, setCharactersList] = useState([]);
