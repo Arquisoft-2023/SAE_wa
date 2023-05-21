@@ -5,7 +5,7 @@ import axios from "axios";
 import { Box, Button, Card, IconButton, TextField } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useStore } from "zustand";
-import { signinQueries } from "../../queries/signinQueries";
+import { signinQueries } from "../../queries/gestionUsuarios/signinQueries";
 import { userStore } from "../../state/zustand";
 
 const SigninPage = () => {
@@ -35,7 +35,7 @@ const SigninPage = () => {
       //PRODUCTION
       try {
         // const result = await axios.post("http://127.0.0.8:3121/auth/signin", {
-        const result = await axios.post("http://35.198.31.86:3121/auth/signin", {
+        const result = await axios.post("http://34.95.254.3:3121/auth/signin", {
           headers: {
             "Content-Type": "application/json"
           },

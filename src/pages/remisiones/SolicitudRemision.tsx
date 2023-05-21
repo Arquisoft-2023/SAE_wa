@@ -7,16 +7,21 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import DataTable from '../../components/DataTable2';
 import React from 'react';
 import { TipoRemisionAJAXRequest } from '../../services/remisiones/TipoRemisionAJAXRequest';
-import Date2 from '../../components/Date2';
-import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { UsuariosRolesAJAXRequest } from '../../services/gestionUsuarios/UsuariosRolesAJAXRequest';
+import { useStore } from 'zustand';
+import { RemisionAJAXRequest } from '../../services/remisiones/RemisionAJAXRequest';
+import { userStore } from '../../state/zustand';
 
 const SolicitudRemision = () => {
+
+    const {usuarioRol} = useStore(userStore);
     
     const [charactersList, setCharactersList] = useState([]);
     const [charactersList2, setCharactersList2] = useState([]);
+    const [charactersList3, setCharactersList3] = useState([]);
     
     useEffect(() => {
         (async () => {
@@ -24,6 +29,9 @@ const SolicitudRemision = () => {
             setCharactersList(solicitudesRemision);
             const tiposRemision = await TipoRemisionAJAXRequest.tiposRemision();
             setCharactersList2(tiposRemision);
+            const usuariosUN = await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
+            setCharactersList3(usuariosUN);
+            console.log(usuariosUN);
         })();
     }, []);
 
@@ -58,40 +66,50 @@ const SolicitudRemision = () => {
         }}
         >
             <Button 
-            startIcon={<DeleteForeverIcon sx={{color:"white"}}/>}
+            variant="contained"
             sx={{
-                width:"40px",
-                backgroundColor:"red",
+              bgcolor: "black",
+              "&:hover": {
+                bgcolor: "black"
+              }
             }}
             onClick={() => {
                 setIdSolicitudRemision(item.idSolicitudRemision);
                 handleOpen('modal2');
             }}
             >
+                <DeleteForeverIcon/>
             </Button>
             <Button 
-            startIcon={<EditIcon sx={{color:"white"}}/>}
+            variant="contained"
             sx={{
-                width:"40px",
-                backgroundColor:"green",
+              bgcolor: "black",
+              "&:hover": {
+                bgcolor: "black"
+              }
             }}
             onClick={() => {
                 setIdSolicitudRemision(item.idSolicitudRemision);
                 handleOpen('modal5');
             }}
             >
+                <EditIcon/>
             </Button>
             <Button 
-            startIcon={<AddBoxIcon sx={{color:"white"}}/>}
+            variant="contained"
             sx={{
-                width:"40px",
-                backgroundColor:"blue",
+              bgcolor: "black",
+              "&:hover": {
+                bgcolor: "black"
+              },
+              display: usuarioRol === "docente" ? "none" : "flex"
             }}
             onClick={() => {
                 setIdSolicitudRemision(item.idSolicitudRemision);
                 handleOpen('modal6');
             }}
             >
+                <AddBoxIcon/>
             </Button>
         </Box>
     }))
@@ -160,7 +178,8 @@ const SolicitudRemision = () => {
     const [justificacion, setJustificacion] = useState('');
 
     const [idSolicitudRemision, setIdSolicitudRemision] = useState('');
-    const [value, setValue] = React.useState<Dayjs | null>(dayjs());
+    const [fechaPrimeraEscucha, setFechaPrimeraEscucha] = useState('');
+
 
 
     return (
@@ -218,7 +237,7 @@ const SolicitudRemision = () => {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 400,
-                height: 500,
+                height: 600,
                 bgcolor: 'background.paper',
                 border: '2px solid #000',
                 boxShadow: 24,
@@ -252,7 +271,7 @@ const SolicitudRemision = () => {
                         m: 1,
                     }}
                     >
-                        <InputLabel id="estadoPrimeraEscuchaLabel">¿Realizada?</InputLabel>
+                        <InputLabel id="tipo remision">Tipo Remisión</InputLabel>
                         <Select
                         labelId="estadoPrimeraEscuchaLabelId"
                         id="estadoPrimeraEscucha"
@@ -273,26 +292,71 @@ const SolicitudRemision = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Estudiante" 
-                        variant="outlined"
-                        value={usuarioUnEstudiante}
-                        onChange={(e) => setUsuarioUnEstudiante(e.target.value)}
-                    />
+
+                    <FormControl
+                    sx = {{
+                        m: 1,
+                    }}
+                    >
+                        <InputLabel id="usuarioUn">Usuario UN Docente</InputLabel>
+                            <Select
+                            labelId="usuarioUN"
+                            id="usuarioUN"
+                            value={usuarioUnDocente}
+                            label="Usuarios UN"
+                            autoWidth
+                            onChange={(e) => setUsuarioUnDocente(e.target.value)}
+                            sx={{ textAlign: "center" }}
+                            >
+                            {charactersList3
+                                .filter((item) => item.rolId === 2)
+                                .map((item) => (
+                                <MenuItem
+                                    key={item.usuarioUn}
+                                    value={item.usuarioUn}
+                                    sx={{ textAlign: "center", ":hover": { background: "lightGrey" } }}
+                                >
+                                    {item.usuarioUn}
+                                </MenuItem>
+                                ))}
+                            </Select>
+                    </FormControl>
+
+                    <FormControl
+                    sx = {{
+                        m: 1,
+                    }}
+                    >
+                        <InputLabel id="usuarioUn">Usuario UN Estudiante</InputLabel>
+                            <Select
+                            labelId="usuarioUN"
+                            id="usuarioUN"
+                            value={usuarioUnEstudiante}
+                            label="Usuarios UN"
+                            autoWidth
+                            onChange={(e) => setUsuarioUnEstudiante(e.target.value)}
+                            sx={{ textAlign: "center" }}
+                            >
+                            {charactersList3
+                                .filter((item) => item.rolId === 3)
+                                .map((item) => (
+                                <MenuItem
+                                    key={item.usuarioUn}
+                                    value={item.usuarioUn}
+                                    sx={{ textAlign: "center", ":hover": { background: "lightGrey" } }}
+                                >
+                                    {item.usuarioUn}
+                                </MenuItem>
+                                ))}
+                            </Select>
+                    </FormControl>
+
                     <TextField 
                         id="outlined-basic" 
                         label="Programa" 
                         variant="outlined"
                         value={programaCurricular}
                         onChange={(e) => setProgramaCurricular(e.target.value)}
-                    />
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Docente" 
-                        variant="outlined"
-                        value={usuarioUnDocente}
-                        onChange={(e) => setUsuarioUnDocente(e.target.value)}
                     />
                     <TextField 
                         id="outlined-basic" 
@@ -363,7 +427,7 @@ const SolicitudRemision = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 400,
-                    height: 500,
+                    height: 300,
                     bgcolor: 'background.paper',
                     border: '2px solid #000',
                     boxShadow: 24,
@@ -407,7 +471,6 @@ const SolicitudRemision = () => {
                         }}
                         onClick={async () => {
                             const idSolicitudRemisionValue = parseInt(idSolicitudRemision);
-                            console.log(idSolicitudRemision);
                             const eliminarRemision = await SolicitudRemisionAJAXRequest.eliminarRemision(idSolicitudRemision);
                             const solicitudesRemision = await SolicitudRemisionAJAXRequest.solicitudesRemision();
                             setCharactersList(solicitudesRemision);
@@ -457,11 +520,12 @@ const SolicitudRemision = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 400,
+                    height: 600,
                     bgcolor: 'background.paper',
                     border: '2px solid #000',
                     boxShadow: 24,
                     p: 4,
-                    gap: "10px"
+                    gap: "15px"
                 }}
                 >
                     <Box
@@ -469,19 +533,28 @@ const SolicitudRemision = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignContent: "center",
+                        flexDirection: "column"
                     }}
                     >
                         <h2>
                             Editar Solicitud de Remisión
                         </h2>
                     </Box>
-                    <Box>
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        flexDirection: "column",
+                        gap:"5px"
+                    }}
+                    >
                         <FormControl
                         sx = {{
                             m: 1,
                         }}
                         >
-                            <InputLabel id="estadoPrimeraEscuchaLabel">¿Realizada?</InputLabel>
+                            <InputLabel id="estadoPrimeraEscuchaLabel">Tipo Remision</InputLabel>
                             <Select
                             labelId="estadoPrimeraEscuchaLabelId"
                             id="estadoPrimeraEscucha"
@@ -502,15 +575,63 @@ const SolicitudRemision = () => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <TextField 
-                        id="outlined-basic" 
-                        label="UsuarioUnEstudiante" 
-                        variant="outlined"
-                        value={usuarioUnEstudiante}
-                        onChange={(e) => {
-                            setUsuarioUnEstudiante(e.target.value);
+                        <FormControl
+                        sx = {{
+                            m: 1,
                         }}
-                        />
+                        >
+                            <InputLabel id="usuarioUn">Usuario UN Docente</InputLabel>
+                                <Select
+                                labelId="usuarioUN"
+                                id="usuarioUN"
+                                value={usuarioUnDocente}
+                                label="Usuarios UN"
+                                autoWidth
+                                onChange={(e) => setUsuarioUnDocente(e.target.value)}
+                                sx={{ textAlign: "center" }}
+                                >
+                                {charactersList3
+                                    .filter((item) => item.rolId === 2)
+                                    .map((item) => (
+                                    <MenuItem
+                                        key={item.usuarioUn}
+                                        value={item.usuarioUn}
+                                        sx={{ textAlign: "center", ":hover": { background: "lightGrey" } }}
+                                    >
+                                        {item.usuarioUn}
+                                    </MenuItem>
+                                    ))}
+                                </Select>
+                    </FormControl>
+
+                    <FormControl
+                        sx = {{
+                            m: 1,
+                        }}
+                        >
+                            <InputLabel id="usuarioUn">Usuario UN Estudiante</InputLabel>
+                                <Select
+                                labelId="usuarioUN"
+                                id="usuarioUN"
+                                value={usuarioUnEstudiante}
+                                label="Usuarios UN"
+                                autoWidth
+                                onChange={(e) => setUsuarioUnEstudiante(e.target.value)}
+                                sx={{ textAlign: "center" }}
+                                >
+                                {charactersList3
+                                    .filter((item) => item.rolId === 3)
+                                    .map((item) => (
+                                    <MenuItem
+                                        key={item.usuarioUn}
+                                        value={item.usuarioUn}
+                                        sx={{ textAlign: "center", ":hover": { background: "lightGrey" } }}
+                                    >
+                                        {item.usuarioUn}
+                                    </MenuItem>
+                                    ))}
+                                </Select>
+                    </FormControl>
                         <TextField 
                         id="outlined-basic" 
                         label="ProgramaCurricular" 
@@ -518,15 +639,6 @@ const SolicitudRemision = () => {
                         value={programaCurricular}
                         onChange={(e) => {
                             setProgramaCurricular(e.target.value);
-                        }}
-                        />
-                        <TextField 
-                        id="outlined-basic" 
-                        label="UsuarioUnEDocente" 
-                        variant="outlined"
-                        value={usuarioUnDocente}
-                        onChange={(e) => {
-                            setUsuarioUnDocente(e.target.value);
                         }}
                         />
                         <TextField 
@@ -589,8 +701,8 @@ const SolicitudRemision = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
-                <Box
-                className=''
+                <Box 
+                className = "crearTipoRemision"
                 sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -601,11 +713,12 @@ const SolicitudRemision = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 400,
+                    height: 500,
                     bgcolor: 'background.paper',
                     border: '2px solid #000',
                     boxShadow: 24,
                     p: 4,
-                    gap: "10px"
+                    gap: "15px"
                 }}
                 >
                     <Box
@@ -613,10 +726,11 @@ const SolicitudRemision = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignContent: "center",
+                        flexDirection: "column"
                     }}
                     >
                         <h2>
-                            Generar Remisión
+                            Generar Remision
                         </h2>
                     </Box>
                     <Box
@@ -624,49 +738,61 @@ const SolicitudRemision = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignContent: "center",
+                        flexDirection: "column",
+                        gap:"5px"
                     }}
                     >
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DatePicker', 'DatePicker']}>
+                            <DemoContainer components={['DatePicker']}>
                             <DatePicker
-                            label="Controlled picker"
-                            value={value}
-                            onChange={(newValue) => setValue(newValue)}
+                            format="YYYY-MM-DD"
+                            label="Fecha Primera Escucha"
+                            value={fechaPrimeraEscucha}
+                            onChange={(e)=>{
+                                setFechaPrimeraEscucha(new Date(e).toISOString().slice(0, 10))
+                            }}
                             />
-                        </DemoContainer>
+                            </DemoContainer>
                         </LocalizationProvider>
                     </Box>
-                    <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignContent: "center",
-                    }}
-                    >
-                        <Button
-                        className='botonGuardar'
-                        sx={{
-                            display:"block",
-                            padding:"10px 30px",
-                            borderRadius:"100px",
-                            color:"#fff",
-                            border:"none",
-                            background:"black",
-                            cursor:"pointer",
-                            transition:".3s ease all",
-                            ":hover": {
-                                background:"DarkGrey",
-                            }
-                        }}
-                        onClick={async () => {
-                            handleClose('modal6');
-                            console.log(value)
-                        }}
-                        >
-                            Crear
-                        </Button>
-                    </Box>
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                }}
+                >
+                <Button
+                className='botonGuardar'
+                sx={{
+                    display:"block",
+                    padding:"10px 30px",
+                    borderRadius:"100px",
+                    color:"#fff",
+                    border:"none",
+                    background:"black",
+                    cursor:"pointer",
+                    transition:".3s ease all",
+                    ":hover": {
+                        background:"DarkGrey",
+                    }
+                }}
+                onClick={async () => {
+                    
+                    const remisionArray = {
+                        idSolicitudRemision: parseInt(idSolicitudRemision),
+                        fechaPrimeraEscucha: fechaPrimeraEscucha,
+                    };
+                    const generarRemision = await RemisionAJAXRequest.generarRemision(remisionArray);
+                    const solicitudesRemision = await SolicitudRemisionAJAXRequest.solicitudesRemision();
+                    setCharactersList(solicitudesRemision);
+                    handleClose('modal6');
+                }}
+                >
+                    Crear
+                </Button>
                 </Box>
+            </Box>
             </Modal>
         </Box>
         <Box

@@ -125,27 +125,35 @@ const Usuarios = () => {
         }}
       >
         <Button
-          startIcon={<DeleteForeverIcon sx={{ color: "white" }} />}
+          variant="contained"
           sx={{
-            width: "40px",
-            backgroundColor: "red"
+            bgcolor: "black",
+            "&:hover": {
+              bgcolor: "black"
+            }
           }}
           onClick={() => {
             setUsuarioUnAEliminar(item.usuarioUn);
             handleOpen("modal2");
           }}
-        ></Button>
+        >
+          <DeleteForeverIcon/>
+        </Button>
         <Button
-          startIcon={<EditIcon sx={{ color: "white" }} />}
+          variant="contained"
           sx={{
-            width: "40px",
-            backgroundColor: "green"
+            bgcolor: "black",
+            "&:hover": {
+              bgcolor: "black"
+            }
           }}
           onClick={() => {
             setUsuarioUnAModificar(item.usuarioUn);
             handleOpen("modal3");
           }}
-        ></Button>
+        >
+          <EditIcon/>
+        </Button>
       </Box>
     )
   }));

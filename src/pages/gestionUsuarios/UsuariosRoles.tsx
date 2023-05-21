@@ -1,4 +1,4 @@
-import DataTable from "../../components/DataTable";
+  import DataTable from "../../components/DataTable";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import React, { useEffect } from "react";
@@ -82,27 +82,35 @@ const UsuariosRoles = () => {
         }}
       >
         <Button
-          startIcon={<DeleteForeverIcon sx={{ color: "white" }} />}
+          variant="contained"
           sx={{
-            width: "40px",
-            backgroundColor: "red"
+            bgcolor: "black",
+            "&:hover": {
+              bgcolor: "black"
+            }
           }}
           onClick={() => {
             setUsuarioRolIdAEliminar(item.usuarioUn);
             handleOpen("modal2");
           }}
-        ></Button>
+        >
+          <DeleteForeverIcon/>
+        </Button>
         <Button
-          startIcon={<EditIcon sx={{ color: "white" }} />}
+          variant="contained"
           sx={{
-            width: "40px",
-            backgroundColor: "green"
+            bgcolor: "black",
+            "&:hover": {
+              bgcolor: "black"
+            }
           }}
           onClick={() => {
             setUsuarioRolIdAModificar(item.usuarioUn);
             handleOpen("modal3");
           }}
-        ></Button>
+        >
+          <EditIcon/>
+        </Button>
       </Box>
     )
   }));
@@ -225,6 +233,7 @@ const UsuariosRoles = () => {
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: 500,
+              height: 500,  
               bgcolor: "background.paper",
               border: "2px solid #000",
               boxShadow: 24,
@@ -315,7 +324,9 @@ const UsuariosRoles = () => {
                   handleClose("modal1");
                 }}
                 disabled={!Boolean(rolNuevo) || !Boolean(usuarioSeleccionado)}
-              ></Button>
+              >
+                Asignar
+              </Button>
             </Box>
           </Box>
         </Modal>
@@ -448,13 +459,13 @@ const UsuariosRoles = () => {
                 flexDirection: "column"
               }}
             >
-              <h2>¿Desea Modifica el rol asignado a este Usuario?</h2>
+              <h2>¿Desea Modificar el rol asignado a este Usuario?</h2>
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center"
+                alignItems: "center"
               }}
             >
               <InputLabel id="simple-select-label">Rol</InputLabel>

@@ -261,7 +261,8 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
                               : "none",
                           alignItems: "center",
                           textDecoration: "none",
-                          padding: "6px 0"
+                          padding: "6px 0",
+                          color: "black"
                         }}
                       >
                         <Box

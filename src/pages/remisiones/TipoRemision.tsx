@@ -5,10 +5,15 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import DataTable from '../../components/DataTable2';
 import React from 'react';
+import { userStore } from '../../state/zustand';
+import { useStore } from 'zustand';
 
 const TipoRemision = () => {
+
     
     const [charactersList, setCharactersList] = useState([]);
+
+    const {usuarioRol} = useStore(userStore);
     
     useEffect(() => {
         (async () => {
@@ -38,28 +43,35 @@ const TipoRemision = () => {
         }}
         >
             <Button 
-            startIcon={<DeleteForeverIcon sx={{color:"white"}}/>}
+            variant="contained"
             sx={{
-                width:"40px",
-                backgroundColor:"red",
+              bgcolor: "black",
+              "&:hover": {
+                bgcolor: "black"
+              },
+              display: usuarioRol === "docente" ? "none" : "flex"
             }}
             onClick={async () => {
                 setIdTipoRemision(item.idTipoRemision);
                 handleOpen('modal2');
             }}
             >
+                <DeleteForeverIcon/>
             </Button>
             <Button 
-            startIcon={<EditIcon sx={{color:"white"}}/>}
+            variant="contained"
             sx={{
-                width:"40px",
-                backgroundColor:"green",
+              bgcolor: "black",
+              "&:hover": {
+                bgcolor: "black"
+              }
             }}
             onClick={async () => {
                 setIdTipoRemision(item.idTipoRemision);
                 handleOpen('modal3');
             }}
             >
+                <EditIcon/>
             </Button>
         </Box>
     }))

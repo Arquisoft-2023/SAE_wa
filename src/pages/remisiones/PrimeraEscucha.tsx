@@ -60,10 +60,12 @@ const PrimeraEscucha = () => {
             }}
             >
                 <Button 
-                startIcon={<EditIcon sx={{color:"white"}}/>}
+                variant='contained'
                 sx={{
-                    width:"40px",
-                    backgroundColor:"green",
+                    bgcolor: "black",
+                    "&:hover": {
+                        bgcolor:"black"
+                    }
                 }}
                 onClick={() => {
                     const remisionId = matchingItem ? matchingItem.idRemision : null;
@@ -71,6 +73,7 @@ const PrimeraEscucha = () => {
                     handleOpen();
                 }}
                 >
+                    <EditIcon/>
                 </Button>
             </Box>
             )

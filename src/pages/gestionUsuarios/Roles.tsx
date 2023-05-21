@@ -37,27 +37,35 @@ const Roles = () => {
         }}
       >
         <Button
-          startIcon={<DeleteForeverIcon sx={{ color: "white" }} />}
+          variant="contained"
           sx={{
-            width: "40px",
-            backgroundColor: "red"
+            bgcolor: "black",
+            "&:hover": {
+              bgcolor: "black"
+            }
           }}
           onClick={() => {
             setRolIdAEliminar(item.rolId);
             handleOpen("modal2");
           }}
-        ></Button>
+        >
+          <DeleteForeverIcon/>
+        </Button>
         <Button
-          startIcon={<EditIcon sx={{ color: "white" }} />}
+          variant="contained"
           sx={{
-            width: "40px",
-            backgroundColor: "green"
+            bgcolor: "black",
+            "&:hover": {
+              bgcolor: "black"
+            }
           }}
           onClick={() => {
             setRolIdAModificar(item.rolId);
             handleOpen("modal3");
           }}
-        ></Button>
+        >
+          <EditIcon/>
+        </Button>
       </Box>
     )
   }));

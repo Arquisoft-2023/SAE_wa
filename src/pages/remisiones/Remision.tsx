@@ -3,7 +3,6 @@ import { RemisionAJAXRequest } from '../../services/remisiones/RemisionAJAXReque
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import DataTable from '../../components/DataTable2';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 
 const Remision = () => {
@@ -54,29 +53,28 @@ const Remision = () => {
         }}
         >
             <Button 
-            startIcon={<DeleteForeverIcon sx={{color:"white"}}/>}
+            variant='contained'
             sx={{
-                width:"40px",
-                backgroundColor:"red",
+                bgcolor: "black",
+                "&:hover": {
+                    bgcolor:"black"
+                }
             }}
             onClick={() => {
                 setIdRemision(item.idRemision);
                 handleOpen('modal3');
             }}
             >
+                <DeleteForeverIcon/>
             </Button>
         </Box>
     }))
 
-    const [openModal1, setOpenModal1] = React.useState(false);
     const [openModal2, setOpenModal2] = React.useState(false);
     const [openModal3, setOpenModal3] = React.useState(false);
 
     const handleOpen = (modal) => {
         switch (modal) {
-            case 'modal1':
-                setOpenModal1(true);
-                break;
             case 'modal2':
                 setOpenModal2(true);
                 break;
@@ -90,9 +88,6 @@ const Remision = () => {
 
       const handleClose = (modal) => {
         switch (modal) {
-            case 'modal1':
-                setOpenModal1(false);
-                break;
             case 'modal2':
                 setOpenModal2(false);
                 break;
@@ -105,10 +100,6 @@ const Remision = () => {
       };
 
     const [usuarioUn, setUsuarioUn] = useState('');
-    const [idSolicitudRemision, setIdSolicitudRemision] = useState('');
-    const [dia, setDia] = useState('');
-    const [mes, setMes] = useState('');
-    const [anyo, setAnyo] = useState('');
 
     const [idRemision,setIdRemision] = useState('');
 
@@ -135,21 +126,6 @@ const Remision = () => {
             flexDirection: "row",
             gap: "20px"        }}
         >
-            <Button 
-            sx={{
-                display:"block",
-                padding:"10px 30px",
-                borderRadius:"100px",
-                color:"#fff",
-                border:"none",
-                background:"black",
-                cursor:"pointer",
-                transition:".3s ease all",
-                ":hover": {
-                    background:"DarkGrey",
-                  }
-            }}
-            onClick={() => handleOpen('modal1')}>Generar Remisión</Button>
             <Button
             sx={{
                 display:"block",
@@ -203,132 +179,6 @@ const Remision = () => {
                 setCharactersList(remisiones);
             }}
             >Todas las Remisiones</Button>
-            <Modal
-            className='modal1'
-            open={openModal1}
-            onClose={() => handleClose('modal1')}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            >
-                <Box 
-                className = "crearTipoRemision"
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignContent: "center",
-                    flexDirection: "column",
-                    position: 'absolute' as 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 400,
-                    height: 500,
-                    bgcolor: 'background.paper',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                    gap: "15px"
-                }}
-                >
-                    <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignContent: "center",
-                        flexDirection: "column"
-                    }}
-                    >
-                        <h2>
-                            Generar Solicitud Remision
-                        </h2>
-                    </Box>
-                    <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignContent: "center",
-                        flexDirection: "column",
-                        gap:"5px"
-                    }}
-                    >
-                        <TextField 
-                            id="outlined-basic" 
-                            label="Id Solicitud de Remision" 
-                            variant="outlined"
-                            value={idSolicitudRemision}
-                            onChange={(e) => setIdSolicitudRemision(e.target.value)}
-                        />
-                        <Box
-                        className="fechaTextFields"
-                        sx = {{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignContent: "center",
-                            flexDirection: "row"
-                        }}
-                        >
-                            <TextField 
-                                id="outlined-basic" 
-                                label="Dia" 
-                                variant="outlined"
-                                value={dia}
-                                onChange={(e) => setDia(e.target.value)}
-                            />
-                            <TextField 
-                                id="outlined-basic" 
-                                label="Mes" 
-                                variant="outlined"
-                                value={mes}
-                                onChange={(e) => setMes(e.target.value)}
-                            />
-                            <TextField 
-                                id="outlined-basic" 
-                                label="Año" 
-                                variant="outlined"
-                                value={anyo}
-                                onChange={(e) => setAnyo(e.target.value)}
-                            />
-                        </Box>
-                    </Box>
-                <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignContent: "center",
-                }}
-                >
-                <Button
-                className='botonGuardar'
-                sx={{
-                    display:"block",
-                    padding:"10px 30px",
-                    borderRadius:"100px",
-                    color:"#fff",
-                    border:"none",
-                    background:"black",
-                    cursor:"pointer",
-                    transition:".3s ease all",
-                    ":hover": {
-                        background:"DarkGrey",
-                    }
-                }}
-                onClick={async () => {
-                    const generarRemisionArray = {
-                        idSolicitudRemision: parseInt(idSolicitudRemision),
-                        fechaPrimeraEscucha: anyo+"-"+mes+"-"+dia
-                    };
-                    const generarRemision = await RemisionAJAXRequest.generarRemision(generarRemisionArray);
-                    const remisiones = await RemisionAJAXRequest.remisiones();
-                    setCharactersList(remisiones);
-                    handleClose('modal1');
-                }}
-                disabled={!Boolean(idSolicitudRemision) || !Boolean(dia) || !Boolean(mes) || !Boolean(anyo)}
-                >
-                    Crear
-                </Button>
-                </Box>
-            </Box>
-            </Modal>
 
             <Modal
             className='modal2'
