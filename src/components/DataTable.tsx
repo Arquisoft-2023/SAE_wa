@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { IconButton, Tooltip } from "@mui/material";
+import { Box, Button, IconButton, Tooltip } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -100,24 +100,36 @@ const DataTable = ({ rows, columns, handle }) => {
                   <StyledTableCell align={column.align}>
                     {column.field === "actionsEdit" ? (
                       <Tooltip title="Modificar estado">
-                        <IconButton
-                          sx={{
-                            width: "40px",
-                            backgroundColor: "green"
-                          }}
-                          onClick={() => handle(row)}
+                      <Box 
+                        sx={{
+                            display: 'flex',
+                            gap: "10px",
+                            alignItems:"center",
+                            justifyContent:"center"
+                        }}
                         >
-                          <EditIcon
-                            style={{
-                              cursor: "pointer",
-                              color: "white",
-                              transition: ".3s ease all"
+                            <Button 
+                            variant='contained'
+                            sx={{
+                                bgcolor: "black",
+                                "&:hover": {
+                                    bgcolor:"black"
+                                }
                             }}
-                            className="EditIcon"
-                            // onClick={() => handleRowClick(row)}
-                          />
-                        </IconButton>
-                      </Tooltip>
+                            onClick={() => handle(row)}
+                            >
+                               <EditIcon
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "white",
+                                    transition: ".3s ease all"
+                                  }}
+                                  className="EditIcon"
+                                  // onClick={() => handleRowClick(row)}
+                                />
+                            </Button>
+                        </Box>
+                    </Tooltip>
                     ) : (
                       row[column.field]
                     )}
