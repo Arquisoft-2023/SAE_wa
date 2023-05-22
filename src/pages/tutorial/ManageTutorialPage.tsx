@@ -220,7 +220,7 @@ const ManageTutorialP = (prop: myProps) => {
         let {listaTutoria} = inputValue
         // setmySelect(newSelect)
         switch(opc){
-            case "Tutor":
+            case "Tutores":
                 setInputValue({
                     ...inputValue,
                     ["usuarioUnTutor"] : value
