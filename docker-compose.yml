@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+
+  sae_wa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sae_wa
+    container_name: sae_wa
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "0.0.0.0:3030:3030"
+    networks:
+      nodes-networks:
+        aliases:
+          - sae_wa
+
+networks:
+  nodes-networks:
+    external: true

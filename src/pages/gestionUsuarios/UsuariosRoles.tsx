@@ -550,7 +550,7 @@ const UsuariosRoles = () => {
           border: "none"
         }}
       >
-        <DataTable rows={rows} columns={columns} />
+        <DataTable rows={rows} columns={columns} handle={()=>{}}/>
       </Box>
     </Box>
   );
