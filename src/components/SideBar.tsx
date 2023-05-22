@@ -241,7 +241,10 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
                       className="LinkContainer"
                       key={label2}
                       sx={{
-                        display: "flex",
+                        display:
+                          role1 === showByRole || role2 === showByRole
+                            ? "flex"
+                            : "none",
                         justifyContent: "center",
                         alignItems: "center",
                         margin: "8px 0",

@@ -6,6 +6,8 @@ import { Box, Button, Card, IconButton, TextField } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useStore } from "zustand";
 import { signinQueries } from "../../queries/gestionUsuarios/signinQueries";
+import { UsuariosRolesAJAXRequest } from "../../services/gestionUsuarios/UsuariosRolesAJAXRequest";
+import { SigninAJAXRequest } from "../../services/signin/SigninAJAXRequest";
 import { userStore } from "../../state/zustand";
 
 const SigninPage = () => {
@@ -20,10 +22,20 @@ const SigninPage = () => {
       : setUsuarioField("");
   };
 
+  const obtainDataGestionUsuarios = async () => {
+    const readUsers = await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
+    return readUsers;
+  };
+
+  const obtainRolesGestionUsuarios = async () => {
+    const readRoles = await UsuariosRolesAJAXRequest.obtenerRoles();
+    return readRoles;
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     setLoadingState(true);
-    console.log(usuarioUn);
+    // console.log(usuarioUn);
     //BACKDOOR FOR DEV
     if (usuarioField === "devsae") {
       setUser("devsae", "bienestar");
@@ -32,21 +44,22 @@ const SigninPage = () => {
         navigate("/home");
       }, 4000);
     } else {
-      //PRODUCTION
       try {
-        // const result = await axios.post("http://127.0.0.8:3121/auth/signin", {
-        const result = await axios.post("http://34.95.254.3:3121/auth/signin", {
-          headers: {
-            "Content-Type": "application/json"
-          },
-          query: signinQueries.signin,
-          variables: {
-            usuarioUnSearch: usuarioField
-          }
+        const signinCall = await SigninAJAXRequest.verificarAuth(usuarioField);
+        const userInfoWithRole = await obtainDataGestionUsuarios();
+        const userDataInfo = userInfoWithRole?.find((elem) => {
+          return elem.usuarioUn === usuarioField;
         });
-        if (result.data.data.signin) {
-          const { usuarioUn, token, estado } = result.data.data.signin;
-          setUser(usuarioUn, "bienestar");
+        const roleUsersInfo = await obtainRolesGestionUsuarios();
+        const userRole = roleUsersInfo?.find((elem) => {
+          return elem.rolId === userDataInfo["rolId"];
+        });
+        const roleModified = userRole["rol"].toLowerCase();
+        // console.log(userInfoWithRole);
+        // console.log(roleModified);
+        if ((signinCall != null && userRole != null) || userRole != undefined) {
+          const { usuarioUn, token, estado } = signinCall;
+          setUser(usuarioUn, roleModified);
           setTimeout(() => {
             setLoadingState(false);
             navigate("/home");

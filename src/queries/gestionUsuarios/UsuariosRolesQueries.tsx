@@ -7,6 +7,14 @@ export const UsuariosRolesQueries = {
     }
   }
     `,
+  RolesObtencion: `
+  query MyQuery {
+    leerRoles {
+      rol
+      rolId
+    }
+  }
+    `,
   UsuariosRolesCreacion: `mutation MyMutation ($rolABuscarId: String!, $usuarioUnABuscar: String!) {
     asignarRolAUsuario(rolABuscar: $rolABuscarId, usuarioUnABuscar: $usuarioUnABuscar) {
       rolId
@@ -18,5 +26,5 @@ export const UsuariosRolesQueries = {
   }`,
   UsuariosRolesActualizacion: `mutation MyMutation ($rolNuevoId: String!, $usuarioUnABuscar: String!) {
     modificarUsuarioYRol(rolNuevo: $rolNuevoId, usuarioUn: $usuarioUnABuscar)
-  }`,
+  }`
 };
