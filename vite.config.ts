@@ -10,7 +10,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: PORT,
-    host: URI
+    host: URI,
+    https: {
+      key:'./key.pem',
+      cert:'./server.crt',
+    }
   },
   base: "/sae"
 });

@@ -380,7 +380,7 @@ const linksFuncionalidades = [
     text: "Observaciones",
     links: [
       {
-        textl: "Obervaciones",
+        textl: "Observaciones",
         to: "/observaciones/obs",
         role1: "docente",
         role2: "estudiante"
