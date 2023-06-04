@@ -12,10 +12,9 @@ export default defineConfig({
     port: PORT,
     host: URI,
     server: {
-      '/api' : {
+      '/' : {
         target: 'https://35.247.192.77:5001',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/,'')
       }
     }
   },
