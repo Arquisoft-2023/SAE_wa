@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export const config = {
     // REACT_APP_API_URL: 'http://127.0.0.8',
-    REACT_APP_API_URL: 'http://34.95.254.3',
+    REACT_APP_API_URL: 'sae_ag',
     REACT_APP_API_PORT: 3121
 }
 

@@ -12,7 +12,7 @@ services:
     env_file:
       - .env
     ports:
-      - "0.0.0.0:3030:4173"
+      - "4173:4173"
     networks:
       nodes-networks:
         aliases:
