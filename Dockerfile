@@ -11,6 +11,6 @@ RUN npm install
 #Bundle app source
 COPY . /sae/sae_wa/
 
-EXPOSE 3030
+EXPOSE 4173
 
 CMD [ "npm", "start"]
