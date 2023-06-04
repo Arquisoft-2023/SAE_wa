@@ -10,7 +10,20 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: PORT,
-    host: URI
+    host: URI,
+    middleware: [
+      (req, res, next) => {
+        // Aquí puedes agregar tus reglas de acceso personalizadas
+        // Verificar la solicitud (req) y responder (res) según sea necesario
+
+        // Ejemplo de regla de acceso que permite todas las solicitudes GET
+        if (req.method === 'GET') {
+          next(); // Permite la solicitud continuar
+        } else {
+          res.status(403).end('Acceso denegado'); // Responde con un estado 403 para otras solicitudes
+        }
+      },
+    ],
   },
   base: "/sae"
 });
