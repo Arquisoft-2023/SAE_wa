@@ -10,7 +10,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: PORT,
-    host: URI
+    host: URI,
+    middleware: [
+      (req, res, next) => {
+        next();
+      },
+    ],
   },
   base: "/sae"
 });
