@@ -13,7 +13,7 @@ export default defineConfig({
     host: URI,
     proxy: {
       '/api': {
-        target: 'https://sae_ag:80',
+        target: 'http://sae_ag:80',
         changeOrigin: true,
         secure:false,
         rewrite: (path) => path.replace(/^\/api/,'')
