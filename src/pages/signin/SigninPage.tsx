@@ -14,7 +14,9 @@ const SigninPage = () => {
   const [usuarioField, setUsuarioField] = useState("");
   const [loadingState, setLoadingState] = useState(false);
   const navigate = useNavigate();
-  const { setUser, usuarioUn } = useStore(userStore);
+  const usuarioRol = userStore((state) => state.usuarioRol);
+  const usuarioUn = userStore((state) => state.usuarioUn);
+  const setUser = userStore((state) => state.setUser);
 
   const handleChangeTextField = (event) => {
     event.target.value

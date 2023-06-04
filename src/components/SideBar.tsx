@@ -3,12 +3,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import LogoSae from "./LogoSae";
 import LogoutIcon from "@mui/icons-material/Logout";
 import React, { useEffect, useState } from "react";
+import userStore from "../state/zustand";
 import { ExpandMore } from "@mui/icons-material";
-import { Badge, IconButton } from "@mui/material";
+import { Badge } from "@mui/material";
 import { NavLink, Navigate } from "react-router-dom";
-import { useStore } from "zustand";
 import { acompanyamientoService } from "../services/tutorial/AcompanyamientoAJAXRequest";
-import { userStore } from "../state/zustand";
 
 import {
   Accordion,
@@ -20,7 +19,10 @@ import {
 } from "@mui/material";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
-  const { clearUser, usuarioRol, usuarioUn } = useStore(userStore);
+  // const usuarioRol = userStore((state) => state.usuarioRol) as string | null;
+  // const usuarioUn = userStore((state) => state.usuarioUn);
+  // const clearUser = userStore((state) => state.clearUser);
+  const { usuarioUn, usuarioRol, clearUser } = userStore();
   const [tutor, setTutor] = useState("Sin asignar");
 
   const usuarioRolModified = usuarioRol

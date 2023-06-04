@@ -4,7 +4,7 @@ import { rolesByLink } from "../services/rolesServices/rolesFunctions";
 import { userStore } from "../state/zustand";
 
 const PrivateRoute = ({ isSignedIn, type, children }) => {
-  const { usuarioRol } = userStore();
+  const globalState = userStore.getState();
 
   if (!isSignedIn) {
     return <Navigate to={"/signin"} replace />;
@@ -13,10 +13,10 @@ const PrivateRoute = ({ isSignedIn, type, children }) => {
       return children;
     } else if (type) {
       return children;
-      if (rolesByLink(type, usuarioRol)) {
-      } else {
-        return <Navigate to={"/home"} replace />;
-      }
+      // if (rolesByLink(type, globalState.usuarioRol)) {
+      // } else {
+      //   return <Navigate to={"/home"} replace />;
+      // }
     }
   }
   return children;
