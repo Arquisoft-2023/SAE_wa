@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     port: PORT,
     host: URI,
-    server: {
+    proxy: {
       '/' : {
         target: 'https://35.247.192.77:5001',
         changeOrigin: true,
