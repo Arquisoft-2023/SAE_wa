@@ -12,7 +12,7 @@ export default defineConfig({
     port: PORT,
     host: URI,
     proxy: {
-      '/' : {
+      '^/.*': {
         target: 'https://35.247.192.77:5001',
         changeOrigin: true,
         secure:false,
