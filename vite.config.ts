@@ -16,6 +16,8 @@ export default defineConfig({
         next();
       },
     ],
+    ws: true,
+    changeOrigin: true,
   },
   base: "/sae"
 });
