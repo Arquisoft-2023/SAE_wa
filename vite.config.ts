@@ -11,13 +11,13 @@ export default defineConfig({
   server: {
     port: PORT,
     host: URI,
-    middleware: [
-      (req, res, next) => {
-        next();
-      },
-    ],
-    ws: true,
-    changeOrigin: true,
+    server: {
+      '/api' : {
+        target: 'https://35.247.192.77:5001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/,'')
+      }
+    }
   },
   base: "/sae"
 });
