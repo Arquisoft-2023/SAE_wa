@@ -13,5 +13,4 @@ COPY . /sae/sae_wa/
 
 EXPOSE 3030
 
-CMD [ "npm", "run", "dev" ]
-# CMD [ "npm", "start"]
+CMD [ "npm", "start"]
