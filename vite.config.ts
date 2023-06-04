@@ -10,7 +10,16 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: PORT,
-    host: URI
+    host: URI,
+    proxy: {
+      '/api': {
+        target: 'https://sae_ag:80',
+        changeOrigin: true,
+        secure:false,
+        rewrite: (path) => path.replace(/^\/api/,'')
+      }
+}
   },
+
   base: "/sae"
 });
