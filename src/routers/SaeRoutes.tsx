@@ -17,6 +17,7 @@ import UsuariosRoles from "../pages/gestionUsuarios/UsuariosRoles";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { userStore } from "../state/zustand";
 import { rol } from "../types/tutorial/Acompanyamiento.interface";
+import Lugares from "../pages/tutorial/Lugares";
 
 // const UserTestDocente = { userEmail: "osman", userRol: rol.Docente };
 // const UserTestStudent = { userEmail: "sebastian", userRol: rol.Estudiante };
@@ -159,6 +160,20 @@ const SaeRoutes = () => {
           >
             <SideBarContainer
               main={<SeeTutorialP onGetUser={objectTutorias} />}
+              role={usuarioRol}
+            />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/tutorias/lugares"
+        element={
+          <PrivateRoute
+            isSignedIn={usuarioUn}
+            type={["tutorias", "lugares"]}
+          >
+            <SideBarContainer
+              main={<Lugares />}
               role={usuarioRol}
             />
           </PrivateRoute>
