@@ -371,6 +371,13 @@ const linksFuncionalidades = [
         to: "/tutorias/tutorias",
         role1: "docente",
         role2: "estudiante"
+      },
+      {
+        textl: "Lugares",
+        to: "/tutorias/lugares",
+        role1: "bienestar",
+        role2: "estudiante",
+        role3: "docente"
       }
     ],
     role1: "bienestar",
