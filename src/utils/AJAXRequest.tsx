@@ -14,5 +14,5 @@ export const AxiosInstance = Axios.create({
 })
 
 export const AJAXRequest = (URL: string, options: any): any => {
-    return AxiosInstance.post(`${config.REACT_APP_API_URL}/${URL}`, options);
+    return AxiosInstance.post(`/${URL}`, options);
 }
