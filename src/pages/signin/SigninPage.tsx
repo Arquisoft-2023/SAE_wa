@@ -126,6 +126,7 @@ const SigninPage = () => {
               id="password"
               label="Contraseña"
               name="contraseña"
+              type="password"
               autoComplete="contraseña"
               autoFocus
               onChange={handleChangeTextFieldPass}
