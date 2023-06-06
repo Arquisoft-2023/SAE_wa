@@ -112,6 +112,16 @@ const SigninPage = () => {
               autoFocus
               onChange={handleChangeTextField}
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              label="Contraseña"
+              name="contraseña"
+              autoComplete="contraseña"
+              autoFocus
+            />
             <Box
               sx={{
                 display: "flex",
