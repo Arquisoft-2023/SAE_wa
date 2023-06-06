@@ -45,7 +45,8 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
     handleGetTutor();
   }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = async (event) => {
+    event.preventDefault();
     try {
       const signoutCall = await SigninAJAXRequest.logoutAG(usuarioUn);
       if (signoutCall != null) {
