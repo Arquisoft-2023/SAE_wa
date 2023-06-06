@@ -4,21 +4,25 @@ import userStore from "./state/zustand";
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 function App() {
   const usuarioSesion = userStore((state) => state.token);
+  let intervalId;
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
       if (usuarioSesion) {
         alert("Verificación Tokens");
       }
     }, 60000);
 
     return () => {
-      if (usuarioSesion === null) {
-        clearInterval(intervalId);
-      }
+      clearInterval(intervalId);
     };
   }, [usuarioSesion]);
+
   return (
     <>
       <BrowserRouter basename="/sae">
