@@ -48,7 +48,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
   const handleLogout = async () => {
     try {
       const signoutCall = await SigninAJAXRequest.logoutAG(usuarioUn);
-      if (signoutCall) {
+      if (signoutCall != null) {
         <Navigate to={"/signin"} />;
         setTutor("Sin asignar");
         clearUser();
