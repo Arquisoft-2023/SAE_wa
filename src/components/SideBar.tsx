@@ -7,6 +7,7 @@ import userStore from "../state/zustand";
 import { ExpandMore } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { NavLink, Navigate } from "react-router-dom";
+import { SigninAJAXRequest } from "../services/signin/SigninAJAXRequest";
 import { acompanyamientoService } from "../services/tutorial/AcompanyamientoAJAXRequest";
 
 import {
@@ -44,11 +45,14 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
     handleGetTutor();
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     try {
-      <Navigate to={"/signin"} />;
-      setTutor("Sin asignar");
-      clearUser();
+      const signoutCall = await SigninAJAXRequest.logoutAG(usuarioUn);
+      if (signoutCall) {
+        <Navigate to={"/signin"} />;
+        setTutor("Sin asignar");
+        clearUser();
+      }
     } catch (error) {
       alert(`Error: $error`);
     }

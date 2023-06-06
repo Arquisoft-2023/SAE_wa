@@ -15,5 +15,14 @@ export const SigninAJAXRequest = {
       }
     });
     return data.data.signin;
+  },
+  logoutAG: async (usuarioField) => {
+    const { data } = await AJAXRequest(URI, {
+      query: SigninQueries.logout,
+      variables: {
+        usuarioUnSearch: usuarioField
+      }
+    });
+    return data.data.logout;
   }
 };

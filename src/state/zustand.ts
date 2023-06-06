@@ -17,7 +17,7 @@ export const userStore = create<UserState>()(
       token: null,
       setUser: (id, rol, tok) =>
         set({ usuarioUn: id, usuarioRol: rol, token: tok }),
-      clearUser: () => set({ usuarioUn: null, usuarioRol: null })
+      clearUser: () => set({ usuarioUn: null, usuarioRol: null, token: null })
     }),
     {
       name: "user-storage",

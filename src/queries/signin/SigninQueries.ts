@@ -7,5 +7,13 @@ export const SigninQueries = {
             usuarioUn
         }
     }
+    `,
+  logout: `
+    mutation ($usuarioUnSearch: String!) {
+        signout(usuarioUn: $usuarioUnSearch) {
+            token
+            usuario
+        }
+    }
     `
 };
