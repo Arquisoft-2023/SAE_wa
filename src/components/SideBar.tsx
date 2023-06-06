@@ -45,15 +45,12 @@ const SideBar = ({ sidebarOpen, setSidebarOpen, showByRole }) => {
     handleGetTutor();
   }, []);
 
-  const handleLogout = async (event) => {
-    event.preventDefault();
+  const handleLogout = async () => {
     try {
-      const signoutCall = await SigninAJAXRequest.logoutAG(usuarioUn);
-      if (signoutCall != null) {
-        <Navigate to={"/signin"} />;
-        setTutor("Sin asignar");
-        clearUser();
-      }
+      await SigninAJAXRequest.logoutAG(usuarioUn);
+      <Navigate to={"/signin"} />;
+      setTutor("Sin asignar");
+      clearUser();
     } catch (error) {
       alert(`Error: $error`);
     }
