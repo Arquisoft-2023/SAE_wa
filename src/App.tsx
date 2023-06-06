@@ -16,7 +16,7 @@ function App() {
       if (usuarioSesion) {
         alert("Verificación Tokens");
       }
-    }, 60000);
+    }, 30000);
 
     return () => {
       clearInterval(intervalId);
