@@ -1,10 +1,10 @@
 export const SigninQueries = {
   signin: `
-    mutation ($usuarioUnSearch: String!) {
-        signin(item: {usuarioUn: $usuarioUnSearch}) {
-            usuarioUn
+    mutation ($usuarioUnSearch: String!, $usuarioPassword: String!, $usuarioTokenType: String!) {
+        signin(password: $usuarioPassword, tokentype: $usuarioTokenType, usuarioUn: $usuarioUnSearch) {
+            ldapRes
             token
-            estado
+            usuarioUn
         }
     }
     `

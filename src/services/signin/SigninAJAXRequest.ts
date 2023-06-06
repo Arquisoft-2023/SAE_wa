@@ -4,12 +4,14 @@ import { AJAXRequest } from "../../utils/AJAXRequest";
 const URI = "auth/signin";
 
 export const SigninAJAXRequest = {
-  verificarAuth: async (usuarioField) => {
-    console.log(usuarioField);
+  verificarAuth: async (usuarioField, passwordField) => {
+    //console.log(usuarioField);
     const { data } = await AJAXRequest(URI, {
       query: SigninQueries.signin,
       variables: {
-        usuarioUnSearch: usuarioField
+        usuarioUnSearch: usuarioField,
+        usuarioPassword: passwordField,
+        usuarioTokenType: "web"
       }
     });
     return data.data.signin;

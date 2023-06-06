@@ -1,10 +1,8 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import LogoSae from "../../components/LogoSae";
 import React, { useState } from "react";
-import axios from "axios";
 import { Box, Button, Card, IconButton, TextField } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useStore } from "zustand";
 import { signinQueries } from "../../queries/gestionUsuarios/signinQueries";
 import { UsuariosRolesAJAXRequest } from "../../services/gestionUsuarios/UsuariosRolesAJAXRequest";
 import { SigninAJAXRequest } from "../../services/signin/SigninAJAXRequest";
@@ -12,6 +10,7 @@ import { userStore } from "../../state/zustand";
 
 const SigninPage = () => {
   const [usuarioField, setUsuarioField] = useState("");
+  const [passwordField, setPasswordField] = useState("");
   const [loadingState, setLoadingState] = useState(false);
   const navigate = useNavigate();
   const usuarioRol = userStore((state) => state.usuarioRol);
@@ -22,6 +21,12 @@ const SigninPage = () => {
     event.target.value
       ? setUsuarioField(event.target.value)
       : setUsuarioField("");
+  };
+
+  const handleChangeTextFieldPass = (event) => {
+    event.target.value
+      ? setPasswordField(event.target.value)
+      : setPasswordField("");
   };
 
   const obtainDataGestionUsuarios = async () => {
@@ -40,14 +45,17 @@ const SigninPage = () => {
     // console.log(usuarioUn);
     //BACKDOOR FOR DEV
     if (usuarioField === "devsae") {
-      setUser("devsae", "bienestar");
+      setUser("devsae", "bienestar", "tokenSAEDEV");
       setTimeout(() => {
         setLoadingState(false);
         navigate("/home");
       }, 4000);
     } else {
       try {
-        const signinCall = await SigninAJAXRequest.verificarAuth(usuarioField);
+        const signinCall = await SigninAJAXRequest.verificarAuth(
+          usuarioField,
+          passwordField
+        );
         const userInfoWithRole = await obtainDataGestionUsuarios();
         const userDataInfo = userInfoWithRole?.find((elem) => {
           return elem.usuarioUn === usuarioField;
@@ -60,8 +68,8 @@ const SigninPage = () => {
         // console.log(userInfoWithRole);
         // console.log(roleModified);
         if ((signinCall != null && userRole != null) || userRole != undefined) {
-          const { usuarioUn, token, estado } = signinCall;
-          setUser(usuarioUn, roleModified);
+          const { usuarioUn, token } = signinCall;
+          setUser(usuarioUn, roleModified, token);
           setTimeout(() => {
             setLoadingState(false);
             navigate("/home");
@@ -121,6 +129,7 @@ const SigninPage = () => {
               name="contraseña"
               autoComplete="contraseña"
               autoFocus
+              onChange={handleChangeTextFieldPass}
             />
             <Box
               sx={{
