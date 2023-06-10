@@ -20,7 +20,7 @@ const PrimeraEscucha = () => {
             setCharactersList(primerasEscuchas);
             const remisiones =  await RemisionAJAXRequest.remisiones();
             setCharactersList2(remisiones);
-            console.log(remisiones)
+            // console.log(remisiones)
         })();
     }, []);
 
@@ -37,12 +37,12 @@ const PrimeraEscucha = () => {
 
     // Buscar el elemento correspondiente en characterList2 utilizando la propiedad idPrimeraEscucha
     const matchingItem = charactersList2.find((character) => character.idPrimeraEscucha === item.idPrimeraEscucha);
-    console.log('remisiones'+matchingItem);
+    // console.log('remisiones'+matchingItem);
 
 
     // Verificar si se encontró el elemento correspondiente en characterList2
     const usuarioUnEstudiante = matchingItem ? matchingItem.usuarioUnEstudiante : '';
-    console.log(usuarioUnEstudiante);
+    // console.log(usuarioUnEstudiante);
 
     return {
         idPrimeraEscucha: item.idPrimeraEscucha, 
@@ -221,8 +221,8 @@ const PrimeraEscucha = () => {
                         observacion: observacionEdit,
                         realizada: Boolean(realizadaEdit)
                     };
-                    console.log(primeraEscuchaArray);
-                    console.log(idPrimeraEscuchaEdit);
+                    // console.log(primeraEscuchaArray);
+                    // console.log(idPrimeraEscuchaEdit);
                     const editarRemision = await PrimeraEscuchaAJAXRequest.editarPrimeraEscucha(idPrimeraEscuchaEdit,primeraEscuchaArray);
                     const primerasEscuchas = await PrimeraEscuchaAJAXRequest.primerasEscuchas();
                     setCharactersList(primerasEscuchas);

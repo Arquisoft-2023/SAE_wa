@@ -31,7 +31,7 @@ const SolicitudRemision = () => {
             setCharactersList2(tiposRemision);
             const usuariosUN = await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
             setCharactersList3(usuariosUN);
-            console.log(usuariosUN);
+            // console.log(usuariosUN);
         })();
     }, []);
 

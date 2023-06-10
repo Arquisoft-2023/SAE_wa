@@ -137,7 +137,7 @@ const ManageTutorP = (prop: myProps) => {
         else if(myAction === myActions.Modify){
             const response = await acompanyamientoService.UpdateTutorService(inputValue)
             const {actualizarTutor} = response.data.data
-            console.log(actualizarTutor)
+            // console.log(actualizarTutor)
             if(actualizarTutor.includes("El usuario no existe")) return alert("El usuario no existe")
             if(response.status != 200) return alert("Error al guardar los datos")
             // const {actualizarTutor} = response.data.data

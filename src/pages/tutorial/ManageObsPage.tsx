@@ -100,7 +100,7 @@ const ManageObsP = (prop: myProps) => {
             }
             else if(user.userRol === rol.Estudiante){                                        
                 const response = await ObsService.GetObsEstudentService(user.userEmail)
-                console.log(response)
+                // console.log(response)
                 const {obtenerAcompanyamientoEstudiante} = response.data.data
                 setdataListOrgin(obtenerAcompanyamientoEstudiante)
                 setdataList(obtenerAcompanyamientoEstudiante)
@@ -238,7 +238,7 @@ const ManageObsP = (prop: myProps) => {
         })
         
         if(myAction === myActions.Create){
-            console.log(inputValue)
+            // console.log(inputValue)
             response = await ObsService.CreateObsService(inputValue)
         }
         setInputValue(INITIAL_STATE)

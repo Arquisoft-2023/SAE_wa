@@ -14,9 +14,10 @@ function App() {
     clearInterval(intervalId);
     intervalId = setInterval(() => {
       if (usuarioSesion) {
-        alert("Verificación Tokens");
+        // alert("Verificación Tokens");
+        console.log("Verificación Tokens");
       }
-    }, 30000);
+    }, 720000);
 
     return () => {
       clearInterval(intervalId);

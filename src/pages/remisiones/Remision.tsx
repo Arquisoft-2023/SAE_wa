@@ -334,7 +334,7 @@ const Remision = () => {
                         }}
                         onClick={async () => {
                             const idRemisionValue = parseInt(idRemision);
-                            console.log(idRemisionValue);
+                            // console.log(idRemisionValue);
                             const eliminarRemision = await RemisionAJAXRequest.eliminarRemision(idRemisionValue);
                             const remisiones = await RemisionAJAXRequest.remisiones();
                             setCharactersList(remisiones);
