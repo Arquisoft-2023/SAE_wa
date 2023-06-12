@@ -591,7 +591,7 @@ const SolicitudRemision = () => {
                                 sx={{ textAlign: "center" }}
                                 >
                                 {charactersList3
-                                    .filter((item) => item.rolId === 2)
+                                    .filter((item) => item.rolId === 14)
                                     .map((item) => (
                                     <MenuItem
                                         key={item.usuarioUn}
@@ -620,7 +620,7 @@ const SolicitudRemision = () => {
                                 sx={{ textAlign: "center" }}
                                 >
                                 {charactersList3
-                                    .filter((item) => item.rolId === 3)
+                                    .filter((item) => item.rolId === 15)
                                     .map((item) => (
                                     <MenuItem
                                         key={item.usuarioUn}
