@@ -14,6 +14,8 @@ import { UsuariosRolesAJAXRequest } from '../../services/gestionUsuarios/Usuario
 import { useStore } from 'zustand';
 import { RemisionAJAXRequest } from '../../services/remisiones/RemisionAJAXRequest';
 import { userStore } from '../../state/zustand';
+import { RolesAJAXRequest } from '../../services/gestionUsuarios/RolesAJAXRequest';
+import { rol } from '../../types/tutorial/Acompanyamiento.interface';
 
 const SolicitudRemision = () => {
 
@@ -22,6 +24,7 @@ const SolicitudRemision = () => {
     const [charactersList, setCharactersList] = useState([]);
     const [charactersList2, setCharactersList2] = useState([]);
     const [charactersList3, setCharactersList3] = useState([]);
+    const [roles, setRoles] = useState([]);
     
     useEffect(() => {
         (async () => {
@@ -31,6 +34,8 @@ const SolicitudRemision = () => {
             setCharactersList2(tiposRemision);
             const usuariosUN = await UsuariosRolesAJAXRequest.obtenerUsuariosRoles();
             setCharactersList3(usuariosUN);
+            const roles = await RolesAJAXRequest.obtenerRoles();
+            setRoles(roles);
             // console.log(usuariosUN);
         })();
     }, []);
@@ -46,6 +51,18 @@ const SolicitudRemision = () => {
       {field: 'estado', headerName: 'ESTADO', align: "center"},
       {field: 'acciones', headerName: 'ACCIONES', align: "center"}
     ];
+
+    const usuariosRoles = charactersList3.map((item) => {
+        const matchingItem = roles.find((rol) => rol.rolId === item.rolId);
+
+        const rol = matchingItem ? matchingItem.rol : '';
+
+        return {
+            rolId: item.rolId,
+            rol: rol,
+            usuarioUn: item.usuarioUn
+        }
+    })
 
     const rows = charactersList.map((item) => ({
         idSolicitudRemision: item.idSolicitudRemision, 
@@ -308,8 +325,8 @@ const SolicitudRemision = () => {
                             onChange={(e) => setUsuarioUnDocente(e.target.value)}
                             sx={{ textAlign: "center" }}
                             >
-                            {charactersList3
-                                .filter((item) => item.rolId === 2)
+                            {usuariosRoles
+                                .filter((item) => item.rol === 'Docente')
                                 .map((item) => (
                                 <MenuItem
                                     key={item.usuarioUn}
@@ -337,8 +354,8 @@ const SolicitudRemision = () => {
                             onChange={(e) => setUsuarioUnEstudiante(e.target.value)}
                             sx={{ textAlign: "center" }}
                             >
-                            {charactersList3
-                                .filter((item) => item.rolId === 3)
+                            {usuariosRoles
+                                .filter((item) => item.rol === 'Estudiante')
                                 .map((item) => (
                                 <MenuItem
                                     key={item.usuarioUn}
