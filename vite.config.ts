@@ -14,7 +14,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://sae_ag:80',
-        target: 'http://35.247.192.77:5000',
+        // target: 'http://35.247.192.77:5000',
+        target: 'http://10.4.3.77:3121',
         changeOrigin: true,
         secure:false,
         rewrite: (path) => path.replace(/^\/api/,'')
