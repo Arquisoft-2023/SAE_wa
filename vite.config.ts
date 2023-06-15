@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 
 const PORT = Number(process.env.PORT || 5000);
 const URI = <string>process.env.URI || "http://localhost";
+const URIAPIGATEWAY = <string>process.env.URIAPIGATEWAY || "http://35.247.192.77:5000";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +16,7 @@ export default defineConfig({
       '/api': {
         // target: 'http://sae_ag:80',
         // target: 'http://35.247.192.77:5000',
-        target: 'http://10.4.3.77:3121',
+        target: `${URIAPIGATEWAY}`,
         changeOrigin: true,
         secure:false,
         rewrite: (path) => path.replace(/^\/api/,'')
