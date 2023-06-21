@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 const PORT = Number(process.env.PORT || 5000);
 const URI = <string>process.env.URI || "http://localhost";
 const URIAPIGATEWAY = <string>process.env.URIAPIGATEWAY || "35.247.192.77:5000";
-const PORTAPIGATEWAY = Number(process.env.URIAPIGATEWAY || 5000);
+const PORTAPIGATEWAY = Number(process.env.PORTAPIGATEWAY || 5000);
 
 // https://vitejs.dev/config/
 export default defineConfig({
